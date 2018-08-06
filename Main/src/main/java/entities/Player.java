@@ -12,7 +12,12 @@ public class Player extends Entity{
 	public Player(GamePlay d) {
 		runner = d;
 		level = 1;
-
+		health = 28;
+		maxHealth = 30;
+		maxMana = 10;
+		mana = 8;
+		maxStamina = 30;
+		stamina = 15;
 	}//h
 	
 	

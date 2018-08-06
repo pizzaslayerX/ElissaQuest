@@ -41,16 +41,21 @@ public class MainFightPanel extends JPanel implements KeyListener{
     public JLabel label;
     public static JLabel picSpace;
     public JPanel fightPanel,user;
+    public Meter health,mana,stamina;
     public static JTextPane attack,item,special;
     public static JPanel picArea,enemy,blankEnemy;
     public final List<String> returnText = new LinkedList<String>();
     private static int choice = -1;
     public static boolean choosing = true;
+    private static final Color HEALTH_GREEN = new Color(22, 150, 10);
     
 	public MainFightPanel(Enemy e, GamePlay gp){
 		gameplay = gp;
 		enemies = new ArrayList<Enemy>();
 		enemies.add(e);
+		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
+		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
+		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
 		try {
 			init(e.getPic());
 		} catch (Exception e1) {
@@ -65,6 +70,9 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		gameplay = gp;
 		enemies = new ArrayList<Enemy>();
 		enemies.addAll(e);
+		health = new Meter(gp.player.health,gp.player.maxHealth,Color.GREEN,Color.RED,"HP: " + gp.player.health + "/" + gp.player.maxHealth,15);
+		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,15);
+		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),15);
 		try {
 			init(e.get(0).getPic());
 		} catch (Exception e1) {
@@ -86,6 +94,10 @@ public class MainFightPanel extends JPanel implements KeyListener{
     	} catch(Exception e) { System.out.println(e);}
     }
 
+	public void updateHealth() {
+		health.update(gameplay.player.health,"HP: " + gameplay.player.health + "/" + gameplay.player.maxHealth);;
+	}
+	
 	public static void append(JTextPane p, String n, Color c,int size, boolean bold) {
     	
     	StyledDocument doc = p.getStyledDocument();
@@ -120,6 +132,22 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		setDoubleBuffered(true);
 		addKeyListener(this);
 
+		health.setMaximumSize(new Dimension(550,50));
+		health.setBackground(Color.BLACK);
+		health.setVisible(true);
+		health.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+		
+		mana.setMaximumSize(new Dimension(550,50));
+		mana.setBackground(Color.BLACK);
+		mana.setVisible(true);
+		mana.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+		
+		stamina.setMaximumSize(new Dimension(550,50));
+		stamina.setBackground(Color.BLACK);
+		stamina.setVisible(true);
+		stamina.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+		
+		
 		TitledBorder border12 = new TitledBorder("Enemy");
         border12.setTitleColor(Color.WHITE);
         border12.setTitleFont(new Font("Monospaced", Font.BOLD, 18));
@@ -170,25 +198,30 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		
 		attack = new JTextPane();
 		attack.setEditable(false);
-		attack.setMaximumSize(new Dimension(550,170));
+		attack.setMaximumSize(new Dimension(550,140));
 		attack.setBackground(Color.BLACK);
 		attack.setVisible(true);
 		attack.setBorder(d);
 		
 		item = new JTextPane();
 		item.setEditable(false);
-		item.setMaximumSize(new Dimension(550,170));
+		item.setMaximumSize(new Dimension(550,140));
 		item.setBackground(Color.BLACK);
 		item.setVisible(true);
 		item.setBorder(s);
 		
 		special = new JTextPane();
 		special.setEditable(false);
-		special.setMaximumSize(new Dimension(550,170));
+		special.setMaximumSize(new Dimension(550,140));
 		special.setBackground(Color.BLACK);
 		special.setVisible(true);
 		special.setBorder(a);
 		
+		user.add(health);
+		user.add(Box.createVerticalStrut(5));
+		user.add(mana);
+		user.add(Box.createVerticalStrut(5));
+		user.add(stamina);
 		user.add(Box.createVerticalStrut(25));
 		user.add(attack);
 		user.add(Box.createVerticalStrut(10));
@@ -197,10 +230,13 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		user.add(item);
 		add(enemy);	
 		add(user);	
+		System.out.println("Before repaint");
+		System.out.println("Before repaint");
 		
 		append(attack," ATTACK",Color.WHITE,120,false);
 		append(special," SPECIAL",Color.WHITE,115,false);
 		append(item,"   ITEM",Color.WHITE,130,false);
+		System.out.println("Before repaint");
 	}
 
 	
