@@ -4,6 +4,10 @@ public class GamePlay {
 	public ElissaQuest r;
 	public String returnText = "";
 	
+	public GamePlay(ElissaQuest r) {
+		this.r = r;
+	}
+	
 	public void userWait() {
 		synchronized(r.returnText) {
 			while(r.returnText.isEmpty()) {
