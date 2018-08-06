@@ -42,6 +42,8 @@ public class MainFightPanel extends JPanel implements KeyListener{
     public static JTextPane attack,item,special;
     public static JPanel picArea,enemy,blankEnemy;
     public final List<String> returnText = new LinkedList<String>();
+    private static int choice = -1;
+    public static boolean choosing = true;
     
 	public MainFightPanel(Enemy e){
 		enemies = new ArrayList<Enemy>();
@@ -52,6 +54,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		update(1);
 	}
 	
 	public MainFightPanel(ArrayList<Enemy> e) {
@@ -63,6 +66,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		update(1);
 	}
 	
 	public static void append(JTextPane p,String n) {
@@ -202,6 +206,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
+	  if(choosing == true) {
 		switch(e.getKeyCode()) {
 		
 		case KeyEvent.VK_DOWN:
@@ -235,21 +240,56 @@ public class MainFightPanel extends JPanel implements KeyListener{
 			}
 	   }
 		selectChoice();
+	  }
 	}
 
+	private void hideMenu() {
+		special.setVisible(false);
+		item.setVisible(false);
+		attack.setVisible(false);
+	}
+	
 	private void selectChoice() {
 		switch(returnText.get(0)) {
 		case "up":
+			update(1);
 			break;
 		case "down":
+			update(-1);
 			break;
 		case "enter":
+			update(0);
+			choosing = false;
 			break;
 	}
 		returnText.clear();
 	}
 	
-	private int update
+	private void update(int num) {
+		if(num == 0){
+			hideMenu();
+			return;
+		}
+		choice += num;
+		if(choice < 0)
+			choice = 2;
+		else if(choice > 2)
+			choice = 0;
+		if(choice == 0) {
+			attack.setBackground(Color.GRAY);
+			item.setBackground(Color.BLACK);
+			special.setBackground(Color.BLACK);
+		}else if(choice == 1) {
+			attack.setBackground(Color.BLACK);
+			item.setBackground(Color.GRAY);
+			special.setBackground(Color.BLACK);
+		}else if(choice == 2) {
+			attack.setBackground(Color.BLACK);
+			item.setBackground(Color.BLACK);
+			special.setBackground(Color.GRAY);
+		}
+		
+	}
 	
 	@Override
 	public void keyReleased(KeyEvent arg0) {
