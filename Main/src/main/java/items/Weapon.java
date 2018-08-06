@@ -108,7 +108,7 @@ public class Weapon extends Item { //add stamina reduction
 	}
 	
 	public Weapon clone() { //make this clone rest of fields
-		return new Weapon(name, message, baseDmg, range, staminaDepletion, flatStaminaDepletion, hits, sparkChance, sparkBonus, lifeSteal, atkEnemyEffects, atkSelfEffects, criticals);
+		return new Weapon(name, message, baseDmg, range, staminaDepletion, flatStaminaDepletion, hits, sparkChance, sparkBonus, lifeSteal, atkEnemyEffects, atkSelfEffects, Arrays.stream(criticals).map(double[]::clone).toArray(double[][]::new));
 	}
 	
 	public String toString() {
@@ -136,19 +136,19 @@ public class Weapon extends Item { //add stamina reduction
 		}
 		
 		public static Weapon ulfbehrt() {
-			return new Weapon("Ulfbehrt", "%1$s plungy a jagged viking sword into %2$s", 4 + (int)(Math.random()*5), 3, 1.2, 2, 1, 0, 1, new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect("fatigue", 2, 3), .3))), null, new double[] {.2, 1.4});
+			return new Weapon("Ulfbehrt", "%1$s plunge a jagged viking sword into %2$s", 4 + (int)(Math.random()*5), 3, 1.2, 2, 1, 0, 1, new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect("fatigue", 2, 3), .3))), null, new double[] {.2, 1.4});
 		}
 		
 		public static Weapon bludgeon() {
-			return new Weapon("Bludgeon", "%1$s bludgeons %2$s", 10, 4, new double[] {.3, 1.2});
+			return new Weapon("Bludgeon", "%1$s bludgeon %2$s", 10, 4, new double[] {.3, 1.2});
 		}
 		
 		public static Weapon morningStar() {
-			return new Weapon("Morning Star", "%1$s bludgeons %2$s with a morning star", 12, 6, new double[] {.3, 1.2}, new double[] {.2, 1.6});
+			return new Weapon("Morning Star", "%1$s bludgeon %2$s with a morning star", 12, 6, new double[] {.3, 1.2}, new double[] {.2, 1.6});
 		}
 		
 		public static Weapon scythe() {
-			return new Weapon("Scythe", "%1$s slices %2$s", 8, 7, new double[] {.5, 1.5});
+			return new Weapon("Scythe", "%1$s slice %2$s", 8, 7, new double[] {.5, 1.5});
 		}
 		
 		public static Weapon critStaff() {
@@ -161,11 +161,11 @@ public class Weapon extends Item { //add stamina reduction
 		}
 		
 		public static Weapon hadesScythe(int level) {
-			return new Weapon("Hades's Scythe", "%1$s slices %2$s. A dark purple aura emanates from the wound", (24+Math.random()*12)*level/4, 3*(3+2*Math.random())*level, 4, .4, .3, new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect("curse", level, 5), .3))), null, new double[]{.3, 1.2}, new double[] {.25, 1.4}, new double[] {.1, 2.2});
+			return new Weapon("Hades's Scythe", "%1$s slice %2$s. A dark purple aura emanates from the wound", (24+Math.random()*12)*level/4, 3*(3+2*Math.random())*level, 4, .4, .3, new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect("curse", level, 5), .3))), null, new double[]{.3, 1.2}, new double[] {.25, 1.4}, new double[] {.1, 2.2});
 		}
 		
 		public static Weapon ryuksSythe(int level) {
-			return new Weapon("Ryuk's Scythe", "%1$s slices through %2$s. A red essence travels from the wound to %1$s", (20+Math.random()*16)*level/3, 3, 3, .2, .2, level*.1, null, new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect("lifeSteal", level, level*3), .3))));
+			return new Weapon("Ryuk's Scythe", "%1$s slice through %2$s. A red essence travels from the wound to %1$s", (20+Math.random()*16)*level/3, 3, 3, .2, .2, level*.1, null, new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect("lifeSteal", level, level*3), .3))));
 		}
 		
 		
