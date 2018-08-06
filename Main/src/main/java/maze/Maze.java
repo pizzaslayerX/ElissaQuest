@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import entities.Enemy;
 import entities.Interactive;
 import misc.Pair;
 import run.ElissaRunner;
@@ -50,7 +51,11 @@ public class Maze implements Interactive{
 		endx = ((int[]) endNode.get(0).getUserObject())[0];
 		endy = ((int[]) endNode.get(0).getUserObject())[1];
 		ArrayList<int[]> dungeons = new ArrayList<int[]>();
-		for(int i = 0; i < x; i++) for(int j = 0; j < y; j++) if(interactives[i][j] instanceof Dungeon) dungeons.add(new int[]{i, j});
+		ArrayList<int[]> spots = new ArrayList<int[]>();
+		for(int i = 0; i < x; i++) for(int j = 0; j < y; j++) {
+			if(interactives[i][j] instanceof Dungeon) dungeons.add(new int[]{i, j});
+			if(interactives[i][j] == null && (i != startx || j != starty)) spots.add(new int[] {i, j});
+		}
 		for(int[] i : dungeons) {
 			ArrayList<Pair<int[], DIR>> exit = new ArrayList<Pair<int[],DIR>>();
 			for(DIR d : DIR.values()) if(between(i[0]+2*d.dx, x) && between(i[1]+2*d.dy, y)) exit.add(new Pair<int[],DIR>(new int[] {i[0]+d.dx, i[1]+d.dy}, d));
@@ -58,6 +63,15 @@ public class Maze implements Interactive{
 			maze[a.first[0]][a.first[1]] |= a.second.bit;
 			maze[a.first[0] + a.second.dx][a.first[1]+a.second.dy] |= a.second.opposite.bit;
 		}
+		Collections.shuffle(spots);
+		for(int i = 0; i < spots.size()/20d; i++) {
+			if(i < spots.size()*7/200d) {
+				interactives[spots.get(i)[0]][spots.get(i)[1]] = new Enemy();
+			} else {
+				interactives[spots.get(i)[0]][spots.get(i)[1]] = new Chest();
+			}
+		}
+		
 		display(); //debug
 	}
 	

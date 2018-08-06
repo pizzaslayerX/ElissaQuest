@@ -7,8 +7,7 @@ public class Enemy extends Entity implements Interactive{
 	
 	@Override
 	public void interact(GamePlay r) {
-		// TODO Auto-generated method stub
-		
+		r.newFight(this);
 	}
 
 	@Override
