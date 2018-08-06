@@ -1,6 +1,10 @@
 package items;
-public abstract class Item {
-String name;
+
+import entities.Interactive;
+
+public abstract class Item{
+
+	protected String name,desc;
 	
 	public Item(String str) {
 		name = str;
@@ -9,4 +13,12 @@ String name;
 	abstract public String toString();
 	
 	abstract public Item clone();
+	
+	public String getName() {
+		return name;
+	}
+	
+	public String getDesc() {
+		return desc;
+	}
 }

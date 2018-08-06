@@ -234,7 +234,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		System.out.println("Before repaint");
 		
 		append(attack," ATTACK",Color.WHITE,120,false);
-		append(special," SPECIAL",Color.WHITE,115,false);
+		append(special,"   MAGIC",Color.WHITE,115,false);
 		append(item,"   ITEM",Color.WHITE,130,false);
 		System.out.println("Before repaint");
 	}

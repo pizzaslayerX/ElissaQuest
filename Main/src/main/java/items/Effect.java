@@ -55,7 +55,7 @@ public enum Effect {
 		for(StatusEffect se : e.statusEffects) se.active = true;
 	}),
 	weakness("Weakness", (e,p) -> {
-		e.atkMultiplier = Math.pow(.8, p);
+		e.atkMultiplier = Math.pow(.9, p);
 	}),
 	strength("Strength", (e,p) -> {
 		e.atkMultiplier = Math.pow(1.25, p);

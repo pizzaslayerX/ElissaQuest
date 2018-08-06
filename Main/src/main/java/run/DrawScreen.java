@@ -52,7 +52,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 		setFocusable(true);
 		setDoubleBuffered(true);
 		addKeyListener(this);
-		//gameplay.newFight(new Enemy());
+		gameplay.newFight(new Enemy());
 		
 		loadImage("state1.png");
 		loadImage2("circle.png");
