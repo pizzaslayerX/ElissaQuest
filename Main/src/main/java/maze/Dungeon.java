@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import entities.Enemy;
 import entities.Interactive;
 import run.ElissaRunner;
+import run.GamePlay;
 
 public class Dungeon implements Interactive {
 	public ArrayList<int[]> area;
@@ -16,7 +17,7 @@ public class Dungeon implements Interactive {
 		loot = c;
 	}
 	@Override
-	public void interact(ElissaRunner r) {
+	public void interact(GamePlay r) {
 		// TODO Auto-generated method stub
 
 	}

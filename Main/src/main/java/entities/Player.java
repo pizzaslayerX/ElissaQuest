@@ -1,14 +1,13 @@
 package entities;
-import run.DrawScreen;
-import run.ElissaRunner;
+import run.GamePlay;
 
 public class Player extends Entity{
-	public DrawScreen runner;
+	public GamePlay runner;
 	private String direction;
 	public int level;
 	public int x;
 	public int y;
-	public Player(DrawScreen d) {
+	public Player(GamePlay d) {
 		runner = d;
 		level = 1;
 
@@ -17,29 +16,29 @@ public class Player extends Entity{
 	
 	public void getMove() {
 		if(!runner.returnText.isEmpty()) {
-			direction = runner.returnText.get(0);
+			direction = runner.r.returnText.get(0);
 			System.out.println(direction);
 			switch(direction) {
 				case "up":
 					y-=10;
-					runner.returnText.clear();
+					runner.r.returnText.clear();
 					break;
 				case "down":
 					y+=10;
-					runner.returnText.clear();
+					runner.r.returnText.clear();
 					break;
 				case "right":
 					x+=10;
-					runner.returnText.clear();
+					runner.r.returnText.clear();
 					break;
 				case "left":
 					x-=10;
-					runner.returnText.clear();
+					runner.r.returnText.clear();
 					break;
 				
 			}
-			runner.gameplay.userWait();
-			runner.returnText.clear();
+			runner.userWait();
+			runner.r.returnText.clear();
 		}
 		
 	}

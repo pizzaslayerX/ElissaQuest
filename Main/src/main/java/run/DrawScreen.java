@@ -20,7 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DrawScreen extends JPanel implements KeyListener{
-	public Player player = new Player(this);
 	private KeyListener key;
 	public final List<String> returnText = new LinkedList<String>();
 	private static BufferedImage test;
