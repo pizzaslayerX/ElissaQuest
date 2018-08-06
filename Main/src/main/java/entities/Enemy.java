@@ -1,6 +1,5 @@
 package entities;
 
-import run.ElissaRunner;
 import run.GamePlay;
 
 public class Enemy extends Entity implements Interactive{
@@ -25,4 +24,5 @@ public class Enemy extends Entity implements Interactive{
 	public void changePic(String p) {
 		//NYI
 	}
+	
 }

@@ -1,6 +1,5 @@
 package items;
 
-import entities.Interactive;
 
 public abstract class Item{
 

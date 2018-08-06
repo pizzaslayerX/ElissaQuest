@@ -13,12 +13,13 @@ public class DarkVial extends Item implements Consumable{
 	public void use(Player p) {
 		//Play drink sound
 		//remove from inventory
-		p.mana += p.maxMana / 4;
-		if(p.mana > p.maxMana)
-			p.mana = p.maxMana;
+		p.health += 18;
+		if(p.health > p.maxHealth)
+			p.health = p.maxHealth;
 		new StatusEffect("lifeSteal",2,6).addTo(p);
 		new StatusEffect("endurance",10,6).addTo(p);
-		new StatusEffect("lifeSteal",2,6).addTo(p);
+		new StatusEffect("disenchantment",4,6).addTo(p);
+		new StatusEffect("curse",3,3).addTo(p);
 		
 	}
 
