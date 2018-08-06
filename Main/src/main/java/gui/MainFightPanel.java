@@ -234,9 +234,22 @@ public class MainFightPanel extends JPanel implements KeyListener{
 				returnText.notify();
 			}
 	   }
+		selectChoice();
 	}
 
+	private void selectChoice() {
+		switch(returnText.get(0)) {
+		case "up":
+			break;
+		case "down":
+			break;
+		case "enter":
+			break;
+	}
+		returnText.clear();
+	}
 	
+	private int update
 	
 	@Override
 	public void keyReleased(KeyEvent arg0) {
