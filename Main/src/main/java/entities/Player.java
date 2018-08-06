@@ -7,6 +7,7 @@ public class Player extends Entity{
 	public int level;
 	public int x;
 	public int y;
+
 	public Player(GamePlay d) {
 		runner = d;
 		level = 1;
