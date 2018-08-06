@@ -4,6 +4,8 @@ public class GamePlay {
 	public ElissaQuest r;
 	public String returnText = "";
 	
+	
+	
 	public void userWait() {
 		synchronized(r.returnText) {
 			while(r.returnText.isEmpty()) {
@@ -12,7 +14,6 @@ public class GamePlay {
 	        	} catch (InterruptedException e) {}
 	    	}
 			returnText = r.returnText.remove(0);
-		}//
-		//DAS
+		}
 	}
 }

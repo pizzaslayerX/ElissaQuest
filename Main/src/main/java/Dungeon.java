@@ -17,12 +17,6 @@ public class Dungeon implements Interactive {
 	}
 
 	@Override
-	public String getKey() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void disappear(Interactive[][] arr, int a, int b) {
 		// TODO Auto-generated method stub
 		for(int[] i : area) arr[i[0]][i[1]] = null;

@@ -11,11 +11,6 @@ public class DungeonArea implements Interactive {
 		dungeon.interact(r);
 	}
 
-	@Override
-	public String getKey() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void disappear(Interactive[][] arr, int a, int b) {

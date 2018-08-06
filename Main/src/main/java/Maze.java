@@ -22,12 +22,14 @@ public class Maze {
 	public final int starty;
 	public final int endx;
 	public final int endy;
+	public final Interactive[][] interactives;
 	
  
 	public Maze(int x, int y) {
 		this.x = x;
 		this.y = y;
 		maze = new int[this.x][this.y];
+		interactives = new Interactive[this.x][this.y];
 		generateMaze(0, 0);
 		ArrayList<int[]> ar = new ArrayList<int[]>();
 		for(int i = 0; i < x; i++) for(int j = 0; j < y; j++)

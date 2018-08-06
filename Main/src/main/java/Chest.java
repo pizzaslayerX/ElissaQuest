@@ -18,7 +18,7 @@ public class Chest implements Interactive {
 		for(Probability<Item> ip : lootTable(p)) if(ip.execute()) loot.add(ip.item);
 	}
 	
-	public static ArrayList<Probability<Item>> lootTable(Player player) { //todo
+	public static ArrayList<Probability<Item>> lootTable() { //todo
 		ArrayList<Probability<Item>> itemProbs = new ArrayList<Probability<Item>>();
 		
 		return itemProbs;
@@ -30,11 +30,6 @@ public class Chest implements Interactive {
 		//r.game.userWait();
 	}
 
-	@Override
-	public String getKey() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public void disappear(Interactive[][] arr, int a, int b) {
