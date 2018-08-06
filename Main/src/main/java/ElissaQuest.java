@@ -141,7 +141,7 @@ public class ElissaQuest extends JApplet implements KeyListener, Runnable, Mouse
 		frame.setTitle(TITLE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		
+		//wwijw
 		canvas.setPreferredSize(GAME_SIZE);
         canvas.setMaximumSize(GAME_SIZE);
         canvas.setMinimumSize(GAME_SIZE);

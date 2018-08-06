@@ -4,13 +4,10 @@ public class GamePlay {
 	public ElissaQuest r;
 	public String returnText = "";
 	
-<<<<<<< HEAD
 	public GamePlay(ElissaQuest r) {
 		this.r = r;
 	}
-=======
-	
->>>>>>> refs/remotes/origin/master
+
 	
 	public void userWait() {
 		synchronized(r.returnText) {
