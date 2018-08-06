@@ -192,6 +192,7 @@ public class Maze implements Interactive{
 	@Override
 	public void interact(GamePlay g) {
 		while(!g.returnText.isEmpty() /*&& interactives[endx][endy] != null*/) {
+			System.out.println("what1");
 			switch(g.returnText) {
 				case "up":
 					if(((maze[playerx][playery] & 1) != 0 || g.player.y % g.r.mazeSize != 0) /*&& g.player.x % g.r.mazeSize <= g.r.mazeSize - 16*/) g.player.y-=g.scale;
@@ -206,11 +207,14 @@ public class Maze implements Interactive{
 					if(((maze[playerx][playery] & 8) != 0 || g.player.x % g.r.mazeSize != 0) /*&& g.player.y % g.r.mazeSize <= g.r.mazeSize - 16*/)g.player.x-=g.scale;
 					break;
 			}
+			System.out.println("what");
 			g.r.repaint();
 			playerx=(g.player.x+g.r.mazeSize/2)/g.r.mazeSize;
 			playery=(g.player.y+g.r.mazeSize/2)/g.r.mazeSize;
 			if(interactives[playerx][playery] != null) interactives[playerx][playery].interact(g);
+			System.out.println("what3");
 			g.userWait();
+			System.out.println("what2");
 		}
 	}
 

@@ -249,8 +249,6 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		returnText.clear();
 	}
 	
-	private int update
-	
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
