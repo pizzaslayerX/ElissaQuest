@@ -20,8 +20,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DrawScreen extends JPanel implements KeyListener{
-	
-	private KeyListener key;
 	public final List<String> returnText = new LinkedList<String>();
 	private static BufferedImage test;
 	public GamePlay gameplay = new GamePlay(this);
@@ -37,7 +35,8 @@ public class DrawScreen extends JPanel implements KeyListener{
 		setFocusable(true);
 		setDoubleBuffered(true);
 		addKeyListener(this);
-		loadImage("src/res/pics/test.jpg");
+		
+		loadImage("src/res/pics/state1.png");
 	}
 	
 	 private static void loadImage(String fileName){
@@ -55,13 +54,17 @@ public class DrawScreen extends JPanel implements KeyListener{
 	
 	@Override
     public void paintComponent(Graphics g) {
-		System.out.println("runningPaint");
-		drawObjects(g);
+		Graphics2D g2 = (Graphics2D) g;
+		//g2.translate(this.getWidth()/2, this.getHeight()/2);
+		g2.scale(3, 3);
+		//g2.translate(-this.getWidth()/2, this.getHeight()/2);
+		super.paintComponent(g2);
+		drawObjects(g2);
 		Toolkit.getDefaultToolkit().sync();
 	}
 	
 	private void drawObjects(Graphics g) {
-		g.drawImage(test,gameplay.player.x,gameplay.player.y,null);
+		g.drawImage(test,gameplay.player.x,gameplay.player.y,this);
 	}
 
 	public void getMove() {
@@ -70,19 +73,19 @@ public class DrawScreen extends JPanel implements KeyListener{
 			System.out.println(direction);
 			switch(direction) {
 				case "up":
-					gameplay.player.y-=10;
+					gameplay.player.y-=2;
 					returnText.clear();
 					break;
 				case "down":
-					gameplay.player.y+=10;
+					gameplay.player.y+=2;
 					returnText.clear();
 					break;
 				case "right":
-					gameplay.player.x+=10;
+					gameplay.player.x+=2;
 					returnText.clear();
 					break;
 				case "left":
-					gameplay.player.x-=10;
+					gameplay.player.x-=2;
 					returnText.clear();
 					break;
 				
@@ -126,6 +129,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 				}*/
 		}
 		getMove();
+		repaint();
 	}
 
 	public void keyReleased(KeyEvent e) {
