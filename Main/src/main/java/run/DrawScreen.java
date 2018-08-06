@@ -3,6 +3,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import entities.Enemy;
+import entities.Interactive;
 import entities.Player;
 import gui.MainFightPanel;
 
@@ -157,21 +158,15 @@ public class DrawScreen extends JPanel implements KeyListener{
 			g.drawRect(-1, -1, 1, mazeSize*gameplay.maze.y);
 			boolean boolc = (~gameplay.maze.maze[i][j] & 4) != 0;
 			boolean boolb = (~gameplay.maze.maze[i][j] & 2) != 0;
-			//if(boola) g.drawRect(i*mazeSize, j*mazeSize, mazeSize-1, 0);
 			if(boolb) g.drawRect((i+1)*mazeSize-1, j*mazeSize-1, 1, mazeSize+1);
 			if(boolc) g.drawRect(i*mazeSize-1, (j+1)*mazeSize-1, mazeSize+1, 1);
-			//if(boold) g.drawRect(i*mazeSize, j*mazeSize, 0, mazeSize-1);
-			/*if(boola && boolb && j > 0) g.drawRect(i*mazeSize+mazeSize,j*mazeSize-1,0,0);
-			if(boolb && boolc) g.drawRect(i*mazeSize+mazeSize,j*mazeSize+mazeSize,0,0);
-			if(boolc && boold && i > 0) g.drawRect(i*mazeSize-1,j*mazeSize+mazeSize,0,0);
-			if(boold && boola && j > 0 && i >0) g.drawRect(i*mazeSize-1,j*mazeSize-1,0,0);*/
+			//if(gameplay.maze.interactives[i][j] instanceof Interactive) g.drawImage(img, x, y, observer);
 		}
 		g.drawImage(FOV, gameplay.player.x-117, gameplay.player.y-117, this);
 		g.drawImage(left, gameplay.player.x-1117, gameplay.player.y-117, this);
 		g.drawImage(right, gameplay.player.x+118, gameplay.player.y-117, this);
 		g.drawImage(up,  gameplay.player.x-1117, gameplay.player.y-1117, this);
 		g.drawImage(down, gameplay.player.x-1117, gameplay.player.y+118, this);
-		//g.drawRect(gameplay.player.x-1118, 0, 2000, 2000);
 	}
 	
 	private void animate() {
