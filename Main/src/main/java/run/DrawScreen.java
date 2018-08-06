@@ -28,9 +28,11 @@ public class DrawScreen extends JPanel implements KeyListener{
 	public Window window;
 	private static int moveVal = 0;
 	private static boolean state1 = true;
+	public int mazeSize = 24;
 	public DrawScreen(Window w) {
 		window = w;
 		init();
+		new Thread(gameplay).start();
 	}
 	
 	public void init() {
@@ -70,7 +72,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 		}
 		Graphics2D g2 = (Graphics2D) g;
 		//g2.translate(this.getWidth()/2, this.getHeight()/2);
-		g2.scale(3, 3);
+		g2.scale(2, 2);
 		//g2.translate(-this.getWidth()/2, this.getHeight()/2);
 		super.paintComponent(g2);
 		drawObjects(g2);
@@ -79,6 +81,21 @@ public class DrawScreen extends JPanel implements KeyListener{
 	
 	private void drawObjects(Graphics g) {
 		g.drawImage(test,gameplay.player.x,gameplay.player.y,this);
+		g.setColor(Color.WHITE);
+		for(int i = 0; i < gameplay.maze.x; i++) for(int j = 0; j < gameplay.maze.y; j++) {
+			boolean boola = (~gameplay.maze.maze[i][j] & 1) != 0;
+			boolean boolb = (~gameplay.maze.maze[i][j] & 2) != 0;
+			boolean boolc = (~gameplay.maze.maze[i][j] & 4) != 0;
+			boolean boold = (~gameplay.maze.maze[i][j] & 8) != 0;
+			if(boola) g.drawRect(i*mazeSize, j*mazeSize, mazeSize-1, 0);
+			if(boolb) g.drawRect((i+1)*mazeSize-1, j*mazeSize, 0, mazeSize-1);
+			if(boolc) g.drawRect(i*mazeSize, (j+1)*mazeSize-1, mazeSize-1, 0);
+			if(boold) g.drawRect(i*mazeSize, j*mazeSize, 0, mazeSize-1);
+			if(boola && boolb && j > 0) g.drawRect(i*mazeSize+mazeSize,j*mazeSize-1,0,0);
+			if(boolb && boolc) g.drawRect(i*mazeSize+mazeSize,j*mazeSize+mazeSize,0,0);
+			if(boolc && boold && i > 0) g.drawRect(i*mazeSize-1,j*mazeSize+mazeSize,0,0);
+			if(boold && boola && j > 0 && i >0) g.drawRect(i*mazeSize-1,j*mazeSize-1,0,0);
+		}
 	}
 	
 	private void animate() {
@@ -90,7 +107,8 @@ public class DrawScreen extends JPanel implements KeyListener{
 		loadImage("state1.png");
 	}
 
-	private void getMove() {
+	/*public void getMove() {
+
 		if(!returnText.isEmpty()) {
 			String direction = returnText.get(0);
 			System.out.println(direction);
@@ -116,7 +134,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 
 		}
 		
-	}
+	}*/
 	@Override
 	public void keyPressed(KeyEvent e) {
 	  if(!GamePlay.openPanel) {
@@ -152,9 +170,10 @@ public class DrawScreen extends JPanel implements KeyListener{
 					returnText.notify();
 				}*/
 		}
-		getMove();
+
 		repaint();
 	  }
+
 	}
 
 	public void keyReleased(KeyEvent e) {

@@ -34,7 +34,9 @@ public class Window extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBackground(BACKGROUND_COLOR);
 		setForeground(FOREGROUND_COLOR);
+
 		add(new DrawScreen(this));
+
 		setVisible(true);
 		//pack();
 	}

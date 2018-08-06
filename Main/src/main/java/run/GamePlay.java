@@ -7,13 +7,15 @@ import entities.Player;
 import gui.MainFightPanel;
 import maze.Maze;
 
-public class GamePlay {
-    public static boolean openPanel = true;
-    
-	public int scale = 10;
+
+
+ 
+public class GamePlay implements Runnable{
+	public int scale = 2;
+	  public static boolean openPanel = true;
 	public Maze maze;
 	public DrawScreen r;
-	public String returnText = "";
+	public String returnText = " ";
 	public Player player = new Player(this);
 	public GamePlay(DrawScreen r) {
 		this.r = r;
@@ -30,6 +32,7 @@ public class GamePlay {
 	}
 	
 	public void go() {
+		System.out.println("go");
 		maze = new Maze(30, 15);
 		maze.interact(this);
 		maze = new Maze(40, 20);
@@ -54,5 +57,11 @@ public class GamePlay {
 	    	}
 			returnText = r.returnText.remove(0);
 		}
+	}
+
+	@Override
+	public void run() {
+		go();
+		
 	}
 }

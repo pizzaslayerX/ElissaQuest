@@ -1,8 +1,11 @@
 package items;
 
 import java.util.function.BiConsumer;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import entities.Entity;
+import misc.Probability;
 
 public enum Effect {
 	vitality("Vitality", (e, p) -> {}, (e, p) -> { 
@@ -50,6 +53,29 @@ public enum Effect {
 		for(StatusEffect se : e.statusEffects) if(!se.effect.name().equals("nullify")) se.active = false;
 	}, (e, p) -> {
 		for(StatusEffect se : e.statusEffects) se.active = true;
+	}),
+	weakness("Weakness", (e,p) -> {
+		e.atkMultiplier = Math.pow(.8, p);
+	}),
+	strength("Strength", (e,p) -> {
+		e.atkMultiplier = Math.pow(1.25, p);
+	}),
+	poison("Poison", (e,p) -> {
+		e.health -= 2*p;
+	}, (e,p) -> {
+		e.health -= 2*p;
+	}, (e,p) -> {}),
+	fatigue("Fatigue", (e, p) -> {
+		e.staminaRegen *= 2/(2d + p);
+	}),
+	disenchantment("Disenchantment", (e,p) -> {
+		e.manaRegen *= 2/(2d + p);
+	}),
+	sparkResistance("Spark Resistance", (e, p) -> {
+		e.sparkMitigation = 2/(2d + p);
+	}), 
+	curse("Curse", (e,p) -> {
+		e.currWeapon.atkSelfEffects.add(new Probability<StatusEffect>(new StatusEffect(debuff().get((int)(Math.random()*Effect.debuff().size())), (int)(p*(.5 + Math.random()*.5)), (int)(p*3*(.5 + Math.random()*.5))), 1-20/(20d+p)));
 	});
 	
 	public String name;
@@ -81,5 +107,9 @@ public enum Effect {
 	public static StatusEffect addEffects(StatusEffect a, StatusEffect b) {
 		if(a.potency >= b.potency) return a;
 		else return b;
+	}
+
+	public static ArrayList<Effect> debuff() {
+		return new ArrayList<Effect>(Arrays.asList(critInverse, critNegate, nullify, poison, weakness, disenchantment, fatigue));
 	}
 }

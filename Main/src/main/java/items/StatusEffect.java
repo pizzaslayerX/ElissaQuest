@@ -17,6 +17,13 @@ public class StatusEffect implements Comparable<StatusEffect> {
 		active = true;
 	}
 	
+	public StatusEffect(Effect e, int p, int d) {
+		effect = e;
+		potency = p;
+		duration = d;
+		active = true;
+	}
+	
 	public static void checkEffects(Entity e) {
 		for(int i = 0; i < e.statusEffects.size(); i++) if(--e.statusEffects.get(i).duration <= 0) {
 			StatusEffect se = e.statusEffects.remove(i--);
