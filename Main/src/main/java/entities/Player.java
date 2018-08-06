@@ -2,7 +2,7 @@ package entities;
 import run.DrawScreen;
 import run.ElissaRunner;
 
-public class Player {
+public class Player extends Entity{
 	public DrawScreen runner;
 	private String direction;
 	public int level;

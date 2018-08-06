@@ -3,6 +3,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import misc.Probability;
+
 public class Weapon extends Item { //add stamina reduction
 	public String message; //change into BiFunction<String, String, String>
 	public double baseDmg;
@@ -11,6 +13,10 @@ public class Weapon extends Item { //add stamina reduction
 	public double staminaDepletion;
 	public double flatStaminaDepletion;
 	public int hits;
+	public double sparkChance;
+	public double sparkBonus;
+	public ArrayList<Probability<StatusEffect>> atkEnemyEffects;
+	public ArrayList<Probability<StatusEffect>> atkSelfEffects;
 	//add std miss chance?
 	
 	public Weapon(String name, String msg, double a, double b, double[]... c) {
