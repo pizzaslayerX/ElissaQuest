@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import maze.MultiplierUtils;
+import misc.Pair;
 import misc.Probability;
 
 public class Weapon extends Item { //add stamina reduction
@@ -18,6 +19,12 @@ public class Weapon extends Item { //add stamina reduction
 	public double sparkChance;
 	public double sparkBonus;
 	public double lifeSteal;
+	
+	public static String[] weaponA = {"Angry","Trusting","Hot","Metal","Chubby","Retarded","Happy","Swift","Szchenic","Demonic","Cold","Copper","Wooden","Silky","Sharp"};
+	public static String[] weaponB = {"Ball","Knife","Sword","Balloon","Rapier","Gauntlets","Hatchet","Shovel","Spoon","Sickle","Sling","Bow","Slicer","Stabber","Smasher","Bat"};
+
+	
+	
 	public ArrayList<Probability<StatusEffect>> atkEnemyEffects;
 	public ArrayList<Probability<StatusEffect>> atkSelfEffects;
 	//add std miss chance?
