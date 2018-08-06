@@ -22,11 +22,6 @@ import java.util.regex.Pattern;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
 
 public class ElissaQuest extends Applet implements KeyListener, Runnable, MouseListener {
 	private static final long serialVersionUID = 1L;
