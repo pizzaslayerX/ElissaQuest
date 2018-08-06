@@ -2,14 +2,11 @@
 public class Player {
 	public ElissaQuest runner;
 	private String direction;
-<<<<<<< HEAD
 	public int level;
-	public Player() {
-		level = 1;
-=======
+	
 	public Player(ElissaQuest e) {
 		runner = e;
->>>>>>> refs/remotes/origin/master
+		level = 1;
 	}
 	
 	public void getMove() {
