@@ -1,3 +1,4 @@
+package maze;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.function.BiFunction;
