@@ -1,4 +1,8 @@
 package entities;
+import java.util.ArrayList;
+
+import items.Consumable;
+import items.Item;
 import run.GamePlay;
 
 public class Player extends Entity{
@@ -7,12 +11,14 @@ public class Player extends Entity{
 	public int level;
 	public int x;
 	public int y;
+	public ArrayList<Item> items;
+	public ArrayList<Consumable> pots;
 	
 	
 	public Player(GamePlay d) {
 		runner = d;
 		level = 1;
-		health = 20;
+		health = 12;
 		maxHealth = 20;
 		maxMana = 10;
 		mana = 8;
@@ -21,32 +27,4 @@ public class Player extends Entity{
 	}//h
 	
 	
-	/*public void getMove() {
-		if(!runner.returnText.isEmpty()) {
-			direction = runner.r.returnText.get(0);
-			System.out.println(direction);
-			switch(direction) {
-				case "up":
-					y-=10;
-					runner.r.returnText.clear();
-					break;
-				case "down":
-					y+=10;
-					runner.r.returnText.clear();
-					break;
-				case "right":
-					x+=10;
-					runner.r.returnText.clear();
-					break;
-				case "left":
-					x-=10;
-					runner.r.returnText.clear();
-					break;
-				
-			}
-			runner.userWait();
-			runner.r.returnText.clear();
-		}
-		
-	}*/
 }

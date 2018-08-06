@@ -1,5 +1,6 @@
 package entities;
 
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.BiFunction;
@@ -8,6 +9,7 @@ import items.Weapon;
 import items.Item;
 import misc.Pair;
 import misc.Probability;
+
 import run.GamePlay;
 
 public class Enemy extends Entity implements Interactive{
@@ -42,6 +44,7 @@ public class Enemy extends Entity implements Interactive{
 		//NYI
 	}
 	
+
 	public static class Enemies {
 		public static Enemy skeleton() {
 			return new Enemy(new ArrayList<Pair<Probability<Item>,Integer>>(Arrays.asList(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.rustyDagger(),.35),1))), (u,v) -> {
@@ -49,4 +52,5 @@ public class Enemy extends Entity implements Interactive{
 			}, new Weapon[] {new Weapon("Bone club", "%1$s bone clubs %2$s", 3, 2)});
 		}
 	}
+
 }
