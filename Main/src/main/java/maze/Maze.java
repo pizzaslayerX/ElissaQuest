@@ -37,7 +37,7 @@ public class Maze implements Interactive{
 		this.y = y;
 		maze = new int[this.x][this.y];
 		interactives = new Interactive[this.x][this.y];
-		generateDungeons(4);
+		//generateDungeons(4);
 		generateMaze(0, 0);
 		ArrayList<int[]> ar = new ArrayList<int[]>();
 		for(int i = 0; i < x; i++) for(int j = 0; j < y; j++)
@@ -48,6 +48,27 @@ public class Maze implements Interactive{
 		ArrayList<DefaultMutableTreeNode> endNode = getEndGameSpots(startx, starty, 1);
 		endx = ((int[]) endNode.get(0).getUserObject())[0];
 		endy = ((int[]) endNode.get(0).getUserObject())[1];
+		display();
+	}
+	
+	public void display() {
+		for (int i = 0; i < y; i++) {
+			// draw the north edge
+			for (int j = 0; j < x; j++) {
+				System.out.print((maze[j][i] & 1) == 0 ? "+---" : "+   ");
+			}
+			System.out.println("+");
+			// draw the west edge
+			for (int j = 0; j < x; j++) {
+				System.out.print((maze[j][i] & 8) == 0 ? "|   " : "    ");
+			}
+			System.out.println("|");
+		}
+		// draw the bottom line
+		for (int j = 0; j < x; j++) {
+			System.out.print("+---");
+		}
+		System.out.println("+");
 	}
 	
 	public ArrayList<DefaultMutableTreeNode> getEndGameSpots(int a, int b, double w) {
@@ -170,24 +191,24 @@ public class Maze implements Interactive{
 
 	@Override
 	public void interact(GamePlay g) {
-		while(!g.returnText.isEmpty() && interactives[endx][endy] != null) {
+		while(!g.returnText.isEmpty() /*&& interactives[endx][endy] != null*/) {
 			switch(g.returnText) {
 				case "up":
-					if((maze[playerx][playery] & 1) != 0 && g.player.x % 16 == 0) g.player.y-=g.scale;
+					if(((maze[playerx][playery] & 1) != 0 || g.player.y % g.r.mazeSize != 0) /*&& g.player.x % g.r.mazeSize <= g.r.mazeSize - 16*/) g.player.y-=g.scale;
 					break;
 				case "down":
-					if((maze[playerx][playery] & 4) != 0 && g.player.x % 16 == 0) g.player.y+=g.scale;
+					if(((maze[playerx][playery] & 4) != 0 || g.player.y % g.r.mazeSize != g.r.mazeSize - 16) /*&& g.player.x % g.r.mazeSize <= g.r.mazeSize - 16*/) g.player.y+=g.scale;
 					break;
 				case "right":
-					if((maze[playerx][playery] & 2) != 0 && g.player.y % 16 == 0) g.player.x+=g.scale;
+					if(((maze[playerx][playery] & 2) != 0 || g.player.x % g.r.mazeSize != g.r.mazeSize - 16) /*&& g.player.y % g.r.mazeSize <= g.r.mazeSize - 16*/) g.player.x+=g.scale;
 					break;
 				case "left":
-					if((maze[playerx][playery] & 8) != 0 && g.player.y % 16 == 0)g.player.x-=g.scale;
+					if(((maze[playerx][playery] & 8) != 0 || g.player.x % g.r.mazeSize != 0) /*&& g.player.y % g.r.mazeSize <= g.r.mazeSize - 16*/)g.player.x-=g.scale;
 					break;
 			}
 			g.r.repaint();
-			playerx=(g.player.x+8)/16;
-			playery=(g.player.y+8)/16;
+			playerx=(g.player.x+g.r.mazeSize/2)/g.r.mazeSize;
+			playery=(g.player.y+g.r.mazeSize/2)/g.r.mazeSize;
 			if(interactives[playerx][playery] != null) interactives[playerx][playery].interact(g);
 			g.userWait();
 		}

@@ -14,6 +14,7 @@ public class GamePlay implements Runnable{
 	}
 	
 	public void go() {
+		System.out.println("go");
 		maze = new Maze(30, 15);
 		maze.interact(this);
 		maze = new Maze(40, 20);
