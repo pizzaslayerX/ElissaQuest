@@ -2,7 +2,9 @@ package run;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
+import entities.Enemy;
 import entities.Player;
+import gui.MainFightPanel;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -23,9 +25,11 @@ public class DrawScreen extends JPanel implements KeyListener{
 	public final List<String> returnText = new LinkedList<String>();
 	private static BufferedImage test;
 	public GamePlay gameplay = new GamePlay(this);
+	public Window window;
 	private static int moveVal = 0;
 	private static boolean state1 = true;
-	public DrawScreen() {
+	public DrawScreen(Window w) {
+		window = w;
 		init();
 	}
 	
@@ -37,14 +41,16 @@ public class DrawScreen extends JPanel implements KeyListener{
 		setFocusable(true);
 		setDoubleBuffered(true);
 		addKeyListener(this);
+		gameplay.newFight(new Enemy());
+
 		
-		loadImage("src/res/pics/state1.png");
+		loadImage("state1.png");
 	}
 	
 	 private static void loadImage(String fileName){
 
 	            try {
-	                test = ImageIO.read(new File(fileName)); 
+	                test = ImageIO.read(new File("src/res/pics/"+fileName)); 
 
 	            } catch (IOException e) {
 	                e.printStackTrace();
@@ -78,10 +84,10 @@ public class DrawScreen extends JPanel implements KeyListener{
 	private void animate() {
 		state1 = !state1;
 		if(!state1) {
-			loadImage("src/res/pics/state2.png");
+			loadImage("state2.png");
 			return;
 		}
-		loadImage("src/res/pics/state1.png");
+		loadImage("state1.png");
 	}
 
 	private void getMove() {
@@ -113,6 +119,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
+	  if(!GamePlay.openPanel) {
 		switch(e.getKeyCode()) {
 		
 			case KeyEvent.VK_A:
@@ -147,6 +154,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 		}
 		getMove();
 		repaint();
+	  }
 	}
 
 	public void keyReleased(KeyEvent e) {

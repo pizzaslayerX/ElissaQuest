@@ -16,7 +16,6 @@ public class Window extends JFrame{
 	public static FlowLayout layout;
 	public static boolean isRunning = false;
 
-
 	
 	public Window() {
 		init();
@@ -35,7 +34,7 @@ public class Window extends JFrame{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBackground(BACKGROUND_COLOR);
 		setForeground(FOREGROUND_COLOR);
-		add(new DrawScreen());
+		add(new DrawScreen(this));
 		setVisible(true);
 		//pack();
 	}
