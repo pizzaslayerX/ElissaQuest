@@ -108,6 +108,7 @@ public class ElissaQuest extends Applet implements KeyListener, Runnable, MouseL
 	
 	public static void main(String[] args) {
 		ElissaQuest main = new ElissaQuest();
+		canvas.setSize(SCREEN_SIZE);
 	    layout.setVgap(0);
 	    frame.setResizable(false);
 	    frame.setLayout(layout);
