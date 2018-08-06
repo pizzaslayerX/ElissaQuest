@@ -167,6 +167,10 @@ public class DrawScreen extends JPanel implements KeyListener{
 			if(boold && boola && j > 0 && i >0) g.drawRect(i*mazeSize-1,j*mazeSize-1,0,0);*/
 		}
 		g.drawImage(FOV, gameplay.player.x-117, gameplay.player.y-117, this);
+		g.drawImage(left, gameplay.player.x-1117, gameplay.player.y-117, this);
+		g.drawImage(right, gameplay.player.x+118, gameplay.player.y-117, this);
+		g.drawImage(up,  gameplay.player.x-1117, gameplay.player.y-1117, this);
+		g.drawImage(down, gameplay.player.x-1117, gameplay.player.y+118, this);
 		//g.drawRect(gameplay.player.x-1118, 0, 2000, 2000);
 	}
 	

@@ -8,6 +8,7 @@ import java.util.function.Consumer;
 import javax.swing.tree.DefaultMutableTreeNode;
 
 import entities.Interactive;
+import misc.Pair;
 import run.ElissaRunner;
 import run.GamePlay;
 
@@ -37,7 +38,7 @@ public class Maze implements Interactive{
 		this.y = y;
 		maze = new int[this.x][this.y];
 		interactives = new Interactive[this.x][this.y];
-		//generateDungeons(4);
+		generateDungeons(4);
 		generateMaze(0, 0);
 		ArrayList<int[]> ar = new ArrayList<int[]>();
 		for(int i = 0; i < x; i++) for(int j = 0; j < y; j++)
@@ -48,7 +49,16 @@ public class Maze implements Interactive{
 		ArrayList<DefaultMutableTreeNode> endNode = getEndGameSpots(startx, starty, 1);
 		endx = ((int[]) endNode.get(0).getUserObject())[0];
 		endy = ((int[]) endNode.get(0).getUserObject())[1];
-		display();
+		ArrayList<int[]> dungeons = new ArrayList<int[]>();
+		for(int i = 0; i < x; i++) for(int j = 0; j < y; j++) if(interactives[i][j] instanceof Dungeon) dungeons.add(new int[]{i, j});
+		for(int[] i : dungeons) {
+			ArrayList<Pair<int[], DIR>> exit = new ArrayList<Pair<int[],DIR>>();
+			for(DIR d : DIR.values()) if(between(i[0]+2*d.dx, x) && between(i[1]+2*d.dy, y)) exit.add(new Pair<int[],DIR>(new int[] {i[0]+d.dx, i[1]+d.dy}, d));
+			Pair<int[], DIR> a = exit.get((int)(Math.random()*exit.size()));
+			maze[a.first[0]][a.first[1]] |= a.second.bit;
+			maze[a.first[0] + a.second.dx][a.first[1]+a.second.dy] |= a.second.opposite.bit;
+		}
+		display(); //debug
 	}
 	
 	public void display() {
@@ -109,7 +119,7 @@ public class Maze implements Interactive{
 	
 	private DefaultMutableTreeNode getNode(int a, int b, DIR dir) {
 		DefaultMutableTreeNode tree = new DefaultMutableTreeNode(new int[]{a, b});
-		for(DIR d : DIR.values()) if(!d.opposite.equals(dir) && (~maze[a][b] & d.bit) == 0 && !(interactives[a][b] instanceof DungeonArea)) tree.add(getNode(a + d.dx, b + d.dy, d));
+		for(DIR d : DIR.values()) if(!d.opposite.equals(dir) && (~maze[a][b] & d.bit) == 0 /*&& !(interactives[a][b] instanceof DungeonArea)*/) tree.add(getNode(a + d.dx, b + d.dy, d));
 		return tree;
 	}
  
@@ -147,9 +157,9 @@ public class Maze implements Interactive{
 				}
 				maze[spot[0] + i][spot[1] + j] = 15;
 				if(i == -1) maze[spot[0] + i][spot[1] + j] -= 8;
-				if(i == 1) maze[spot[0] + i][spot[1] + j] -= 4;
+				if(i == 1) maze[spot[0] + i][spot[1] + j] -= 2;
 				if(j == -1) maze[spot[0] + i][spot[1] + j] -= 1;
-				if(j == 1) maze[spot[0] + i][spot[1] + j] -= 2;
+				if(j == 1) maze[spot[0] + i][spot[1] + j] -= 4;
 			}
 		}
 		interactives[spot[0]][spot[1]] = dungeon;
@@ -195,16 +205,16 @@ public class Maze implements Interactive{
 			System.out.println("what1");
 			switch(g.returnText) {
 				case "up":
-					if(((maze[playerx][playery] & 1) != 0 || g.player.y % g.r.mazeSize != 0) /*&& g.player.x % g.r.mazeSize <= g.r.mazeSize - 16*/) g.player.y-=g.scale;
+					if((((maze[playerx][playery] & 1) != 0  && g.player.x % g.r.mazeSize <= g.r.mazeSize - 16)|| g.player.y % g.r.mazeSize != 0) ) g.player.y-=g.scale;
 					break;
 				case "down":
-					if(((maze[playerx][playery] & 4) != 0 || g.player.y % g.r.mazeSize != g.r.mazeSize - 16) /*&& g.player.x % g.r.mazeSize <= g.r.mazeSize - 16*/) g.player.y+=g.scale;
+					if((((maze[playerx][playery] & 4) != 0 && g.player.x % g.r.mazeSize <= g.r.mazeSize - 16) || g.player.y % g.r.mazeSize != g.r.mazeSize - 16) ) g.player.y+=g.scale;
 					break;
 				case "right":
-					if(((maze[playerx][playery] & 2) != 0 || g.player.x % g.r.mazeSize != g.r.mazeSize - 16) /*&& g.player.y % g.r.mazeSize <= g.r.mazeSize - 16*/) g.player.x+=g.scale;
+					if((((maze[playerx][playery] & 2) != 0 && g.player.y % g.r.mazeSize <= g.r.mazeSize - 16)|| g.player.x % g.r.mazeSize != g.r.mazeSize - 16) ) g.player.x+=g.scale;
 					break;
 				case "left":
-					if(((maze[playerx][playery] & 8) != 0 || g.player.x % g.r.mazeSize != 0) /*&& g.player.y % g.r.mazeSize <= g.r.mazeSize - 16*/)g.player.x-=g.scale;
+					if((((maze[playerx][playery] & 8) != 0 && g.player.y % g.r.mazeSize <= g.r.mazeSize - 16)|| g.player.x % g.r.mazeSize != 0) )g.player.x-=g.scale;
 					break;
 			}
 			System.out.println("what");
