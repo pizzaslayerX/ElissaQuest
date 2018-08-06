@@ -1,12 +1,13 @@
 package run;
 
+import entities.Player;
 import maze.Maze;
 
 public class GamePlay {
 	public Maze maze;
 	public DrawScreen r;
 	public String returnText = "";
-	
+	public Player player = new Player();
 	public GamePlay(DrawScreen r) {
 		this.r = r;
 	}

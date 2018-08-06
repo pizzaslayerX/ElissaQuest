@@ -20,7 +20,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class DrawScreen extends JPanel implements KeyListener{
-	public Player player = new Player(this);
+	
 	private KeyListener key;
 	public final List<String> returnText = new LinkedList<String>();
 	private static BufferedImage test;
@@ -55,14 +55,42 @@ public class DrawScreen extends JPanel implements KeyListener{
 	
 	@Override
     public void paintComponent(Graphics g) {
+		System.out.println("runningPaint");
 		drawObjects(g);
 		Toolkit.getDefaultToolkit().sync();
 	}
 	
 	private void drawObjects(Graphics g) {
-		g.drawImage(test,player.x,player.y,null);
+		g.drawImage(test,gameplay.player.x,gameplay.player.y,null);
 	}
 
+	public void getMove() {
+		if(!returnText.isEmpty()) {
+			String direction = returnText.get(0);
+			System.out.println(direction);
+			switch(direction) {
+				case "up":
+					gameplay.player.y-=10;
+					returnText.clear();
+					break;
+				case "down":
+					gameplay.player.y+=10;
+					returnText.clear();
+					break;
+				case "right":
+					gameplay.player.x+=10;
+					returnText.clear();
+					break;
+				case "left":
+					gameplay.player.x-=10;
+					returnText.clear();
+					break;
+				
+			}
+
+		}
+		
+	}
 	@Override
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
@@ -97,8 +125,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 					returnText.notify();
 				}*/
 		}
-		player.getMove();
-		System.out.println(returnText.get(0));
+		getMove();
 	}
 
 	public void keyReleased(KeyEvent e) {
