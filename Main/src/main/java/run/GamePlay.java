@@ -17,18 +17,20 @@ public class GamePlay implements Runnable{
 	public DrawScreen r;
 	public String returnText = " ";
 	public Player player = new Player(this);
+	
+	
 	public GamePlay(DrawScreen r) {
 		this.r = r;
 	}
 	
 	public void newFight(Enemy e) {
 		r.setVisible(false);
-		r.window.add(new MainFightPanel(e));
+		r.window.add(new MainFightPanel(e,this));
 	}
 	
 	public void newFight(ArrayList<Enemy> e) {
 		r.setVisible(false);
-		r.window.add(new MainFightPanel(e));
+		r.window.add(new MainFightPanel(e,this));
 	}
 	
 	public void go() {

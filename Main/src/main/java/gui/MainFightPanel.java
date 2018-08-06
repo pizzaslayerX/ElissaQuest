@@ -31,10 +31,12 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import entities.Enemy;
+import run.GamePlay;
 import run.Window;
 
 public class MainFightPanel extends JPanel implements KeyListener{
 	private ArrayList<Enemy> enemies;
+	public GamePlay gameplay;
     public FlowLayout layout;
     public JLabel label;
     public static JLabel picSpace;
@@ -45,7 +47,8 @@ public class MainFightPanel extends JPanel implements KeyListener{
     private static int choice = -1;
     public static boolean choosing = true;
     
-	public MainFightPanel(Enemy e){
+	public MainFightPanel(Enemy e, GamePlay gp){
+		gameplay = gp;
 		enemies = new ArrayList<Enemy>();
 		enemies.add(e);
 		try {
@@ -57,7 +60,9 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		update(1);
 	}
 	
-	public MainFightPanel(ArrayList<Enemy> e) {
+	
+	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) {
+		gameplay = gp;
 		enemies = new ArrayList<Enemy>();
 		enemies.addAll(e);
 		try {
