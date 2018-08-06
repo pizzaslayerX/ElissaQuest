@@ -97,6 +97,33 @@ public class Maze {
 		}
 	}
  
+	public void generateDungeons(int a) {
+		ArrayList<int[]> possibleSpots = new ArrayList<int[]>();
+		for(int i = 1; i < x - 1; i++) for(int j = 1; j < y - 1; j++) possibleSpots.add(new int[]{i, j});
+		for(int i = -2; i < 3; i++) for(int j = -2; j < 3; j++) arrayRemove(possibleSpots, startx + i, starty + j);
+		for(int i = 0; i < a; i++) makeDungeon(possibleSpots);
+	}
+	
+	public void makeDungeon(ArrayList<int[]> spots) {
+		int[] spot = spots.get((int)(Math.random()*spots.size()));
+		Dungeon dungeon = new Dungeon(new ArrayList<int[]>(), null, null); //  change null null
+		for(int i = -3; i < 4; i++) for(int j = -3; j < 4; j++) {
+			arrayRemove(spots, spot[0] + i, spot[1] + j);
+			if(i < 2 && i > -2 && j < 2 && j > -2) {
+				if(i != 0 || j != 0) {
+					interactives[spot[0] + i][spot[1] + j] = new DungeonArea(dungeon, spot);
+					dungeon.area.add(new int[]{spot[0] + i, spot[1] + j});
+				}
+				maze[spot[0] + i][spot[1] + j] = 15;
+				if(i == -1) maze[spot[0] + i][spot[1] + j] -= 8;
+				if(i == 1) maze[spot[0] + i][spot[1] + j] -= 4;
+				if(j == -1) maze[spot[0] + i][spot[1] + j] -= 1;
+				if(j == 1) maze[spot[0] + i][spot[1] + j] -= 2;
+			}
+		}
+		interactives[spot[0]][spot[1]] = dungeon;
+	}
+	
 	private static boolean between(int v, int upper) {
 		return (v >= 0) && (v < upper);
 	}
@@ -122,5 +149,12 @@ public class Maze {
 			this.dy = dy;
 		}
 	};
- 
+	
+	private static boolean arrayRemove(ArrayList<int[]> ar, int... o) {
+		for(int[] i : ar) if(Arrays.equals(i, o)){
+			 ar.remove(i);
+			 return true;
+		}
+		return false;
+	}
 }
