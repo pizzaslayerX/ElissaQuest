@@ -266,10 +266,10 @@ public class MainFightPanel extends JPanel implements KeyListener{
 	}
 	
 
-	private void update(int num) {
+	private int update(int num) {
 		if(num == 0){
 			hideMenu();
-			return;
+			return -1;
 		}
 		choice += num;
 		if(choice < 0)
@@ -289,7 +289,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 			item.setBackground(Color.BLACK);
 			special.setBackground(Color.GRAY);
 		}
-		
+		return choice;
 	}
 	
 
