@@ -68,15 +68,14 @@ public class GamePlay implements Runnable{
 	public void run() {
 		ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
 		ses.scheduleAtFixedRate(new Runnable() {public void run() {
-			final int[] count = new int[]{0};
 			ScheduledExecutorService blink = Executors.newSingleThreadScheduledExecutor();
 			blink.scheduleAtFixedRate(new Runnable() {public void run() {
-				blinkMode++;
+				if(blinkMode++ >= 7) {
+					blinkMode = 0;
+					blink.shutdown();
+				}
 				r.repaint();
-				count[0]++;
-				if(count[0] >= 7) blink.shutdown();
-			}}, 0, 250, TimeUnit.MILLISECONDS);
-			blinkMode = 0;
+			}}, 0, 100, TimeUnit.MILLISECONDS);
 		}}, 8, 8, TimeUnit.SECONDS);
 		go();
 	}
