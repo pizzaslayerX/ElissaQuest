@@ -45,6 +45,10 @@ public class ElissaQuest extends Applet implements KeyListener, Runnable, MouseL
 	private Thread t;
 	public Player player = new Player();
 
+	public static int x =0;
+	public static int y = 0;
+	
+
     private BufferedImage testImage;
 	public final List<String> returnText = new LinkedList<String>();
 	
@@ -119,6 +123,11 @@ public class ElissaQuest extends Applet implements KeyListener, Runnable, MouseL
 	
 	public static void main(String[] args) {
 		ElissaQuest main = new ElissaQuest();
+		
+		frame = new JFrame();
+		layout = new FlowLayout(FlowLayout.LEADING, 0, 0);
+		canvas = new Canvas();
+		
 		canvas.setSize(SCREEN_SIZE);
 	    layout.setVgap(0);
 	    frame.setResizable(false);
@@ -168,17 +177,11 @@ public class ElissaQuest extends Applet implements KeyListener, Runnable, MouseL
             return;
         }
 
-
+        player.getMove();
         g = getCanvas().getGraphics();
-        g.drawImage(testImage, 20, 20, null);
+        g.drawImage(testImage, x, y, null);
     }
 	
-	public ElissaQuest() {
-		setPreferredSize(SCREEN_SIZE);
-		frame = new JFrame();
-		layout = new FlowLayout(FlowLayout.LEADING, 0, 0);
-		canvas = new Canvas();
-	}
 	
 	public void init() {
 		setFocusable(true);
