@@ -170,9 +170,9 @@ public class DrawScreen extends JPanel implements KeyListener{
 					returnText.notify();
 				}*/
 		}
-
 		repaint();
 	  }
+	  
 
 	}
 

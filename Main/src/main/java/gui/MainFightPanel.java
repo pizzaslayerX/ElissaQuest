@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -39,6 +41,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
     public JPanel fightPanel,user;
     public static JTextPane attack,item,special;
     public static JPanel picArea,enemy,blankEnemy;
+    public final List<String> returnText = new LinkedList<String>();
     
 	public MainFightPanel(Enemy e){
 		enemies = new ArrayList<Enemy>();
@@ -99,7 +102,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 	}
 	
 	public void init(String pic) throws Exception {
-
+		repaint();
 		setPreferredSize(Window.GAME_SIZE);
 		setBackground(Color.BLACK);
 		setForeground(Window.FOREGROUND_COLOR);
@@ -159,21 +162,21 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		attack = new JTextPane();
 		attack.setEditable(false);
 		attack.setMaximumSize(new Dimension(550,170));
-		attack.setBackground(Color.LIGHT_GRAY);
+		attack.setBackground(Color.BLACK);
 		attack.setVisible(true);
 		attack.setBorder(d);
 		
 		item = new JTextPane();
 		item.setEditable(false);
 		item.setMaximumSize(new Dimension(550,170));
-		item.setBackground(Color.GRAY);
+		item.setBackground(Color.BLACK);
 		item.setVisible(true);
 		item.setBorder(s);
 		
 		special = new JTextPane();
 		special.setEditable(false);
 		special.setMaximumSize(new Dimension(550,170));
-		special.setBackground(Color.BLUE);
+		special.setBackground(Color.BLACK);
 		special.setVisible(true);
 		special.setBorder(a);
 		
@@ -185,33 +188,56 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		user.add(item);
 		add(enemy);	
 		add(user);	
-		repaint();
-	}
-
-	@Override
-    public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		drawObjects(g);
-		Toolkit.getDefaultToolkit().sync();
-	}
-	
-	private void drawObjects(Graphics g) {
-		g.setFont(new Font("TimesRoman", Font.PLAIN, 50)); 
-		g.drawString("Attack",0,100);
-	}
-	
-	
-	
-	
-	
-	
-	
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 		
+		append(attack," ATTACK",Color.WHITE,120,false);
+		append(special," SPECIAL",Color.WHITE,115,false);
+		append(item,"   ITEM",Color.WHITE,130,false);
 	}
 
+	
+	
+	
+	
+	
+	
+	@Override
+	public void keyPressed(KeyEvent e) {
+		switch(e.getKeyCode()) {
+		
+		case KeyEvent.VK_DOWN:
+				synchronized(returnText) {
+					returnText.add("down");
+					returnText.notify();
+				}
+			break;
+		case KeyEvent.VK_W:
+				synchronized(returnText) {
+					returnText.add("up");
+					returnText.notify();
+				}
+			break;
+		case KeyEvent.VK_UP:
+				synchronized(returnText) {
+					returnText.add("up");
+					returnText.notify();
+				}
+			break;
+		case KeyEvent.VK_S:
+				synchronized(returnText) {
+					returnText.add("down");
+					returnText.notify();
+				}
+			break;
+		case KeyEvent.VK_ENTER:
+			synchronized(returnText) {
+				returnText.add("enter");
+				returnText.notify();
+			}
+	   }
+	}
+
+	
+	
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
