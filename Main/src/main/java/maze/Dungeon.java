@@ -17,8 +17,7 @@ public class Dungeon implements Interactive {
 	}
 	@Override
 	public void interact(GamePlay r) {
-		// TODO Auto-generated method stub
-
+		r.newFight(enemies);
 	}
 
 	@Override

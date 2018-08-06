@@ -20,6 +20,9 @@ public class Weapon extends Item { //add stamina reduction
 	public double sparkBonus;
 	public double lifeSteal;
 	
+
+	
+
 	
 	public ArrayList<Probability<StatusEffect>> atkEnemyEffects;
 	public ArrayList<Probability<StatusEffect>> atkSelfEffects;
@@ -127,7 +130,7 @@ public class Weapon extends Item { //add stamina reduction
 
 		public static String[] weaponA = {"Angry","Trusting","Hot","Metal","Chubby","Retarded","Happy","Swift","Szchenic","Demonic","Cold","Copper","Wooden","Silky","Sharp"};
 		public static String[] weaponB = {"Ball","Knife","Sword","Balloon","Rapier","Gauntlets","Hatchet","Shovel","Spoon","Sickle","Sling","Bow","Slicer","Stabber","Smasher","Bat"};
-
+		public static String[] weaponC = {"You assault %2$s.","You flail your weapon wildly.","Ouch.","You hit the enemy on the nose!","Your weapon slices through tender meat.","Oof.","You throw your weapon at %2$s."};
 		
 		public static Weapon fist() {
 			return new Weapon("Punch", "%1$s punch %2$s", 1, 0, new double[]{.5, 2});
@@ -172,7 +175,7 @@ public class Weapon extends Item { //add stamina reduction
 		
 		public static Weapon randWeapon1() {
 			double dmg = Math.random()*19+1;
-			return new Weapon(weaponA[(int)(Math.random()*weaponA.length)] + " " + weaponB[(int)(Math.random()*weaponB.length)], "" ,dmg, Math.random()*dmg, (int)(Math.random()*3)+1, Math.random()*.5, Math.random(), null, null);
+			return new Weapon(weaponA[(int)(Math.random()*weaponA.length)] + " " + weaponB[(int)(Math.random()*weaponB.length)], weaponC[(int)(Math.random()*weaponC.length)] ,dmg, Math.random()*dmg, (int)(Math.random()*3)+1, Math.random()*.5, Math.random(), new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect(Effect.debuff().get((int)(Math.random()*Effect.debuff().size())), 1, 3), .4*Math.random()))), null);
 		}
 		
 		/*
