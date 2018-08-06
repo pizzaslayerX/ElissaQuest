@@ -77,18 +77,18 @@ public class DrawScreen extends JPanel implements KeyListener{
 		g.drawImage(test,gameplay.player.x,gameplay.player.y,this);
 		g.setColor(Color.WHITE);
 		for(int i = 0; i < gameplay.maze.x; i++) for(int j = 0; j < gameplay.maze.y; j++) {
-			boolean boola = (~gameplay.maze.maze[i][j] & 1) != 0;
-			boolean boolb = (~gameplay.maze.maze[i][j] & 2) != 0;
+			g.drawRect(-1, -1, mazeSize*gameplay.maze.x, 1);
+			g.drawRect(-1, -1, 1, mazeSize*gameplay.maze.y);
 			boolean boolc = (~gameplay.maze.maze[i][j] & 4) != 0;
-			boolean boold = (~gameplay.maze.maze[i][j] & 8) != 0;
-			if(boola) g.drawRect(i*mazeSize, j*mazeSize, mazeSize-1, 0);
-			if(boolb) g.drawRect((i+1)*mazeSize-1, j*mazeSize, 0, mazeSize-1);
-			if(boolc) g.drawRect(i*mazeSize, (j+1)*mazeSize-1, mazeSize-1, 0);
-			if(boold) g.drawRect(i*mazeSize, j*mazeSize, 0, mazeSize-1);
-			if(boola && boolb && j > 0) g.drawRect(i*mazeSize+mazeSize,j*mazeSize-1,0,0);
+			boolean boolb = (~gameplay.maze.maze[i][j] & 2) != 0;
+			//if(boola) g.drawRect(i*mazeSize, j*mazeSize, mazeSize-1, 0);
+			if(boolb) g.drawRect((i+1)*mazeSize-1, j*mazeSize-1, 1, mazeSize+1);
+			if(boolc) g.drawRect(i*mazeSize-1, (j+1)*mazeSize-1, mazeSize+1, 1);
+			//if(boold) g.drawRect(i*mazeSize, j*mazeSize, 0, mazeSize-1);
+			/*if(boola && boolb && j > 0) g.drawRect(i*mazeSize+mazeSize,j*mazeSize-1,0,0);
 			if(boolb && boolc) g.drawRect(i*mazeSize+mazeSize,j*mazeSize+mazeSize,0,0);
 			if(boolc && boold && i > 0) g.drawRect(i*mazeSize-1,j*mazeSize+mazeSize,0,0);
-			if(boold && boola && j > 0 && i >0) g.drawRect(i*mazeSize-1,j*mazeSize-1,0,0);
+			if(boold && boola && j > 0 && i >0) g.drawRect(i*mazeSize-1,j*mazeSize-1,0,0);*/
 		}
 	}
 	
