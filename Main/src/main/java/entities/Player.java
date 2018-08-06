@@ -10,7 +10,7 @@ public class Player {
 		runner = e;
 		level = 1;
 
-	}
+	}//h
 	
 	
 	public void getMove() {
