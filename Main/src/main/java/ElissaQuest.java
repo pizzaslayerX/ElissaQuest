@@ -27,9 +27,10 @@ import java.util.regex.Pattern;
 
 import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
+import javax.swing.JApplet;
 import javax.swing.JFrame;
 
-public class ElissaQuest extends Applet implements KeyListener, Runnable, MouseListener {
+public class ElissaQuest extends JApplet implements KeyListener, Runnable, MouseListener {
 	private static final long serialVersionUID = 1L;
 	public static final Dimension SCREEN_SIZE = new Dimension(1270, 662);
 	public static final Dimension GAME_SIZE = new Dimension(1270, 662);
@@ -43,7 +44,8 @@ public class ElissaQuest extends Applet implements KeyListener, Runnable, MouseL
 	private Graphics g;
 	private BufferStrategy bs;
 	private Thread t;
-	public Player player = new Player();
+	public GamePlay gameplay = new GamePlay(this);
+	public Player player = new Player(this);
 
 	public static int x =0;
 	public static int y = 0;
@@ -78,7 +80,9 @@ public class ElissaQuest extends Applet implements KeyListener, Runnable, MouseL
 	}
 
 	public void keyPressed(KeyEvent e) {
+		
 		switch(e.getKeyCode()) {
+		
 			case KeyEvent.VK_A:
 					synchronized(returnText) {
 						returnText.add("left");
@@ -109,6 +113,7 @@ public class ElissaQuest extends Applet implements KeyListener, Runnable, MouseL
 					returnText.notify();
 				}*/
 		}
+		System.out.println(returnText.get(0));
 	}
 
 	public void keyReleased(KeyEvent e) {
@@ -136,6 +141,7 @@ public class ElissaQuest extends Applet implements KeyListener, Runnable, MouseL
 		frame.setTitle(TITLE);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		//wwijw
 		canvas.setPreferredSize(GAME_SIZE);
         canvas.setMaximumSize(GAME_SIZE);
         canvas.setMinimumSize(GAME_SIZE);
@@ -186,8 +192,8 @@ public class ElissaQuest extends Applet implements KeyListener, Runnable, MouseL
 	public void init() {
 		setFocusable(true);
 		testImage = ImageLoader.loadImage("src/res/pics/test.jpg");
-		//textIn.addKeyListener(this);
-		//text.addMouseListener(this);
+		addKeyListener(this);
+		addMouseListener(this);
 	}
 	
 	@Override
