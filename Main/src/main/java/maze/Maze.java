@@ -66,7 +66,7 @@ public class Maze implements Interactive{
 		Collections.shuffle(spots);
 		for(int i = 0; i < spots.size()/20d; i++) {
 			if(i < spots.size()*7/200d) {
-				interactives[spots.get(i)[0]][spots.get(i)[1]] = new Enemy();
+				interactives[spots.get(i)[0]][spots.get(i)[1]] = Enemy.Enemies.skeleton();
 			} else {
 				interactives[spots.get(i)[0]][spots.get(i)[1]] = new Chest();
 			}

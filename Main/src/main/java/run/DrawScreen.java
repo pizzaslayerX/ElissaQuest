@@ -56,7 +56,6 @@ public class DrawScreen extends JPanel implements KeyListener{
 		setFocusable(true);
 		setDoubleBuffered(true);
 		addKeyListener(this);
-		gameplay.newFight(new Enemy());
 		
 		loadImage("state1.png");
 		loadImage2("circle.png");
@@ -285,7 +284,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 	}*/
 	@Override
 	public void keyPressed(KeyEvent e) {
-	  //if(!GamePlay.openPanel) {
+	  if(!GamePlay.openPanel) {
 		switch(e.getKeyCode()) {
 		
 			case KeyEvent.VK_A:
@@ -333,7 +332,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 					returnText.add(textIn.getText());
 					returnText.notify();
 				}*/
-		//}
+		}
 		//repaint();
 	  }
 	  

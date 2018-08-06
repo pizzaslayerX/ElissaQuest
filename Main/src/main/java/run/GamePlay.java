@@ -15,7 +15,7 @@ import maze.Maze;
  
 public class GamePlay implements Runnable{
 	public int scale = 2;
-	  public static boolean openPanel = true;
+	  public static boolean openPanel = false;
 	public Maze maze;
 	public DrawScreen r;
 	public String returnText = " ";
@@ -29,11 +29,13 @@ public class GamePlay implements Runnable{
 	
 	public void newFight(Enemy e) {
 		r.setVisible(false);
+		openPanel = true;
 		r.window.add(new MainFightPanel(e,this));
 	}
 	
 	public void newFight(ArrayList<Enemy> e) {
 		r.setVisible(false);
+		openPanel = true;
 		r.window.add(new MainFightPanel(e,this));
 	}
 	

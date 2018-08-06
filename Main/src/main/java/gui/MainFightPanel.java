@@ -247,7 +247,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-	  if(choosing == true) {
+	  if(gameplay.openPanel && choosing == true) {
 		switch(e.getKeyCode()) {
 		
 		case KeyEvent.VK_DOWN:
