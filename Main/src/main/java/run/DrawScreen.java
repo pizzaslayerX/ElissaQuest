@@ -30,6 +30,10 @@ public class DrawScreen extends JPanel implements KeyListener{
 	private static BufferedImage right;
 	private static BufferedImage down;
 	private static BufferedImage left;
+	private static BufferedImage small;
+	private static BufferedImage med;
+	private static BufferedImage large;
+	private static BufferedImage max;
 	public GamePlay gameplay = new GamePlay(this);
 	public Window window;
 	private static int moveVal = 0;
@@ -60,6 +64,10 @@ public class DrawScreen extends JPanel implements KeyListener{
 		loadImage4("1000x250.png");
 		loadImage5("2250x1000.png");
 		loadImage6("1000x250.png");
+		loadImage7("EnemyLight1.png");
+		loadImage8("EnemyLight2.png");
+		loadImage9("EnemyLight3.png");
+		loadImage10("EnemyLight4.png");
 	}
 	
 	 private static void loadImage(String fileName){
@@ -130,6 +138,50 @@ public class DrawScreen extends JPanel implements KeyListener{
              System.exit(1);
          }
      }
+	 private static void loadImage7(String fileName){
+
+         try {
+             small = ImageIO.read(new File("src/res/pics/"+fileName)); 
+
+         } catch (IOException e) {
+             e.printStackTrace();
+             System.out.println("Image could not be read: "+fileName);
+             System.exit(1);
+         }
+     }
+	 private static void loadImage8(String fileName){
+
+         try {
+             med = ImageIO.read(new File("src/res/pics/"+fileName)); 
+
+         } catch (IOException e) {
+             e.printStackTrace();
+             System.out.println("Image could not be read: "+fileName);
+             System.exit(1);
+         }
+     }
+	 private static void loadImage9(String fileName){
+
+         try {
+             large = ImageIO.read(new File("src/res/pics/"+fileName)); 
+
+         } catch (IOException e) {
+             e.printStackTrace();
+             System.out.println("Image could not be read: "+fileName);
+             System.exit(1);
+         }
+     }
+	 private static void loadImage10(String fileName){
+
+         try {
+             max = ImageIO.read(new File("src/res/pics/"+fileName)); 
+
+         } catch (IOException e) {
+             e.printStackTrace();
+             System.out.println("Image could not be read: "+fileName);
+             System.exit(1);
+         }
+     }
 	    
 	
 	@Override
@@ -160,7 +212,32 @@ public class DrawScreen extends JPanel implements KeyListener{
 			boolean boolb = (~gameplay.maze.maze[i][j] & 2) != 0;
 			if(boolb) g.drawRect((i+1)*mazeSize-1, j*mazeSize-1, 1, mazeSize+1);
 			if(boolc) g.drawRect(i*mazeSize-1, (j+1)*mazeSize-1, mazeSize+1, 1);
-			//if(gameplay.maze.interactives[i][j] instanceof Interactive) g.drawImage(img, x, y, observer);
+			if(gameplay.maze.interactives[i][j] instanceof Interactive) switch(gameplay.blinkMode) {
+				case 0:
+					g.drawImage(small, 60000, 6000, this);
+					break;
+				case 1:
+					g.drawImage(small, i*mazeSize, j*mazeSize, this);
+					break;
+				case 2:
+					g.drawImage(med, i*mazeSize, j*mazeSize, this);
+					break;
+				case 3:
+					g.drawImage(large, i*mazeSize, j*mazeSize, this);
+					break;
+				case 4:
+					g.drawImage(max, i*mazeSize, j*mazeSize, this);
+					break;
+				case 5:
+					g.drawImage(large, i*mazeSize, j*mazeSize, this);
+					break;
+				case 6:
+					g.drawImage(med, i*mazeSize, j*mazeSize, this);
+					break;
+				case 7:
+					g.drawImage(small, i*mazeSize, j*mazeSize, this);
+					break;
+			}
 		}
 		g.drawImage(FOV, gameplay.player.x-117, gameplay.player.y-117, this);
 		g.drawImage(left, gameplay.player.x-1117, gameplay.player.y-117, this);
