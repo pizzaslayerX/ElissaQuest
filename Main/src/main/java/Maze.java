@@ -14,7 +14,7 @@ import java.util.Arrays;
  * shamelessly borrowed from the ruby at
  * http://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking
  */
-public class Maze {
+public class Maze implements Interactive{
 	public final int x;
 	public final int y;
 	public final int[][] maze;
@@ -159,5 +159,17 @@ public class Maze {
 			 return true;
 		}
 		return false;
+	}
+
+	@Override
+	public void interact(ElissaQuest r) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void disappear(Interactive[][] arr, int a, int b) {
+		// TODO Auto-generated method stub
+		
 	}
 }
