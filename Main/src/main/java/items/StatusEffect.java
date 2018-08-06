@@ -3,6 +3,7 @@ package items;
 import java.util.Collections;
 
 import entities.Entity;
+import maze.MultiplierUtils;
 
 public class StatusEffect implements Comparable<StatusEffect> {
 	public Effect effect;
@@ -52,33 +53,9 @@ public class StatusEffect implements Comparable<StatusEffect> {
 		return false;
 	}
 	
-	private String romanNumeral(int a) {
-		if(a == 0) return "";
-		if(a >= 4000) return " " + a;
-		String numerals = "IVXLCDM";
-		String str = "";
-		int b = a;
-		for(int i = 0; b > 0; i += 2) {
-			int c = b % 10;
-			switch(c) {
-				case 1: case 2: case 3:
-					str = String.join("", Collections.nCopies(c, numerals.substring(i, i + 1))) + str;
-				case 4:
-					str = numerals.substring(i, i + 2) + str;
-					break;
-				case 5: case 6: case 7: case 8:
-					str = numerals.substring(i + 1, i + 2) + String.join("", Collections.nCopies(c - 5, numerals.substring(i, i + 1))) + str;
-					break;
-				case 9:
-					str = numerals.substring(i, i + 1) + numerals.substring(i + 2, i + 3) + str;
-			}
-			b /= 10;
-		}
-		return " " + str;
-	}
 	
 	public String toString() {
-		return effect.name + romanNumeral(potency);
+		return effect.name + MultiplierUtils.romanNumeral(potency);
 	}
 
 	@Override

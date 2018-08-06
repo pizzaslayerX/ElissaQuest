@@ -76,6 +76,11 @@ public enum Effect {
 	}), 
 	curse("Curse", (e,p) -> {
 		e.currWeapon.atkSelfEffects.add(new Probability<StatusEffect>(new StatusEffect(debuff().get((int)(Math.random()*Effect.debuff().size())), (int)(p*(.5 + Math.random()*.5)), (int)(p*3*(.5 + Math.random()*.5))), 1-20/(20d+p)));
+	},(e,p) -> {
+		e.currWeapon.atkSelfEffects.add(new Probability<StatusEffect>(new StatusEffect(debuff().get((int)(Math.random()*Effect.debuff().size())), (int)(p*(.5 + Math.random()*.5)), (int)(p*3*(.5 + Math.random()*.5))), 1-20/(20d+p)));
+	},null),
+	lifeSteal("Life Steal", (e,p) -> {
+		e.currWeapon.lifeSteal += p/20d;
 	});
 	
 	public String name;
