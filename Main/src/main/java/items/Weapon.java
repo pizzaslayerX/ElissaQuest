@@ -20,9 +20,9 @@ public class Weapon extends Item { //add stamina reduction
 	public double sparkBonus;
 	public double lifeSteal;
 	
-	public static String[] weaponA = {"Angry","Trusting","Hot","Metal","Chubby","Retarded","Happy","Swift","Szchenic","Demonic","Cold","Copper","Wooden","Silky","Sharp"};
+	public static String[] weaponA = {"Angry","Trusting","Hot","Metal","Chubby","Retarded","Happy","Swift","Szchenic","Demonic","Cold","Copper","Wooden","Silky","Sharp","Forceful"};
 	public static String[] weaponB = {"Ball","Knife","Sword","Balloon","Rapier","Gauntlets","Hatchet","Shovel","Spoon","Sickle","Sling","Bow","Slicer","Stabber","Smasher","Bat"};
-
+	public static String[] weaponC = {"You assault %2$s.","You flail your weapon wildly.","Ouch.","You hit the enemy on the nose!","Your weapon slices through tender meat.","Oof.","You throw your weapon at %2$s."};
 	
 	
 	public ArrayList<Probability<StatusEffect>> atkEnemyEffects;
