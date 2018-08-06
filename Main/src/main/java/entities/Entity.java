@@ -5,6 +5,7 @@ import items.StatusEffect;
 import items.Weapon;
 import misc.Probability;
 import run.ElissaRunner;
+import run.GamePlay;
 
 public abstract class Entity { //add armor slots
 	public String name;
@@ -39,7 +40,7 @@ public abstract class Entity { //add armor slots
 	public ArrayList<StatusEffect> statusEffects = new ArrayList<StatusEffect>();
 	
 	@SuppressWarnings("static-access")
-	public void attack(Entity e, ElissaRunner r) { //add slow multi hit display (maybe in enhancements?)
+	public void attack(Entity e, GamePlay g) { //add slow multi hit display (maybe in enhancements?)
 		double sparkMultiplier = 1;
 		for(int i = 0; i < currWeapon.hits; i++) {
 			double dmg = currWeapon.baseDmg - currWeapon.range + (.7 + .3*Math.random())*currWeapon.range*(1.5 + stamina/maxStamina - e.stamina/e.maxStamina);

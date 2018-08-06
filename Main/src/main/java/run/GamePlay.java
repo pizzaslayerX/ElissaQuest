@@ -7,7 +7,7 @@ public class GamePlay {
 	public Maze maze;
 	public DrawScreen r;
 	public String returnText = "";
-	public Player player = new Player();
+	public Player player = new Player(this);
 	public GamePlay(DrawScreen r) {
 		this.r = r;
 	}

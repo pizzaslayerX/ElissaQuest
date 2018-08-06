@@ -1,11 +1,12 @@
 package entities;
 
 import run.ElissaRunner;
+import run.GamePlay;
 
 public class Enemy extends Entity implements Interactive{
 
 	@Override
-	public void interact(ElissaRunner r) {
+	public void interact(GamePlay r) {
 		// TODO Auto-generated method stub
 		
 	}
