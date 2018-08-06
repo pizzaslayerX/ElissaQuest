@@ -4,6 +4,7 @@ import entities.Player;
 import maze.Maze;
 
 public class GamePlay {
+	public int scale = 10;
 	public Maze maze;
 	public DrawScreen r;
 	public String returnText = "";

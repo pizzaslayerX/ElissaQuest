@@ -14,7 +14,7 @@ public class Player extends Entity{
 	}//h
 	
 	
-	public void getMove() {
+	/*public void getMove() {
 		if(!runner.returnText.isEmpty()) {
 			direction = runner.r.returnText.get(0);
 			System.out.println(direction);
@@ -41,5 +41,5 @@ public class Player extends Entity{
 			runner.r.returnText.clear();
 		}
 		
-	}
+	}*/
 }
