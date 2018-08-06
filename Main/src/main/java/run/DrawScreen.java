@@ -23,6 +23,8 @@ public class DrawScreen extends JPanel implements KeyListener{
 	public final List<String> returnText = new LinkedList<String>();
 	private static BufferedImage test;
 	public GamePlay gameplay = new GamePlay(this);
+	private static int moveVal = 0;
+	private static boolean state1 = true;
 	public DrawScreen() {
 		init();
 	}
@@ -54,6 +56,12 @@ public class DrawScreen extends JPanel implements KeyListener{
 	
 	@Override
     public void paintComponent(Graphics g) {
+		if(moveVal < 5)
+			moveVal++;
+		else {
+			moveVal = 0;
+			animate();
+		}
 		Graphics2D g2 = (Graphics2D) g;
 		//g2.translate(this.getWidth()/2, this.getHeight()/2);
 		g2.scale(3, 3);
@@ -66,8 +74,18 @@ public class DrawScreen extends JPanel implements KeyListener{
 	private void drawObjects(Graphics g) {
 		g.drawImage(test,gameplay.player.x,gameplay.player.y,this);
 	}
+	
+	private void animate() {
+		state1 = !state1;
+		if(!state1) {
+			loadImage("src/res/pics/state2.png");
+			return;
+		}
+		loadImage("src/res/pics/state1.png");
+	}
 
 	/*public void getMove() {
+
 		if(!returnText.isEmpty()) {
 			String direction = returnText.get(0);
 			System.out.println(direction);
