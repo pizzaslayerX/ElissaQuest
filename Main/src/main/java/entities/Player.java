@@ -1,7 +1,7 @@
 package entities;
 import run.ElissaRunner;
 
-public class Player {
+public class Player extends Entity{
 	public ElissaRunner runner;
 	private String direction;
 	public int level;

@@ -1,6 +1,7 @@
 package maze;
 import java.util.ArrayList;
 
+import entities.Enemy;
 import entities.Interactive;
 import run.ElissaRunner;
 

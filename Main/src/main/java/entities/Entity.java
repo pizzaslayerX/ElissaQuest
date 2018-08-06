@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import items.StatusEffect;
 import items.Weapon;
+import misc.Probability;
 import run.ElissaRunner;
 
 public abstract class Entity { //add armor slots
@@ -13,9 +14,13 @@ public abstract class Entity { //add armor slots
 	public int maxMana;
 	public int baseMaxMana;
 	public int mana;
+	public double baseSparkMitigation;
+	public double sparkMitigation; //0 - 1
 	public double maxStamina;
 	public double baseMaxStamina;
 	public double stamina;
+	public int baseEndurance; // base 0
+	public int endurance;
 	public int healthRegen; //base 0?
 	public int baseHealthRegen;
 	public int manaRegen;
@@ -35,26 +40,36 @@ public abstract class Entity { //add armor slots
 	
 	@SuppressWarnings("static-access")
 	public void attack(Entity e, ElissaRunner r) { //add slow multi hit display (maybe in enhancements?)
-		double dmg = currWeapon.baseDmg - currWeapon.range + Math.random()*currWeapon.range*(2 + stamina/maxStamina - e.stamina/e.maxStamina);
-		int critCount = 0;
-		for(double[] c : currWeapon.criticals) if(Math.random() < c[0]) {
-			dmg *= c[1];
-			critCount++;
-			r.pause(500);
-			r.text.append("\n" + (tuple(critCount) + "critical!").toUpperCase() + "\tx" + (int)(c[1]*100) + "%");
-		}
-		int dmg1 = (int) Math.max(1, Math.round(atkMultiplier*e.dmgMultiplier*(1 - e.defense)*dmg - e.flatDefense));
-		int dmg2 = (int) Math.max(1, Math.round(atkMultiplier*dmgMultiplier*e.dmgReflect*(1 - defense)*dmg - flatDefense));
-		e.health -= dmg1;
-		r.pause(1500);
-		r.text.append("\n" + dmg1 + " damage");
-		e.stamina = Math.max(0, e.stamina - dmg1*currWeapon.staminaDepletion - currWeapon.flatStaminaDepletion);
-		if(e.dmgReflect != 0) {
-			health -= dmg2;
+		double sparkMultiplier = 1;
+		for(int i = 0; i < currWeapon.hits; i++) {
+			double dmg = currWeapon.baseDmg - currWeapon.range + (.7 + .3*Math.random())*currWeapon.range*(1.5 + stamina/maxStamina - e.stamina/e.maxStamina);
+			if(i > 0 && Math.random() < currWeapon.sparkChance) {
+				sparkMultiplier *= 1 + e.sparkMitigation*currWeapon.sparkBonus; 
+				r.text.append("\nSpark!\tx " + (int)(100*(1 + e.sparkMitigation*currWeapon.sparkBonus)) + "%");
+			}
+			dmg *= sparkMultiplier;
+			int critCount = 0;
+			for(double[] c : currWeapon.criticals) if(Math.random() < c[0]) {
+				dmg *= c[1];
+				critCount++;
+				r.pause(500);
+				r.text.append("\n" + (tuple(critCount) + "critical!").toUpperCase() + "\tx" + (int)(c[1]*100) + "%");
+			}
+			int dmg1 = (int) Math.max(1, Math.round(atkMultiplier*e.dmgMultiplier*(1 - e.defense)*dmg - e.flatDefense));
+			int dmg2 = (int) Math.max(1, Math.round(atkMultiplier*dmgMultiplier*e.dmgReflect*(1 - defense)*dmg - flatDefense));
+			e.health -= dmg1;
 			r.pause(1500);
-			r.text.append("\n" + dmg2 + " reflect damage");
-			stamina = Math.max(0, stamina - dmg2*currWeapon.staminaDepletion - currWeapon.flatStaminaDepletion);
+			r.text.append("\n" + dmg1 + " damage");
+			e.stamina = Math.max(0, e.stamina - 50/(50d+e.endurance)*(dmg1*currWeapon.staminaDepletion + currWeapon.flatStaminaDepletion));
+			if(e.dmgReflect != 0) {
+				health -= dmg2;
+				r.pause(1500);
+				r.text.append("\n" + dmg2 + " reflect damage");
+				stamina = Math.max(0, stamina - 50/(50d+endurance)*(dmg2*currWeapon.staminaDepletion + currWeapon.flatStaminaDepletion));
+			}
 		}
+		for(Probability<StatusEffect> prob : currWeapon.atkEnemyEffects) if(prob.execute()) prob.item.addTo(e);
+		for(Probability<StatusEffect> prob : currWeapon.atkSelfEffects) if(prob.execute()) prob.item.addTo(this);
 	}
 	/* avg damage:
 		double dmg = baseDmg;
