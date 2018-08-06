@@ -1,5 +1,8 @@
+package items;
 
 import java.util.Collections;
+
+import entities.Entity;
 
 public class StatusEffect implements Comparable<StatusEffect> {
 	public Effect effect;

@@ -1,4 +1,9 @@
+package entities;
 import java.util.ArrayList;
+
+import items.StatusEffect;
+import items.Weapon;
+import run.ElissaRunner;
 
 public abstract class Entity { //add armor slots
 	public String name;
@@ -29,7 +34,7 @@ public abstract class Entity { //add armor slots
 	public ArrayList<StatusEffect> statusEffects = new ArrayList<StatusEffect>();
 	
 	@SuppressWarnings("static-access")
-	public void attack(Entity e, ElissaQuest r) { //add slow multi hit display (maybe in enhancements?)
+	public void attack(Entity e, ElissaRunner r) { //add slow multi hit display (maybe in enhancements?)
 		double dmg = currWeapon.baseDmg - currWeapon.range + Math.random()*currWeapon.range*(2 + stamina/maxStamina - e.stamina/e.maxStamina);
 		int critCount = 0;
 		for(double[] c : currWeapon.criticals) if(Math.random() < c[0]) {

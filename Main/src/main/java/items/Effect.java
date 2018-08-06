@@ -1,5 +1,8 @@
+package items;
 
 import java.util.function.BiConsumer;
+
+import entities.Entity;
 
 public enum Effect {
 	vitality("Vitality", (e, p) -> {}, (e, p) -> { 
