@@ -4,10 +4,10 @@ import entities.Player;
 import maze.Maze;
 
 public class GamePlay {
-	public int scale = 10;
+	public int scale = 2;
 	public Maze maze;
 	public DrawScreen r;
-	public String returnText = "";
+	public String returnText = " ";
 	public Player player = new Player(this);
 	public GamePlay(DrawScreen r) {
 		this.r = r;

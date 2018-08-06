@@ -170,30 +170,26 @@ public class Maze implements Interactive{
 
 	@Override
 	public void interact(GamePlay g) {
-		while(interactives[endx][endy] != null) {
-			while(!g.r.returnText.isEmpty()) {
-				switch(g.r.returnText.get(0)) {
-					case "up":
-						if((maze[playerx][playery] & 1) != 0 && g.player.x % 16 == 0) g.player.y-=g.scale;
-						break;
-					case "down":
-						if((maze[playerx][playery] & 4) != 0 && g.player.x % 16 == 0) g.player.y+=g.scale;
-						break;
-					case "right":
-						if((maze[playerx][playery] & 2) != 0 && g.player.y % 16 == 0) g.player.x+=g.scale;
-						break;
-					case "left":
-						if((maze[playerx][playery] & 8) != 0 && g.player.y % 16 == 0)g.player.x-=g.scale;
-						break;
-				}
-				g.r.returnText.clear();
-				playerx=(g.player.x+8)/16;
-				playery=(g.player.y+8)/16;
-				if(interactives[playerx][playery] != null) interactives[playerx][playery].interact(g);
-				g.userWait();
+		while(!g.returnText.isEmpty() && interactives[endx][endy] != null) {
+			switch(g.returnText) {
+				case "up":
+					if((maze[playerx][playery] & 1) != 0 && g.player.x % 16 == 0) g.player.y-=g.scale;
+					break;
+				case "down":
+					if((maze[playerx][playery] & 4) != 0 && g.player.x % 16 == 0) g.player.y+=g.scale;
+					break;
+				case "right":
+					if((maze[playerx][playery] & 2) != 0 && g.player.y % 16 == 0) g.player.x+=g.scale;
+					break;
+				case "left":
+					if((maze[playerx][playery] & 8) != 0 && g.player.y % 16 == 0)g.player.x-=g.scale;
+					break;
 			}
+			playerx=(g.player.x+8)/16;
+			playery=(g.player.y+8)/16;
+			if(interactives[playerx][playery] != null) interactives[playerx][playery].interact(g);
+			g.userWait();
 		}
-		
 	}
 
 	@Override

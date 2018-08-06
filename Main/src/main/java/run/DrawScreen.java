@@ -67,7 +67,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 		g.drawImage(test,gameplay.player.x,gameplay.player.y,this);
 	}
 
-	public void getMove() {
+	/*public void getMove() {
 		if(!returnText.isEmpty()) {
 			String direction = returnText.get(0);
 			System.out.println(direction);
@@ -93,7 +93,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 
 		}
 		
-	}
+	}*/
 	@Override
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()) {
@@ -128,7 +128,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 					returnText.notify();
 				}*/
 		}
-		getMove();
+		//getMove();
 		repaint();
 	}
 
