@@ -6,6 +6,7 @@ import entities.Player;
 import items.Item;
 import misc.Probability;
 import run.ElissaRunner;
+import run.GamePlay;
 
 public class Chest implements Interactive {
 	public ArrayList<Item> loot = new ArrayList<Item>();
@@ -26,7 +27,7 @@ public class Chest implements Interactive {
 	}
 	@SuppressWarnings("static-access")
 	@Override
-	public void interact(ElissaRunner r) { //make this immediately display chest contents
+	public void interact(GamePlay r) { //make this immediately display chest contents
 		//say you've found a chest
 		//r.game.userWait();
 	}
