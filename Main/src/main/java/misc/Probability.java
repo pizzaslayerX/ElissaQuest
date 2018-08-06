@@ -1,3 +1,4 @@
+package misc;
 public class Probability<T> { //extends Pair<T, Double>?
 	public T item;
 	public double probability;

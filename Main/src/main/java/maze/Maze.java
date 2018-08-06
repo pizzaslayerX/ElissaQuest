@@ -6,6 +6,9 @@ import java.util.function.Consumer;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 
+import entities.Interactive;
+import run.ElissaRunner;
+
 import java.util.ArrayList;
 import java.util.Arrays;
  
@@ -162,7 +165,7 @@ public class Maze implements Interactive{
 	}
 
 	@Override
-	public void interact(ElissaQuest r) {
+	public void interact(ElissaRunner r) {
 		// TODO Auto-generated method stub
 		
 	}

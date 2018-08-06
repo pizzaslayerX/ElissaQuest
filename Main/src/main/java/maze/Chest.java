@@ -1,4 +1,10 @@
+package maze;
 import java.util.ArrayList;
+
+import entities.Interactive;
+import entities.Player;
+import misc.Probability;
+import run.ElissaRunner;
 
 public class Chest implements Interactive {
 	public int gold;
@@ -25,7 +31,7 @@ public class Chest implements Interactive {
 	}
 	@SuppressWarnings("static-access")
 	@Override
-	public void interact(ElissaQuest r) { //make this immediately display chest contents
+	public void interact(ElissaRunner r) { //make this immediately display chest contents
 		//say you've found a chest
 		//r.game.userWait();
 	}

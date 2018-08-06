@@ -1,13 +1,11 @@
+package run;
 
 
-import java.applet.Applet;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.LayoutManager;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -16,21 +14,15 @@ import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import java.util.regex.Pattern;
-
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.JApplet;
 import javax.swing.JFrame;
 
-public class ElissaQuest extends JApplet implements KeyListener, Runnable, MouseListener {
+import entities.Player;
+
+public class ElissaRunner extends JApplet implements KeyListener, Runnable, MouseListener {
 	private static final long serialVersionUID = 1L;
 	public static final Dimension SCREEN_SIZE = new Dimension(1270, 662);
 	public static final Dimension GAME_SIZE = new Dimension(1270, 662);
@@ -127,7 +119,7 @@ public class ElissaQuest extends JApplet implements KeyListener, Runnable, Mouse
 	
 	
 	public static void main(String[] args) {
-		ElissaQuest main = new ElissaQuest();
+		ElissaRunner main = new ElissaRunner();
 		
 		frame = new JFrame();
 		layout = new FlowLayout(FlowLayout.LEADING, 0, 0);
@@ -174,20 +166,6 @@ public class ElissaQuest extends JApplet implements KeyListener, Runnable, Mouse
         }
     }
 	
-	private void render() {
-        bs = getCanvas().getBufferStrategy();
-
-        if (bs == null) {
-            System.out.println("bs is null....");
-            getCanvas().createBufferStrategy(3);
-            return;
-        }
-
-        player.getMove();
-        g = getCanvas().getGraphics();
-        g.drawImage(testImage, x, y, null);
-    }
-	
 	
 	public void init() {
 		setFocusable(true);
@@ -211,10 +189,11 @@ public class ElissaQuest extends JApplet implements KeyListener, Runnable, Mouse
         while (isRunning) {
             //System.err.println("run..." + running);
             tick();
-            render();
+            repaint();
         }
 	}
 	
+
 	public void tick() {
 		
 	}

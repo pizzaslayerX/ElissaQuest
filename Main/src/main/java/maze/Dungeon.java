@@ -1,4 +1,8 @@
+package maze;
 import java.util.ArrayList;
+
+import entities.Interactive;
+import run.ElissaRunner;
 
 public class Dungeon implements Interactive {
 	public ArrayList<int[]> area;
@@ -11,7 +15,7 @@ public class Dungeon implements Interactive {
 		loot = c;
 	}
 	@Override
-	public void interact(ElissaQuest r) {
+	public void interact(ElissaRunner r) {
 		// TODO Auto-generated method stub
 
 	}

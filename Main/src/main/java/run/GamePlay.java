@@ -1,13 +1,16 @@
+package run;
+
+import maze.Maze;
 
 public class GamePlay {
 	public Maze maze;
-	public ElissaQuest r;
+	public ElissaRunner r;
 	public String returnText = "";
 	
-	public GamePlay(ElissaQuest r) {
+	public GamePlay(ElissaRunner r) {
 		this.r = r;
 	}
-
+	
 	public void go() {
 		maze = new Maze(30, 15);
 		maze.interact(r);
@@ -22,6 +25,7 @@ public class GamePlay {
 		maze = new Maze(80, 40);
 		maze.interact(r);
 	}
+
 	
 	public void userWait() {
 		synchronized(r.returnText) {

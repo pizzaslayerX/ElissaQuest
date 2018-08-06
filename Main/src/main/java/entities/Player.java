@@ -1,13 +1,17 @@
+package entities;
+import run.ElissaRunner;
 
 public class Player {
-	public ElissaQuest runner;
+	public ElissaRunner runner;
 	private String direction;
 	public int level;
-	
-	public Player(ElissaQuest e) {
+		
+	public Player(ElissaRunner e) {
 		runner = e;
 		level = 1;
-	}
+
+	}//h
+	
 	
 	public void getMove() {
 		if(!runner.returnText.isEmpty()) {
@@ -15,19 +19,19 @@ public class Player {
 			System.out.println(direction);
 			switch(direction) {
 				case "up":
-					ElissaQuest.y-=10;
+					ElissaRunner.y-=10;
 					runner.returnText.clear();
 					break;
 				case "down":
-					ElissaQuest.y+=10;
+					ElissaRunner.y+=10;
 					runner.returnText.clear();
 					break;
 				case "right":
-					ElissaQuest.x+=10;
+					ElissaRunner.x+=10;
 					runner.returnText.clear();
 					break;
 				case "left":
-					ElissaQuest.x-=10;
+					ElissaRunner.x-=10;
 					runner.returnText.clear();
 					break;
 				
