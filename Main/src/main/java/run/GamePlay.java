@@ -3,7 +3,7 @@ package run;
 import entities.Player;
 import maze.Maze;
 
-public class GamePlay {
+public class GamePlay implements Runnable{
 	public int scale = 2;
 	public Maze maze;
 	public DrawScreen r;
@@ -38,5 +38,11 @@ public class GamePlay {
 	    	}
 			returnText = r.returnText.remove(0);
 		}
+	}
+
+	@Override
+	public void run() {
+		go();
+		
 	}
 }

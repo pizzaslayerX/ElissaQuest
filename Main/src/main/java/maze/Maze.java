@@ -185,6 +185,7 @@ public class Maze implements Interactive{
 					if((maze[playerx][playery] & 8) != 0 && g.player.y % 16 == 0)g.player.x-=g.scale;
 					break;
 			}
+			g.r.repaint();
 			playerx=(g.player.x+8)/16;
 			playery=(g.player.y+8)/16;
 			if(interactives[playerx][playery] != null) interactives[playerx][playery].interact(g);

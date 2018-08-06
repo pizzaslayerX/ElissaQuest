@@ -27,6 +27,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 	private static boolean state1 = true;
 	public DrawScreen() {
 		init();
+		new Thread(gameplay).run();
 	}
 	
 	public void init() {
@@ -147,7 +148,6 @@ public class DrawScreen extends JPanel implements KeyListener{
 				}*/
 		}
 		//getMove();
-		repaint();
 	}
 
 	public void keyReleased(KeyEvent e) {
