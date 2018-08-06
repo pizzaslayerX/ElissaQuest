@@ -25,13 +25,18 @@ public class DrawScreen extends JPanel implements KeyListener{
 	public final List<String> returnText = new LinkedList<String>();
 	private static BufferedImage test;
 	private static BufferedImage FOV;
+	private static BufferedImage up;
+	private static BufferedImage right;
+	private static BufferedImage down;
+	private static BufferedImage left;
 	public GamePlay gameplay = new GamePlay(this);
 	public Window window;
 	private static int moveVal = 0;
 	private static boolean state1 = true;
 	public int mazeSize = 24;
-	public int xtrans = 0;
-	public int ytrans = 0;
+
+	public int xtrans;
+	public int ytrans;
 	public DrawScreen(Window w) {
 		window = w;
 		init();
@@ -46,11 +51,14 @@ public class DrawScreen extends JPanel implements KeyListener{
 		setFocusable(true);
 		setDoubleBuffered(true);
 		addKeyListener(this);
-		gameplay.newFight(new Enemy());
-
+		//gameplay.newFight(new Enemy());
 		
 		loadImage("state1.png");
 		loadImage2("circle.png");
+		loadImage3("2250x1000.png");
+		loadImage4("1000x250.png");
+		loadImage5("2250x1000.png");
+		loadImage6("1000x250.png");
 	}
 	
 	 private static void loadImage(String fileName){
@@ -68,6 +76,52 @@ public class DrawScreen extends JPanel implements KeyListener{
 
          try {
              FOV = ImageIO.read(new File("src/res/pics/"+fileName)); 
+
+         } catch (IOException e) {
+             e.printStackTrace();
+             System.out.println("Image could not be read");
+             System.exit(1);
+         }
+     }
+	 
+	 private static void loadImage3(String fileName){
+
+         try {
+             up = ImageIO.read(new File("src/res/pics/"+fileName)); 
+
+         } catch (IOException e) {
+             e.printStackTrace();
+             System.out.println("Image could not be read");
+             System.exit(1);
+         }
+     }
+	 
+	 private static void loadImage4(String fileName){
+
+         try {
+             right = ImageIO.read(new File("src/res/pics/"+fileName)); 
+
+         } catch (IOException e) {
+             e.printStackTrace();
+             System.out.println("Image could not be read");
+             System.exit(1);
+         }
+     }
+	 private static void loadImage5(String fileName){
+
+         try {
+             down = ImageIO.read(new File("src/res/pics/"+fileName)); 
+
+         } catch (IOException e) {
+             e.printStackTrace();
+             System.out.println("Image could not be read");
+             System.exit(1);
+         }
+     }
+	 private static void loadImage6(String fileName){
+
+         try {
+             left = ImageIO.read(new File("src/res/pics/"+fileName)); 
 
          } catch (IOException e) {
              e.printStackTrace();

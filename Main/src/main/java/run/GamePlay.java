@@ -36,6 +36,9 @@ public class GamePlay implements Runnable{
 		maze = new Maze(30, 15);
 		player.x = maze.startx*r.mazeSize;
 		player.y = maze.starty*r.mazeSize;
+		r.xtrans = (int)(r.window.GAME_SIZE.getWidth()/4) - player.x;
+		r.ytrans = (int)(r.window.GAME_SIZE.getHeight()/4) - player.y;
+		r.repaint();
 		maze.interact(this);
 		maze = new Maze(40, 20);
 		player.x = maze.startx*r.mazeSize;
@@ -74,6 +77,5 @@ public class GamePlay implements Runnable{
 	@Override
 	public void run() {
 		go();
-		
 	}
 }
