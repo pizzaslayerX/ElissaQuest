@@ -7,8 +7,8 @@ public class Player extends Entity{
 	public int level;
 	public int x;
 	public int y;
-	//H:255 W:1000
-	//H:1000 W:2250 
+	
+	
 	public Player(GamePlay d) {
 		runner = d;
 		level = 1;
