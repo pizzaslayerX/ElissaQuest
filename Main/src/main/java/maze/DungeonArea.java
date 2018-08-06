@@ -1,6 +1,7 @@
 package maze;
 import entities.Interactive;
 import run.ElissaRunner;
+import run.GamePlay;
 
 public class DungeonArea implements Interactive {
 	public int[] dungeonSpot;
@@ -11,7 +12,7 @@ public class DungeonArea implements Interactive {
 		dungeonSpot = spot;
 	}
 	@Override
-	public void interact(ElissaRunner r) {
+	public void interact(GamePlay r) {
 		dungeon.interact(r);
 	}
 
