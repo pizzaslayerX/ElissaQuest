@@ -30,6 +30,7 @@ public class Maze {
 		this.y = y;
 		maze = new int[this.x][this.y];
 		interactives = new Interactive[this.x][this.y];
+		generateDungeons(4);
 		generateMaze(0, 0);
 		ArrayList<int[]> ar = new ArrayList<int[]>();
 		for(int i = 0; i < x; i++) for(int j = 0; j < y; j++)
@@ -80,7 +81,7 @@ public class Maze {
 	
 	private DefaultMutableTreeNode getNode(int a, int b, DIR dir) {
 		DefaultMutableTreeNode tree = new DefaultMutableTreeNode(new int[]{a, b});
-		for(DIR d : DIR.values()) if(!d.opposite.equals(dir) && (~maze[a][b] & d.bit) == 0) tree.add(getNode(a + d.dx, b + d.dy, d));
+		for(DIR d : DIR.values()) if(!d.opposite.equals(dir) && (~maze[a][b] & d.bit) == 0 && !(interactives[a][b] instanceof DungeonArea)) tree.add(getNode(a + d.dx, b + d.dy, d));
 		return tree;
 	}
  

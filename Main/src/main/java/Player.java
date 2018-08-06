@@ -2,8 +2,9 @@
 public class Player {
 	public ElissaQuest runner;
 	private String direction;
+	public int level;
 	public Player() {
-		
+		level = 1;
 	}
 	
 	public void getMove() {
