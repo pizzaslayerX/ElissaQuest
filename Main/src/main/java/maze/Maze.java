@@ -1,3 +1,4 @@
+package maze;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.function.BiFunction;
@@ -5,6 +6,8 @@ import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+
+import entities.Interactive;
 
 import java.util.ArrayList;
 import java.util.Arrays;

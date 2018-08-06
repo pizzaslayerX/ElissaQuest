@@ -1,10 +1,12 @@
+package run;
+import maze.AdvancedMaze;
 
 public class GamePlay {
 	public AdvancedMaze maze;
-	public ElissaQuest r;
+	public ElissaRunner r;
 	public String returnText = "";
 	
-	public GamePlay(ElissaQuest r) {
+	public GamePlay(ElissaRunner r) {
 		this.r = r;
 	}
 
