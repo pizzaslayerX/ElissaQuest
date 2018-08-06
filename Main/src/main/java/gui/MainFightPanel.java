@@ -265,6 +265,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		returnText.clear();
 	}
 	
+
 	private void update(int num) {
 		if(num == 0){
 			hideMenu();
@@ -291,6 +292,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		
 	}
 	
+
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub

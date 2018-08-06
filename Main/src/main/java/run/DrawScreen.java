@@ -24,11 +24,14 @@ import java.util.List;
 public class DrawScreen extends JPanel implements KeyListener{
 	public final List<String> returnText = new LinkedList<String>();
 	private static BufferedImage test;
+	private static BufferedImage FOV;
 	public GamePlay gameplay = new GamePlay(this);
 	public Window window;
 	private static int moveVal = 0;
 	private static boolean state1 = true;
 	public int mazeSize = 24;
+	public int xtrans = 0;
+	public int ytrans = 0;
 	public DrawScreen(Window w) {
 		window = w;
 		init();
@@ -43,10 +46,11 @@ public class DrawScreen extends JPanel implements KeyListener{
 		setFocusable(true);
 		setDoubleBuffered(true);
 		addKeyListener(this);
-		gameplay.newFight(new Enemy());
+		//gameplay.newFight(new Enemy());
 
 		
 		loadImage("state1.png");
+		loadImage2("circle.png");
 	}
 	
 	 private static void loadImage(String fileName){
@@ -60,6 +64,17 @@ public class DrawScreen extends JPanel implements KeyListener{
 	                System.exit(1);
 	            }
 	        }
+	 private static void loadImage2(String fileName){
+
+         try {
+             FOV = ImageIO.read(new File("src/res/pics/"+fileName)); 
+
+         } catch (IOException e) {
+             e.printStackTrace();
+             System.out.println("Image could not be read");
+             System.exit(1);
+         }
+     }
 	    
 	
 	@Override
@@ -80,6 +95,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 	}
 	
 	private void drawObjects(Graphics g) {
+		g.translate(xtrans, ytrans);
 		g.drawImage(test,gameplay.player.x,gameplay.player.y,this);
 		g.setColor(Color.WHITE);
 		for(int i = 0; i < gameplay.maze.x; i++) for(int j = 0; j < gameplay.maze.y; j++) {
@@ -96,6 +112,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 			if(boolc && boold && i > 0) g.drawRect(i*mazeSize-1,j*mazeSize+mazeSize,0,0);
 			if(boold && boola && j > 0 && i >0) g.drawRect(i*mazeSize-1,j*mazeSize-1,0,0);*/
 		}
+		g.drawImage(FOV, gameplay.player.x-117, gameplay.player.y-117, this);
 	}
 	
 	private void animate() {
@@ -137,7 +154,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 	}*/
 	@Override
 	public void keyPressed(KeyEvent e) {
-	  if(!GamePlay.openPanel) {
+	  //if(!GamePlay.openPanel) {
 		switch(e.getKeyCode()) {
 		
 			case KeyEvent.VK_A:
@@ -164,13 +181,30 @@ public class DrawScreen extends JPanel implements KeyListener{
 						returnText.notify();
 					}
 				break;
+			case KeyEvent.VK_UP:
+				ytrans -= 4;
+				repaint();
+				break;
+			case KeyEvent.VK_DOWN:
+				ytrans 
+				+=4;
+				repaint();
+				break;
+			case KeyEvent.VK_LEFT:
+				xtrans -= 4;
+				repaint();
+				break;
+			case KeyEvent.VK_RIGHT:
+				xtrans += 4;
+				repaint();
+				break;
 			/*case KeyEvent.VK_ENTER:
 				synchronized(returnText) {
 					returnText.add(textIn.getText());
 					returnText.notify();
 				}*/
-		}
-		repaint();
+		//}
+		//repaint();
 	  }
 	  
 
