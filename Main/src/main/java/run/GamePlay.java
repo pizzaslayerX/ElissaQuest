@@ -1,16 +1,34 @@
 package run;
 
+import java.util.ArrayList;
+
+import entities.Enemy;
 import entities.Player;
+import gui.MainFightPanel;
 import maze.Maze;
 
+
+
+ 
 public class GamePlay implements Runnable{
 	public int scale = 2;
+	  public static boolean openPanel = true;
 	public Maze maze;
 	public DrawScreen r;
 	public String returnText = " ";
 	public Player player = new Player(this);
 	public GamePlay(DrawScreen r) {
 		this.r = r;
+	}
+	
+	public void newFight(Enemy e) {
+		r.setVisible(false);
+		r.window.add(new MainFightPanel(e));
+	}
+	
+	public void newFight(ArrayList<Enemy> e) {
+		r.setVisible(false);
+		r.window.add(new MainFightPanel(e));
 	}
 	
 	public void go() {
