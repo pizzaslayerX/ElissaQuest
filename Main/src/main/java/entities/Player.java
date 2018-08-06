@@ -1,13 +1,15 @@
 package entities;
+import run.DrawScreen;
 import run.ElissaRunner;
 
 public class Player {
-	public ElissaRunner runner;
+	public DrawScreen runner;
 	private String direction;
 	public int level;
-		
-	public Player(ElissaRunner e) {
-		runner = e;
+	public int x;
+	public int y;
+	public Player(DrawScreen d) {
+		runner = d;
 		level = 1;
 
 	}//h
@@ -19,25 +21,25 @@ public class Player {
 			System.out.println(direction);
 			switch(direction) {
 				case "up":
-					ElissaRunner.y-=10;
+					y-=10;
 					runner.returnText.clear();
 					break;
 				case "down":
-					ElissaRunner.y+=10;
+					y+=10;
 					runner.returnText.clear();
 					break;
 				case "right":
-					ElissaRunner.x+=10;
+					x+=10;
 					runner.returnText.clear();
 					break;
 				case "left":
-					ElissaRunner.x-=10;
+					x-=10;
 					runner.returnText.clear();
 					break;
 				
 			}
 			runner.gameplay.userWait();
-			runner.canvas.repaint();
+			runner.returnText.clear();
 		}
 		
 	}

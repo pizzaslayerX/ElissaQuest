@@ -4,10 +4,10 @@ import maze.Maze;
 
 public class GamePlay {
 	public Maze maze;
-	public ElissaRunner r;
+	public DrawScreen r;
 	public String returnText = "";
 	
-	public GamePlay(ElissaRunner r) {
+	public GamePlay(DrawScreen r) {
 		this.r = r;
 	}
 	

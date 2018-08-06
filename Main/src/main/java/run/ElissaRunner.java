@@ -1,122 +1,22 @@
 package run;
 
-
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-import javax.imageio.ImageIO;
 import javax.swing.JApplet;
-import javax.swing.JFrame;
 
-import entities.Player;
-
-public class ElissaRunner extends JApplet implements KeyListener, Runnable, MouseListener {
-	private static final long serialVersionUID = 1L;
-	public static final Dimension SCREEN_SIZE = new Dimension(1270, 662);
-	public static final Dimension GAME_SIZE = new Dimension(1270, 662);
-	public static final String TITLE = "Elissa's Quest";
-	public static final Color BACKGROUND_COLOR = Color.black;
-	public static final Color FOREGROUND_COLOR = Color.white;
-	public static JFrame frame;
-	public static FlowLayout layout;
-	public static Canvas canvas;
-	public static boolean isRunning = false;
-	private Graphics g;
-	private BufferStrategy bs;
-	private Thread t;
-	public GamePlay gameplay = new GamePlay(this);
-	public Player player = new Player(this);
-
-	public static int x =0;
-	public static int y = 0;
+public class ElissaRunner extends JApplet {
 	
-
-    private BufferedImage testImage;
-	public final List<String> returnText = new LinkedList<String>();
 	
-	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void keyPressed(KeyEvent e) {
-		
-		switch(e.getKeyCode()) {
-		
-			case KeyEvent.VK_A:
-					synchronized(returnText) {
-						returnText.add("left");
-						returnText.notify();
-					}
-				break;
-			case KeyEvent.VK_W:
-					synchronized(returnText) {
-						returnText.add("up");
-						returnText.notify();
-					}
-				break;
-			case KeyEvent.VK_D:
-					synchronized(returnText) {
-						returnText.add("right");
-						returnText.notify();
-					}
-				break;
-			case KeyEvent.VK_S:
-					synchronized(returnText) {
-						returnText.add("down");
-						returnText.notify();
-					}
-				break;
-			/*case KeyEvent.VK_ENTER:
-				synchronized(returnText) {
-					returnText.add(textIn.getText());
-					returnText.notify();
-				}*/
-		}
-		System.out.println(returnText.get(0));
-	}
-
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void keyTyped(KeyEvent e) {
-		
+	public ElissaRunner() {
+		new Window();
 	}
 	
+	public static void main(String args[]) {
+	    java.awt.EventQueue.invokeLater(new Runnable() {
+	        public void run() {
+	            new ElissaRunner().setVisible(true);
+	        }
+	    });
+	}
+	/*
 	
 	public static void main(String[] args) {
 		ElissaRunner main = new ElissaRunner();
@@ -144,79 +44,7 @@ public class ElissaRunner extends JApplet implements KeyListener, Runnable, Mous
 		main.start();
 
 	}
-	
-	private static final class ImageLoader
-    {
+	*/
 
-        static BufferedImage loadImage(String fileName)
-        {
-            BufferedImage bi = null;
-            //System.err.println("....setimg...." + fileName);
-
-            try {
-                bi = ImageIO.read(new File(fileName)); 
-
-            } catch (IOException e) {
-                e.printStackTrace();
-                System.out.println("Image could not be read");
-                System.exit(1);
-            }
-
-            return bi;
-        }
-    }
-	
-	
-	public void init() {
-		setFocusable(true);
-		testImage = ImageLoader.loadImage("src/res/pics/test.jpg");
-		addKeyListener(this);
-		addMouseListener(this);
-	}
-	
-	@Override
-	public void start() {
-		if (isRunning) 
-			 return;
-	       isRunning = true;
-		new Thread(this).start();
-	}
-	
-	@Override
-	public void run() {
-		init();
-        System.out.println("run..." + isRunning);
-        while (isRunning) {
-            //System.err.println("run..." + running);
-            tick();
-            repaint();
-        }
-	}
-	
-
-	public void tick() {
-		
-	}
-	
-	public void pause(int i) {
-		try {
-			Thread.sleep(i);
-		} catch(InterruptedException e) {}
-	}
-	
-	public void stop() {
-		isRunning = false;
-	}
-	
-	public Canvas getCanvas() {
-
-        if(canvas == null)
-        {
-            System.out.println("Canvas is null");
-            return null;
-        }
-
-        return canvas;
-    }
 	
 }
