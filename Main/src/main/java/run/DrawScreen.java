@@ -113,6 +113,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 			if(boold && boola && j > 0 && i >0) g.drawRect(i*mazeSize-1,j*mazeSize-1,0,0);*/
 		}
 		g.drawImage(FOV, gameplay.player.x-117, gameplay.player.y-117, this);
+		//g.drawRect(gameplay.player.x-1118, 0, 2000, 2000);
 	}
 	
 	private void animate() {
@@ -182,20 +183,19 @@ public class DrawScreen extends JPanel implements KeyListener{
 					}
 				break;
 			case KeyEvent.VK_UP:
-				ytrans -= 4;
+				ytrans += 4;
 				repaint();
 				break;
 			case KeyEvent.VK_DOWN:
-				ytrans 
-				+=4;
+				ytrans -=4;
 				repaint();
 				break;
 			case KeyEvent.VK_LEFT:
-				xtrans -= 4;
+				xtrans += 4;
 				repaint();
 				break;
 			case KeyEvent.VK_RIGHT:
-				xtrans += 4;
+				xtrans -= 4;
 				repaint();
 				break;
 			/*case KeyEvent.VK_ENTER:

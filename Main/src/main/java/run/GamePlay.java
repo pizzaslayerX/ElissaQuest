@@ -34,16 +34,28 @@ public class GamePlay implements Runnable{
 	public void go() {
 		System.out.println("go");
 		maze = new Maze(30, 15);
+		player.x = maze.startx*r.mazeSize;
+		player.y = maze.starty*r.mazeSize;
 		maze.interact(this);
 		maze = new Maze(40, 20);
+		player.x = maze.startx*r.mazeSize;
+		player.y = maze.starty*r.mazeSize;
 		maze.interact(this);
 		maze = new Maze(50, 25);
+		player.x = maze.startx*r.mazeSize;
+		player.y = maze.starty*r.mazeSize;
 		maze.interact(this);
 		maze = new Maze(60, 30);
+		player.x = maze.startx*r.mazeSize;
+		player.y = maze.starty*r.mazeSize;
 		maze.interact(this);
 		maze = new Maze(70, 35);
+		player.x = maze.startx*r.mazeSize;
+		player.y = maze.starty*r.mazeSize;
 		maze.interact(this);
 		maze = new Maze(80, 40);
+		player.x = maze.startx*r.mazeSize;
+		player.y = maze.starty*r.mazeSize;
 		maze.interact(this);
 	}
 
