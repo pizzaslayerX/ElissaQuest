@@ -59,12 +59,15 @@ public class GamePlay implements Runnable{
 	public void userWait() {
 		synchronized(listener.returnText) {
 			while(listener.returnText.isEmpty()) {
+				System.out.println("looping");
 	        	try {
 	        		listener.returnText.wait();
 	        	} catch (InterruptedException e) {}
 	    	}
 			returnText = listener.returnText.remove(0);
+			
 		}
+		System.out.println("noipe");
 	}
 
 	@Override

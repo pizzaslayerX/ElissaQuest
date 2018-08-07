@@ -11,6 +11,7 @@ public class Listener implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
+		System.out.println(e);
 		switch(e.getKeyCode()) {
 		
 		case KeyEvent.VK_A:

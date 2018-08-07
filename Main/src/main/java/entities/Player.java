@@ -38,10 +38,28 @@ public class Player extends Entity{
 	}
 	
 	
-	public void removeItem(Item i,int amt) {
-		if(!containsItem(i)) {System.out.println("No item to remove!");return;}
-		inventory.get(findItem(i,inventory)).second -= amt;
+	public boolean removeItem(Item i,int amt) {
+		boolean dispose = false;
+		if(!containsItem(i)) {System.out.println("No item to remove!");return false;}
+		if(inventory.get(findItem(i,inventory)).second - amt < 0) return false;
 		
+		inventory.get(findItem(i,inventory)).second -= amt;
+		if(inventory.get(findItem(i,inventory)).second == 0) {dispose = true;inventory.remove(findItem(i,inventory));}
+			
+		if(i instanceof Consumable) {
+			pots.get(findItem(i,pots)).second-=amt;
+			if(dispose) pots.remove(findItem(i,pots));
+		}
+		else if(i instanceof Weapon) {
+			weapons.get(findItem(i,weapons)).second-=amt;
+			if(dispose) weapons.remove(findItem(i,weapons));
+		}
+		else if(i instanceof Equipment) {
+			equipment.get(findItem(i,equipment)).second-=amt;
+			if(dispose) equipment.remove(findItem(i,equipment));
+		}
+		
+		return true;
 	}
 	
 	public boolean containsItem(Item i) {

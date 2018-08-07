@@ -13,16 +13,17 @@ import misc.Probability;
 import run.GamePlay;
 
 public class Enemy extends Entity implements Interactive{
-	protected String pic = "test.png";
+	protected String pic;
 	public Weapon[][] attacks;
 	public ArrayList<Pair<Probability<Item>,Integer>> drops;
 	public int attackMode=0;
 	public BiFunction<Enemy, Player, Integer> attackCalc;
-	
+
 	public Enemy(ArrayList<Pair<Probability<Item>,Integer>> d, BiFunction<Enemy, Player, Integer> ac, Weapon[]... w) {
 		drops = d;
 		attackCalc = ac;
 		attacks = w;
+		pic  = "test.jpg";
 	}
 	
 	@Override

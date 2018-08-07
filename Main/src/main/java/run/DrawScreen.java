@@ -45,6 +45,7 @@ public class DrawScreen extends JPanel{
 		window = w;
 		init();
 		new Thread(gameplay).start();
+
 	}
 	
 	public void init() {
@@ -55,6 +56,7 @@ public class DrawScreen extends JPanel{
 		setFocusable(true);
 		setDoubleBuffered(true);
 		addKeyListener(gameplay.listener);
+	//	gameplay.newFight(Enemy.Enemies.skeleton());
 		
 		loadImage("state1.png");
 		loadImage2("circle.png");
