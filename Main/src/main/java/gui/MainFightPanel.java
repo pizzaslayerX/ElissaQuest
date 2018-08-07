@@ -239,6 +239,7 @@ public class MainFightPanel extends JPanel implements Interactive{
 		append(special,"   MAGIC",Color.WHITE,115,false);
 		append(item,"   ITEM",Color.WHITE,130,false);
 		System.out.println("Before repaint");
+		repaint();
 	}
 
 	
