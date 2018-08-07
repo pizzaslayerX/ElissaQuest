@@ -146,12 +146,7 @@ public class MainFightPanel extends JPanel{
 		setFocusable(true);
 		setDoubleBuffered(true);
 		
-		menuBox = new JPanel();
-		menuBox.setPreferredSize(new Dimension(550,800));
-		menuBox.setVisible(true);
-		for(int i = 0;i<enemies.size();i++) {
-			//enemies.get(i).second.setPreferredSize(550);
-		}
+		
 		
 		health.setMaximumSize(new Dimension(550,50));
 		health.setBackground(Color.BLACK);
@@ -221,21 +216,21 @@ public class MainFightPanel extends JPanel{
 		attack.setEditable(false);
 		attack.setMaximumSize(new Dimension(550,140));
 		attack.setBackground(Color.BLACK);
-		//attack.setVisible(true);
+		attack.setVisible(true);
 		attack.setBorder(d);
 		
 		item = new JTextPane();
 		item.setEditable(false);
 		item.setMaximumSize(new Dimension(550,140));
 		item.setBackground(Color.BLACK);
-		//item.setVisible(true);
+		item.setVisible(true);
 		item.setBorder(s);
 		
 		special = new JTextPane();
 		special.setEditable(false);
 		special.setMaximumSize(new Dimension(550,140));
 		special.setBackground(Color.BLACK);
-		//special.setVisible(true);
+		special.setVisible(true);
 		special.setBorder(a);
 		
 		user.add(health);
@@ -249,6 +244,19 @@ public class MainFightPanel extends JPanel{
 		user.add(special);
 		user.add(Box.createVerticalStrut(10));
 		user.add(item);
+		
+		
+		 
+		menuBox = new JPanel();
+		menuBox.setMaximumSize(new Dimension(595,550));
+		menuBox.setBackground(Color.BLACK);
+		menuBox.setVisible(false);
+		
+		user.add(menuBox);
+		for(int i = 0;i<enemies.size();i++) {
+			//enemies.get(i).second.setPreferredSize(550);
+		}
+		
 		add(enemy);	
 		add(user);	
 		//System.out.println("Before repaint");
@@ -277,7 +285,14 @@ public class MainFightPanel extends JPanel{
 	}
 
 	
-	
+	private TitledBorder borderGen(String n,int orient) {
+		TitledBorder border3 = new TitledBorder(n);
+        border3.setTitleColor(Color.WHITE);
+        border3.setTitleFont(new Font("Monospaced", Font.BOLD, 18));
+        border3.setTitleJustification(TitledBorder.CENTER);
+        border3.setTitlePosition(TitledBorder.TOP);
+        return border3;
+	}
 	
 	
 	
@@ -324,7 +339,9 @@ public class MainFightPanel extends JPanel{
 	}*/
 
 	public Entity getTarget() {
-		
+		menuBox.setVisible(true);
+		menuBox.setBorder(borderGen("Select Target",0));
+		System.out.println("eue");
 		return null;
 	}
 	
@@ -332,11 +349,24 @@ public class MainFightPanel extends JPanel{
 		special.setVisible(false);
 		item.setVisible(false);
 		attack.setVisible(false);
+		health.setMaximumSize(new Dimension(550,25));
+		mana.setMaximumSize(new Dimension(550,25));
+		stamina.setMaximumSize(new Dimension(550,25));
+	}
+	
+	private void showMenu() {
+		special.setVisible(true);
+		item.setVisible(true);
+		attack.setVisible(true);
+		health.setMaximumSize(new Dimension(550,50));
+		mana.setMaximumSize(new Dimension(550,50));
+		stamina.setMaximumSize(new Dimension(550,50));
 	}
 	
 	private void update(int num) {
 		if(num == 0){
 			hideMenu();
+			fight.getPlayerTurn(choice);
 			return;
 			//return -1;
 		}

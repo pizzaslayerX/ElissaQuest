@@ -26,7 +26,7 @@ public class Fight {
 	
 	public void getPlayerTurn(int action) {
 		switch(action) {
-		case 1:
+		case 0:
 			player.attack(mainFight.getTarget(), gameplay);
 		}
 	}
