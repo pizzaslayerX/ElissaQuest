@@ -201,10 +201,10 @@ public class DrawScreen extends JPanel{
 	private void animate() {
 		state1 = !state1;
 		if(!state1) {
-			loadImage("state2.png");
+			test = loadImage("state2.png");
 			return;
 		}
-		loadImage("state1.png");
+		test = loadImage("state1.png");
 	}
 
 	
