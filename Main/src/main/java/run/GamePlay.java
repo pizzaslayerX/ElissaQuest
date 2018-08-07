@@ -42,9 +42,9 @@ public class GamePlay implements Runnable{
 	
 	public void go() {
 		System.out.println("go");
-		for(int i = 0; i < 6; i++) newMaze();
+		for(int i = 0; i < 1 /*6*/; i++) newMaze();
 	}
-
+//have bosses call this method when they disappear
 	public void newMaze() {
 		if(maze == null) maze = new Maze(30, 15);
 		else maze = new Maze(maze.x + 10, maze.y + 5);
@@ -53,7 +53,6 @@ public class GamePlay implements Runnable{
 		r.xtrans = (int)(r.window.GAME_SIZE.getWidth()/4) - player.x;
 		r.ytrans = (int)(r.window.GAME_SIZE.getHeight()/4) - player.y;
 		r.repaint();
-		maze.interact(this);
 	}
 
 

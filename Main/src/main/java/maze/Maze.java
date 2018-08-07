@@ -21,7 +21,7 @@ import java.util.Arrays;
  * shamelessly borrowed from the ruby at
  * http://weblog.jamisbuck.org/2010/12/27/maze-generation-recursive-backtracking
  */
-public class Maze implements Interactive{
+public class Maze{
 	public final int x;
 	public final int y;
 	public int playerx;
@@ -32,6 +32,7 @@ public class Maze implements Interactive{
 	public final int endx;
 	public final int endy;
 	public final Interactive[][] interactives;
+	public String wait = "wait";
 	
  
 	public Maze(int x, int y) {
@@ -41,6 +42,7 @@ public class Maze implements Interactive{
 		interactives = new Interactive[this.x][this.y];
 		generateDungeons(4);
 		generateMaze(0, 0);
+		//display();
 		ArrayList<int[]> ar = new ArrayList<int[]>();
 		for(int i = 0; i < x; i++) for(int j = 0; j < y; j++)
 		if(maze[i][j] == 1 || maze[i][j] == 2 || maze[i][j] == 4 || maze[i][j] == 8) ar.add(new int[]{i, j, maze[i][j]});
@@ -50,11 +52,21 @@ public class Maze implements Interactive{
 		ArrayList<DefaultMutableTreeNode> endNode = getEndGameSpots(startx, starty, 1);
 		endx = ((int[]) endNode.get(0).getUserObject())[0];
 		endy = ((int[]) endNode.get(0).getUserObject())[1];
+		ArrayList<DefaultMutableTreeNode> spots = new ArrayList<DefaultMutableTreeNode>();
+		ArrayList<DefaultMutableTreeNode> enemySpots = new ArrayList<DefaultMutableTreeNode>();
+		enumEnemyNodes(getTree(startx, starty), spots, enemySpots);
+		Collections.shuffle(enemySpots);
+		for(int i = 0; i < enemySpots.size(); i++) {
+			if(i < spots.size()*.7) {
+				modifyNodeValue(enemySpots.get(i), interactives, Enemy.Enemies.skeleton());;
+			} else {
+				modifyNodeValue(enemySpots.get(i), interactives, new Chest());
+			}
+		}
 		ArrayList<int[]> dungeons = new ArrayList<int[]>();
-		ArrayList<int[]> spots = new ArrayList<int[]>();
 		for(int i = 0; i < x; i++) for(int j = 0; j < y; j++) {
 			if(interactives[i][j] instanceof Dungeon) dungeons.add(new int[]{i, j});
-			if(interactives[i][j] == null && (i != startx || j != starty)) spots.add(new int[] {i, j});
+			//if(interactives[i][j] == null && (i != startx || j != starty)) spots.add(new int[] {i, j});
 		}
 		for(int[] i : dungeons) {
 			ArrayList<Pair<int[], DIR>> exit = new ArrayList<Pair<int[],DIR>>();
@@ -63,16 +75,6 @@ public class Maze implements Interactive{
 			maze[a.first[0]][a.first[1]] |= a.second.bit;
 			maze[a.first[0] + a.second.dx][a.first[1]+a.second.dy] |= a.second.opposite.bit;
 		}
-		//enumNodes(getTree)
-		Collections.shuffle(spots);
-		for(int i = 0; i < spots.size()/15d; i++) {
-			//if(i < spots.size()*7/200d) {
-				interactives[spots.get(i)[0]][spots.get(i)[1]] = Enemy.Enemies.skeleton();
-			/*} else {
-				interactives[spots.get(i)[0]][spots.get(i)[1]] = new Chest();
-			}*/
-		}
-		
 		display(); //debug
 	}
 	
@@ -85,7 +87,7 @@ public class Maze implements Interactive{
 			System.out.println("+");
 			// draw the west edge
 			for (int j = 0; j < x; j++) {
-				System.out.print((maze[j][i] & 8) == 0 ? "|   " : "    ");
+				System.out.print(((maze[j][i] & 8) == 0 ? "| " : "  ") + (interactives[j][i] instanceof Interactive ? "x " : "  "));
 			}
 			System.out.println("|");
 		}
@@ -115,8 +117,47 @@ public class Maze implements Interactive{
 	public static void enumNodes(DefaultMutableTreeNode tree, Consumer<DefaultMutableTreeNode> function, BiPredicate<DefaultMutableTreeNode, DefaultMutableTreeNode> p, BiFunction<DefaultMutableTreeNode, DefaultMutableTreeNode, DefaultMutableTreeNode> nextTree, boolean b) {
 		for(Enumeration<DefaultMutableTreeNode> e = tree.children(); e.hasMoreElements();) {
 			DefaultMutableTreeNode node = e.nextElement();
-			if(p.test(node, tree)) function.accept(node);
-			if(b || !p.test(node, tree)) enumNodes(nextTree.apply(node, tree), function, p,  nextTree, b);
+			boolean bool = p.test(node, tree);
+			if(bool) function.accept(node);
+			if(b || !bool) enumNodes(nextTree.apply(node, tree), function, p,  nextTree, b);
+		}
+	}
+	
+	public void enumNodes1(DefaultMutableTreeNode tree, Consumer<DefaultMutableTreeNode> function, BiPredicate<DefaultMutableTreeNode, DefaultMutableTreeNode> p, BiFunction<DefaultMutableTreeNode, DefaultMutableTreeNode, DefaultMutableTreeNode> nextTree, boolean b, boolean end) throws NodeException{
+		end = false;
+		for(Enumeration<DefaultMutableTreeNode> e = tree.children(); e.hasMoreElements();) {
+			DefaultMutableTreeNode node = e.nextElement();
+			boolean bool = p.test(node, tree);
+			if(bool) function.accept(node);
+			if(end) throw new NodeException();
+			if(b || !bool) enumNodes1(nextTree.apply(node, tree), function, p,  nextTree, b, false);
+		}
+	}
+	
+	public void enumEnemyNodes(DefaultMutableTreeNode tree, ArrayList<DefaultMutableTreeNode> spots, ArrayList<DefaultMutableTreeNode> enemySpots) {
+		spots.add(tree);
+		enumNodes(tree, t -> {}, (u,v) -> u.getLevel() > (7+(int)(8*Math.random())), (u,v) -> {spots.add(u); System.out.println(((int[])u.getUserObject())[0] + " " + ((int[])u.getUserObject())[1]); return u;}, false);
+		//splatter
+		System.out.println("hi");
+		boolean[] end = new boolean[] {false};
+		try {
+			enumNodes1(tree, t -> {
+				enemySpots.add(t);
+				//modifyNodeValue(t, interactives, Enemy.Enemies.skeleton()); //add enemy (or chest) or add to enemy/chest list
+				//enumNodes(getTree(startx, starty), spots, (u,v) -> u.getDepth() <= (7+(int)(7*Math.random())), true);
+				//generate splatter, then repeat this
+				System.out.println(((int[])t.getUserObject())[0] + "         " + ((int[])t.getUserObject())[1]);
+				enumEnemyNodes(getTree(((int[])t.getUserObject())[0],((int[])t.getUserObject())[1]), spots, enemySpots);
+				//shouldn't be able to do anything here
+				//add stop?
+				end[0] = true;
+			}, (u,v) -> {
+				for(DefaultMutableTreeNode t : spots) if(sameNode(t,u)) return false;
+				return true;
+			}, (u, v) -> u, false, end[0]);
+		} catch (NodeException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	
@@ -128,12 +169,21 @@ public class Maze implements Interactive{
 		return a[((int[]) tree.getUserObject())[0]][((int[]) tree.getUserObject())[1]];
 	}
 	
+	public static <T> void modifyNodeValue(DefaultMutableTreeNode tree, T[][] a, T t) {
+		a[((int[]) tree.getUserObject())[0]][((int[]) tree.getUserObject())[1]] = t;
+	}
+	
 	public DefaultMutableTreeNode getTree(int a, int b) {
 		return getNode(a, b, null);
 	}
 	
+	public boolean sameNode(DefaultMutableTreeNode a, DefaultMutableTreeNode b) {
+		return Arrays.equals((int[])a.getUserObject(), (int[])b.getUserObject());
+	}
+	
 	private DefaultMutableTreeNode getNode(int a, int b, DIR dir) {
 		DefaultMutableTreeNode tree = new DefaultMutableTreeNode(new int[]{a, b});
+		//System.out.println(a + " " + b);
 		for(DIR d : DIR.values()) if(!d.opposite.equals(dir) && (~maze[a][b] & d.bit) == 0 /*&& !(interactives[a][b] instanceof DungeonArea)*/) tree.add(getNode(a + d.dx, b + d.dy, d));
 		return tree;
 	}
@@ -250,15 +300,7 @@ public class Maze implements Interactive{
 		}
 	}*/
 
-	@Override
-	public void disappear(Interactive[][] arr, int a, int b) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void interact(GamePlay g) {
-		// TODO Auto-generated method stub
+	private class NodeException extends Exception {
 		
 	}
 }

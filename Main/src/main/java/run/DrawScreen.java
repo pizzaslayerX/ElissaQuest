@@ -76,6 +76,7 @@ public class DrawScreen extends JPanel{
 			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
 				//disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
 		}));
 		KeybindMaker.keybind(this, KeyEvent.VK_S, "down", ac2 = KeybindMaker.actionMaker(u -> {
@@ -86,6 +87,7 @@ public class DrawScreen extends JPanel{
 			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
 				//disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
 		}));
 		KeybindMaker.keybind(this, KeyEvent.VK_D, "right", ac3 = KeybindMaker.actionMaker(u -> {
@@ -96,6 +98,7 @@ public class DrawScreen extends JPanel{
 			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
 				//disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
 		}));
 		KeybindMaker.keybind(this, KeyEvent.VK_A, "left", ac4 = KeybindMaker.actionMaker(u -> {
@@ -106,6 +109,7 @@ public class DrawScreen extends JPanel{
 			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
 				//disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
 		}));
 		KeybindMaker.keybind(this, KeyEvent.VK_UP, "uparrow", u -> {ytrans += 4;
