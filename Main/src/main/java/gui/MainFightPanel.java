@@ -100,7 +100,9 @@ public class MainFightPanel extends JPanel{
     }
 
 	public void updateHealth() {
-		health.update(gameplay.player.health,"HP: " + gameplay.player.health + "/" + gameplay.player.maxHealth);;
+		health.update(gameplay.player.health,"HP: " + gameplay.player.health + "/" + gameplay.player.maxHealth);
+		mana.update(gameplay.player.mana,"Mana: " + gameplay.player.mana + "/" + gameplay.player.maxMana);
+		stamina.update((int)gameplay.player.stamina,"Stamina: " + (int)gameplay.player.stamina + "/" + (int)gameplay.player.maxStamina);
 	}
 	
 	public static void append(JTextPane p, String n, Color c,int size, boolean bold) {
@@ -246,10 +248,16 @@ public class MainFightPanel extends JPanel{
 
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "up");
 		KeybindMaker.keybind(this, KeyEvent.VK_W, "up", u -> {
+			gameplay.player.health++;
+			gameplay.player.stamina--;
+			updateHealth();
 			update(1);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false), "down");
 		KeybindMaker.keybind(this, KeyEvent.VK_S, "down", u -> {
+			gameplay.player.health--;
+			gameplay.player.stamina++;
+			updateHealth();
 			update(-1);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		KeybindMaker.keybind(this, KeyEvent.VK_ENTER, "enter", u -> {
