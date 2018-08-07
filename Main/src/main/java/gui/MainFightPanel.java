@@ -256,7 +256,7 @@ public class MainFightPanel extends JPanel{
 		for(int i = 0;i<enemies.size();i++) {
 			//enemies.get(i).second.setPreferredSize(550);
 		}
-		
+		//boo
 		add(enemy);	
 		add(user);	
 		//System.out.println("Before repaint");
