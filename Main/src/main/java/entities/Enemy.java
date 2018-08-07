@@ -48,11 +48,23 @@ public class Enemy extends Entity implements Interactive{
 	
 
 	public static class Enemies {
+		//forbidden forest
+		
 		public static Enemy skeleton() {
 			return new Enemy("Skeleton.png",new ArrayList<Pair<Probability<Item>,Integer>>(Arrays.asList(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.rustyDagger(),.35),1))), (u,v) -> {
 				return 0;
 			}, new Weapon[] {new Weapon("Bone club", "%1$s bone clubs %2$s", 3, 2)});
 		}
+		
+		//secluded swamp
+		
+		//rotted ruins
+		
+		//arctic alps
+		
+		//dark dungeon
+		
+		//
 	}
 
 }
