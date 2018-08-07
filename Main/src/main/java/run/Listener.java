@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Listener implements KeyListener {
+public class Listener implements KeyListener { //deprecated
 	public final List<String> returnText = new LinkedList<String>();
 	
 	@Override

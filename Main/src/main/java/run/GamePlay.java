@@ -55,20 +55,7 @@ public class GamePlay implements Runnable{
 		r.repaint();
 		maze.interact(this);
 	}
-	
-	/*public void userWait() {
-		System.out.println("a");
-		synchronized(listener.returnText) {
-			while(listener.returnText.isEmpty()) {
-				System.out.println("b");
-	        	try {
-	        		listener.returnText.wait();
-	        	} catch (InterruptedException e) {}
-	        	System.out.println("waiting");
-	    	}
-			returnText = listener.returnText.remove(0);
-		}
-	}*/
+
 
 	@Override
 	public void run() {
