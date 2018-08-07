@@ -45,7 +45,7 @@ public class MainFightPanel extends JPanel implements Interactive{
     public Meter health,mana,stamina;
     public static JTextPane attack,item,special;
     public static JPanel picArea,enemy,blankEnemy;
-    private static int choice = -1;
+    private static int choice ,  uhuugugyy= -1;
     public static boolean choosing = true;
     private static final Color HEALTH_GREEN = new Color(22, 150, 10);
     
@@ -125,7 +125,7 @@ public class MainFightPanel extends JPanel implements Interactive{
 	}
 	
 	public void init(String pic) throws Exception {
-		repaint();
+		updateHealth();
 		setPreferredSize(Window.GAME_SIZE);
 		setBackground(Color.BLACK);
 		setForeground(Window.FOREGROUND_COLOR);
@@ -239,7 +239,7 @@ public class MainFightPanel extends JPanel implements Interactive{
 		append(special,"   MAGIC",Color.WHITE,115,false);
 		append(item,"   ITEM",Color.WHITE,130,false);
 		System.out.println("Before repaint");
-		repaint();
+		updateHealth();
 	}
 
 	

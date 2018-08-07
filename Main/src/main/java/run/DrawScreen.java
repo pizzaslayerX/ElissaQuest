@@ -68,7 +68,7 @@ public class DrawScreen extends JPanel{
 		loadImage8("EnemyLight2.png");
 		loadImage9("EnemyLight3.png");
 		loadImage10("EnemyLight4.png");
-	}
+	}  
 	
 	 private static void loadImage(String fileName){
 
