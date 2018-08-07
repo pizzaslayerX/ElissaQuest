@@ -248,7 +248,6 @@ public class MainFightPanel extends JPanel{
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false), "down");
 		KeybindMaker.keybind(this, KeyEvent.VK_S, "down", u -> {
 			update(-1);
-			System.out.println("asdasda");
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		KeybindMaker.keybind(this, KeyEvent.VK_ENTER, "enter", u -> {
 			update(0);
