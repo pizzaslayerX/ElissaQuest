@@ -15,12 +15,13 @@ import maze.Maze;
  
 public class GamePlay implements Runnable{
 	public int scale = 2;
-	  public static boolean openPanel = false;
+	public static boolean openPanel = false;  //Unnecessary; remove
 	public Maze maze;
 	public DrawScreen r;
 	public String returnText = " ";
 	public Player player = new Player(this);
 	public int blinkMode = 0;
+	public Listener listener = new Listener();
 	
 	
 	public GamePlay(DrawScreen r) {
@@ -56,13 +57,13 @@ public class GamePlay implements Runnable{
 	}
 	
 	public void userWait() {
-		synchronized(r.returnText) {
-			while(r.returnText.isEmpty()) {
+		synchronized(listener.returnText) {
+			while(listener.returnText.isEmpty()) {
 	        	try {
-	        		r.returnText.wait();
+	        		listener.returnText.wait();
 	        	} catch (InterruptedException e) {}
 	    	}
-			returnText = r.returnText.remove(0);
+			returnText = listener.returnText.remove(0);
 		}
 	}
 

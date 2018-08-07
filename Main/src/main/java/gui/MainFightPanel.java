@@ -31,10 +31,11 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import entities.Enemy;
+import entities.Interactive;
 import run.GamePlay;
 import run.Window;
 
-public class MainFightPanel extends JPanel implements KeyListener{
+public class MainFightPanel extends JPanel implements Interactive{
 	private ArrayList<Enemy> enemies;
 	public GamePlay gameplay;
     public FlowLayout layout;
@@ -44,7 +45,6 @@ public class MainFightPanel extends JPanel implements KeyListener{
     public Meter health,mana,stamina;
     public static JTextPane attack,item,special;
     public static JPanel picArea,enemy,blankEnemy;
-    public final List<String> returnText = new LinkedList<String>();
     private static int choice = -1;
     public static boolean choosing = true;
     private static final Color HEALTH_GREEN = new Color(22, 150, 10);
@@ -63,6 +63,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 			e1.printStackTrace();
 		}
 		update(1);
+		interact(gp);
 	}
 	
 	
@@ -80,6 +81,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 			e1.printStackTrace();
 		}
 		update(1);
+		interact(gp);
 	}
 	
 	public static void append(JTextPane p,String n) {
@@ -130,7 +132,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
-		addKeyListener(this);
+		addKeyListener(gameplay.listener);
 
 		health.setMaximumSize(new Dimension(550,50));
 		health.setBackground(Color.BLACK);
@@ -230,8 +232,8 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		user.add(item);
 		add(enemy);	
 		add(user);	
-		System.out.println("Before repaint");
-		System.out.println("Before repaint");
+		//System.out.println("Before repaint");
+		//System.out.println("Before repaint");
 		
 		append(attack," ATTACK",Color.WHITE,120,false);
 		append(special,"   MAGIC",Color.WHITE,115,false);
@@ -244,10 +246,12 @@ public class MainFightPanel extends JPanel implements KeyListener{
 	
 	
 	
-	
+	/*
 	@Override
 	public void keyPressed(KeyEvent e) {
+		System.out.println("aaa");
 	  if(gameplay.openPanel && choosing == true) {
+		  System.out.println("aabba");
 		switch(e.getKeyCode()) {
 		
 		case KeyEvent.VK_DOWN:
@@ -282,7 +286,7 @@ public class MainFightPanel extends JPanel implements KeyListener{
 	   }
 		selectChoice();
 	  }
-	}
+	}*/
 
 	private void hideMenu() {
 		special.setVisible(false);
@@ -290,50 +294,62 @@ public class MainFightPanel extends JPanel implements KeyListener{
 		attack.setVisible(false);
 	}
 	
-	private void selectChoice() {
-		switch(returnText.get(0)) {
-		case "up":
-			update(1);
-			break;
-		case "down":
-			update(-1);
-			break;
-		case "enter":
-			update(0);
-			choosing = false;
-			break;
-	}
-		returnText.clear();
-	}
-	
-
-	private int update(int num) {
+	private void update(int num) {
 		if(num == 0){
 			hideMenu();
-			return -1;
+			return;
+			//return -1;
 		}
 		choice += num;
-		if(choice < 0)
-			choice = 2;
-		else if(choice > 2)
-			choice = 0;
-		if(choice == 0) {
+		choice %= 3;
+		switch(choice) {
+		case 0:
 			attack.setBackground(Color.GRAY);
 			item.setBackground(Color.BLACK);
 			special.setBackground(Color.BLACK);
-		}else if(choice == 1) {
+			break;
+		case 1:
 			attack.setBackground(Color.BLACK);
 			item.setBackground(Color.GRAY);
 			special.setBackground(Color.BLACK);
-		}else if(choice == 2) {
+			break;
+		case 2:
 			attack.setBackground(Color.BLACK);
 			item.setBackground(Color.BLACK);
 			special.setBackground(Color.GRAY);
+			break;
 		}
-		return choice;
+		//return choice;
+	}
+
+
+	@Override
+	public void interact(GamePlay g) {
+		// TODO Auto-generated method stub
+		while(!g.returnText.isEmpty()) {
+			switch(g.returnText) {
+				case "up": case "uparrow":
+					update(1);
+					break;
+				case "down": case "downarrow":
+					update(-1);
+					break;
+				case "enter":
+					update(0);
+					break;
+			}
+			g.userWait();
+		}
+	}
+
+
+	@Override
+	public void disappear(Interactive[][] arr, int a, int b) {
+		// TODO Auto-generated method stub
+		
 	}
 	
-
+/*
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
@@ -344,6 +360,6 @@ public class MainFightPanel extends JPanel implements KeyListener{
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 	
 }

@@ -64,7 +64,7 @@ public class Maze implements Interactive{
 			maze[a.first[0] + a.second.dx][a.first[1]+a.second.dy] |= a.second.opposite.bit;
 		}
 		Collections.shuffle(spots);
-		for(int i = 0; i < spots.size()/20d; i++) {
+		for(int i = 0; i < spots.size()/15d; i++) {
 			if(i < spots.size()*7/200d) {
 				interactives[spots.get(i)[0]][spots.get(i)[1]] = Enemy.Enemies.skeleton();
 			} else {
@@ -228,6 +228,18 @@ public class Maze implements Interactive{
 					break;
 				case "left":
 					if((((maze[playerx][playery] & 8) != 0 && g.player.y % g.r.mazeSize <= g.r.mazeSize - 16)|| g.player.x % g.r.mazeSize != 0) )g.player.x-=g.scale;
+					break;
+				case "uparrow":
+					g.r.ytrans += 4;
+					break;
+				case "downarrow":
+					g.r.ytrans -= 4;
+					break;
+				case "leftarrow":
+					g.r.xtrans += 4;
+					break;
+				case "rightarrow":
+					g.r.xtrans -= 4;
 					break;
 			}
 			g.r.repaint();

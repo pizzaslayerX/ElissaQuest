@@ -22,8 +22,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class DrawScreen extends JPanel implements KeyListener{
-	public final List<String> returnText = new LinkedList<String>();
+public class DrawScreen extends JPanel{
 	private static BufferedImage test;
 	private static BufferedImage FOV;
 	private static BufferedImage up;
@@ -55,7 +54,7 @@ public class DrawScreen extends JPanel implements KeyListener{
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
-		addKeyListener(this);
+		addKeyListener(gameplay.listener);
 		
 		loadImage("state1.png");
 		loadImage2("circle.png");
@@ -254,97 +253,5 @@ public class DrawScreen extends JPanel implements KeyListener{
 		loadImage("state1.png");
 	}
 
-	/*public void getMove() {
-
-		if(!returnText.isEmpty()) {
-			String direction = returnText.get(0);
-			System.out.println(direction);
-			switch(direction) {
-				case "up":
-					gameplay.player.y-=2;
-					returnText.clear();
-					break;
-				case "down":
-					gameplay.player.y+=2;
-					returnText.clear();
-					break;
-				case "right":
-					gameplay.player.x+=2;
-					returnText.clear();
-					break;
-				case "left":
-					gameplay.player.x-=2;
-					returnText.clear();
-					break;
-				
-			}
-
-		}
-		
-	}*/
-	@Override
-	public void keyPressed(KeyEvent e) {
-	  if(!GamePlay.openPanel) {
-		switch(e.getKeyCode()) {
-		
-			case KeyEvent.VK_A:
-					synchronized(returnText) {
-						returnText.add("left");
-						returnText.notify();
-					}
-				break;
-			case KeyEvent.VK_W:
-					synchronized(returnText) {
-						returnText.add("up");
-						returnText.notify();
-					}
-				break;
-			case KeyEvent.VK_D:
-					synchronized(returnText) {
-						returnText.add("right");
-						returnText.notify();
-					}
-				break;
-			case KeyEvent.VK_S:
-					synchronized(returnText) {
-						returnText.add("down");
-						returnText.notify();
-					}
-				break;
-			case KeyEvent.VK_UP:
-				ytrans += 4;
-				repaint();
-				break;
-			case KeyEvent.VK_DOWN:
-				ytrans -=4;
-				repaint();
-				break;
-			case KeyEvent.VK_LEFT:
-				xtrans += 4;
-				repaint();
-				break;
-			case KeyEvent.VK_RIGHT:
-				xtrans -= 4;
-				repaint();
-				break;
-			/*case KeyEvent.VK_ENTER:
-				synchronized(returnText) {
-					returnText.add(textIn.getText());
-					returnText.notify();
-				}*/
-		}
-		//repaint();
-	  }
-	  
-
-	}
-
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	public void keyTyped(KeyEvent e) {
-		
-	}
+	
 }
