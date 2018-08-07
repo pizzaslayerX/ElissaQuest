@@ -18,7 +18,7 @@ public class GamePlay implements Runnable{
 	public static boolean openPanel = false;  //Unnecessary; remove
 	public Maze maze;
 	public DrawScreen r;
-	public String returnText = " ";
+	//public String returnText = " ";
 	public Player player = new Player(this);
 	public int blinkMode = 0;
 	//public Listener listener = new Listener();
