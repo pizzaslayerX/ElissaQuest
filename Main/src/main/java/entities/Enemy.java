@@ -20,11 +20,11 @@ public class Enemy extends Entity implements Interactive{
 	public int attackMode=0;
 	public BiFunction<Enemy, Player, Integer> attackCalc;
 
-	public Enemy(ArrayList<Pair<Probability<Item>,Integer>> d, BiFunction<Enemy, Player, Integer> ac, Weapon[]... w) {
+	public Enemy(String p, ArrayList<Pair<Probability<Item>,Integer>> d, BiFunction<Enemy, Player, Integer> ac, Weapon[]... w) {
 		drops = d;
 		attackCalc = ac;
 		attacks = w;
-		pic  = "test.jpg";
+		pic  = "test.png";
 	}
 	
 	@Override
@@ -48,11 +48,23 @@ public class Enemy extends Entity implements Interactive{
 	
 
 	public static class Enemies {
+		//forbidden forest
+		
 		public static Enemy skeleton() {
-			return new Enemy(new ArrayList<Pair<Probability<Item>,Integer>>(Arrays.asList(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.rustyDagger(),.35),1))), (u,v) -> {
+			return new Enemy("Skeleton.png",new ArrayList<Pair<Probability<Item>,Integer>>(Arrays.asList(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.rustyDagger(),.35),1))), (u,v) -> {
 				return 0;
 			}, new Weapon[] {new Weapon("Bone club", "%1$s bone clubs %2$s", 3, 2)});
 		}
+		
+		//secluded swamp
+		
+		//rotted ruins
+		
+		//arctic alps
+		
+		//dark dungeon
+		
+		//
 	}
 
 }

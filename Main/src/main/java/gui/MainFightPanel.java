@@ -33,29 +33,34 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import entities.Enemy;
+import entities.Entity;
 import entities.Interactive;
 import misc.KeybindMaker;
+import misc.Pair;
 import run.GamePlay;
 import run.Window;
 
 public class MainFightPanel extends JPanel{
-	private ArrayList<Enemy> enemies;
+	private ArrayList<Pair<Enemy,JPanel>> enemies;
+
 	public GamePlay gameplay;
     public FlowLayout layout;
     public JLabel label;
+    public Fight fight;
     public static JLabel picSpace;
     public JPanel fightPanel,user;
     public Meter health,mana,stamina;
     public static JTextPane attack,item,special;
-    public static JPanel picArea,enemy,blankEnemy;
-    private static int choice = -1;
+    public static JPanel picArea,enemy,blankEnemy,menuBox;
+    private static int choice ,  uhuugugyy= -1;
     public static boolean choosing = true;
     private static final Color HEALTH_GREEN = new Color(22, 150, 10);
     
 	public MainFightPanel(Enemy e, GamePlay gp){
 		gameplay = gp;
-		enemies = new ArrayList<Enemy>();
-		enemies.add(e);
+		
+		enemies = new ArrayList<Pair<Enemy,JPanel>>();
+		enemies.add(new Pair<Enemy,JPanel>(e,new JPanel()));
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
 		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
@@ -66,14 +71,16 @@ public class MainFightPanel extends JPanel{
 			e1.printStackTrace();
 		}
 		update(1);
+		fight = new Fight(gameplay.player,enemies,this);
 		//interact(gp);
 	}
 	
 	
 	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) {
 		gameplay = gp;
-		enemies = new ArrayList<Enemy>();
-		enemies.addAll(e);
+		enemies = new ArrayList<Pair<Enemy,JPanel>>();
+		for(Enemy en : e) enemies.add(new Pair<Enemy,JPanel>(en,new JPanel()));
+		
 		health = new Meter(gp.player.health,gp.player.maxHealth,Color.GREEN,Color.RED,"HP: " + gp.player.health + "/" + gp.player.maxHealth,15);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,15);
 		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),15);
@@ -84,6 +91,7 @@ public class MainFightPanel extends JPanel{
 			e1.printStackTrace();
 		}
 		update(1);
+		fight = new Fight(gameplay.player,enemies,this);
 		//interact(gp);
 	}
 	
@@ -100,7 +108,9 @@ public class MainFightPanel extends JPanel{
     }
 
 	public void updateHealth() {
-		health.update(gameplay.player.health,"HP: " + gameplay.player.health + "/" + gameplay.player.maxHealth);;
+		health.update(gameplay.player.health,"HP: " + gameplay.player.health + "/" + gameplay.player.maxHealth);
+		mana.update(gameplay.player.mana,"Mana: " + gameplay.player.mana + "/" + gameplay.player.maxMana);
+		stamina.update((int)gameplay.player.stamina,"Stamina: " + (int)gameplay.player.stamina + "/" + (int)gameplay.player.maxStamina);
 	}
 	
 	public static void append(JTextPane p, String n, Color c,int size, boolean bold) {
@@ -128,14 +138,16 @@ public class MainFightPanel extends JPanel{
 	}
 	
 	public void init(String pic) throws Exception {
-		repaint();
+		updateHealth();
 		setPreferredSize(Window.GAME_SIZE);
 		setBackground(Color.BLACK);
 		setForeground(Window.FOREGROUND_COLOR);
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
-
+		
+		
+		
 		health.setMaximumSize(new Dimension(550,50));
 		health.setBackground(Color.BLACK);
 		health.setVisible(true);
@@ -232,6 +244,19 @@ public class MainFightPanel extends JPanel{
 		user.add(special);
 		user.add(Box.createVerticalStrut(10));
 		user.add(item);
+		
+		
+		 
+		menuBox = new JPanel();
+		menuBox.setMaximumSize(new Dimension(595,550));
+		menuBox.setBackground(Color.BLACK);
+		menuBox.setVisible(false);
+		
+		user.add(menuBox);
+		for(int i = 0;i<enemies.size();i++) {
+			//enemies.get(i).second.setPreferredSize(550);
+		}
+		
 		add(enemy);	
 		add(user);	
 		//System.out.println("Before repaint");
@@ -241,6 +266,9 @@ public class MainFightPanel extends JPanel{
 		append(special,"   MAGIC",Color.WHITE,115,false);
 		append(item,"   ITEM",Color.WHITE,130,false);
 		System.out.println("Before repaint");
+
+		updateHealth();
+
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "up");
 		KeybindMaker.keybind(this, KeyEvent.VK_W, "up", u -> {
 			update(1);
@@ -252,11 +280,19 @@ public class MainFightPanel extends JPanel{
 		KeybindMaker.keybind(this, KeyEvent.VK_ENTER, "enter", u -> {
 			update(0);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
+		grabFocus();
 		
 	}
 
 	
-	
+	private TitledBorder borderGen(String n,int orient) {
+		TitledBorder border3 = new TitledBorder(n);
+        border3.setTitleColor(Color.WHITE);
+        border3.setTitleFont(new Font("Monospaced", Font.BOLD, 18));
+        border3.setTitleJustification(TitledBorder.CENTER);
+        border3.setTitlePosition(TitledBorder.TOP);
+        return border3;
+	}
 	
 	
 	
@@ -302,15 +338,35 @@ public class MainFightPanel extends JPanel{
 	  }
 	}*/
 
+	public Entity getTarget() {
+		menuBox.setVisible(true);
+		menuBox.setBorder(borderGen("Select Target",0));
+		System.out.println("eue");
+		return null;
+	}
+	
 	private void hideMenu() {
 		special.setVisible(false);
 		item.setVisible(false);
 		attack.setVisible(false);
+		health.setMaximumSize(new Dimension(550,25));
+		mana.setMaximumSize(new Dimension(550,25));
+		stamina.setMaximumSize(new Dimension(550,25));
+	}
+	
+	private void showMenu() {
+		special.setVisible(true);
+		item.setVisible(true);
+		attack.setVisible(true);
+		health.setMaximumSize(new Dimension(550,50));
+		mana.setMaximumSize(new Dimension(550,50));
+		stamina.setMaximumSize(new Dimension(550,50));
 	}
 	
 	private void update(int num) {
 		if(num == 0){
 			hideMenu();
+			fight.getPlayerTurn(choice);
 			return;
 			//return -1;
 		}

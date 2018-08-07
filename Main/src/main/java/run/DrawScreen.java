@@ -54,27 +54,29 @@ public class DrawScreen extends JPanel{
 		setFocusable(true);
 		setDoubleBuffered(true);
 		//addKeyListener(gameplay.listener);
-		//gameplay.newFight(Enemy.Enemies.skeleton());
+		gameplay.newFight(Enemy.Enemies.skeleton());
 
 		
-		loadImage("state1.png");
-		loadImage2("circle.png");
-		loadImage3("2250x1000.png");
-		loadImage4("1000x250.png");
-		loadImage5("2250x1000.png");
-		loadImage6("1000x250.png");
-		loadImage7("EnemyLight1.png");
-		loadImage8("EnemyLight2.png");
-		loadImage9("EnemyLight3.png");
-		loadImage10("EnemyLight4.png");
+		test = loadImage("state1.png");
+		FOV = loadImage("circle.png");
+		up = loadImage("2250x1000.png");
+		left = loadImage("1000x250.png");
+		down = loadImage("2250x1000.png");
+		right = loadImage("1000x250.png");
+		small = loadImage("EnemyLight1.png");
+		med =loadImage("EnemyLight2.png");
+		large = loadImage("EnemyLight3.png");
+		max = loadImage("EnemyLight4.png");
+
 		KeybindMaker.keybind(this, KeyEvent.VK_W, "up", ac1 = KeybindMaker.actionMaker(u -> {
 			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 1) != 0  && gameplay.player.x % mazeSize <= mazeSize - 16)|| gameplay.player.y % mazeSize != 0) ) gameplay.player.y-=gameplay.scale;
 			repaint();
 			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
 			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
 			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				disable();
+				//disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
 		}));
 		KeybindMaker.keybind(this, KeyEvent.VK_S, "down", ac2 = KeybindMaker.actionMaker(u -> {
@@ -83,8 +85,9 @@ public class DrawScreen extends JPanel{
 			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
 			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
 			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				disable();
+				//disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
 		}));
 		KeybindMaker.keybind(this, KeyEvent.VK_D, "right", ac3 = KeybindMaker.actionMaker(u -> {
@@ -93,8 +96,9 @@ public class DrawScreen extends JPanel{
 			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
 			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
 			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				disable();
+				//disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
 		}));
 		KeybindMaker.keybind(this, KeyEvent.VK_A, "left", ac4 = KeybindMaker.actionMaker(u -> {
@@ -103,8 +107,9 @@ public class DrawScreen extends JPanel{
 			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
 			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
 			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				disable();
+				//disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
 		}));
 		KeybindMaker.keybind(this, KeyEvent.VK_UP, "uparrow", u -> {ytrans += 4;
@@ -123,122 +128,20 @@ public class DrawScreen extends JPanel{
 		ac3.setEnabled(false);
 		ac4.setEnabled(false);
 	}
+
 	
-	 private static void loadImage(String fileName){
+	 private static BufferedImage loadImage(String fileName){
 
 	            try {
-	                test = ImageIO.read(new File("src/res/pics/"+fileName)); 
+	                return ImageIO.read(new File("src/res/pics/"+fileName)); 
 
 	            } catch (IOException e) {
 	                e.printStackTrace();
 	                System.out.println("Image could not be read");
 	                System.exit(1);
+	                return null;
 	            }
 	        }
-	 
-	 
-	 private static void loadImage2(String fileName){
-
-         try {
-             FOV = ImageIO.read(new File("src/res/pics/"+fileName)); 
-
-         } catch (IOException e) {
-             e.printStackTrace();
-             System.out.println("Image could not be read");
-             System.exit(1);
-         }
-     }
-	 
-	 private static void loadImage3(String fileName){
-
-         try {
-             up = ImageIO.read(new File("src/res/pics/"+fileName)); 
-
-         } catch (IOException e) {
-             e.printStackTrace();
-             System.out.println("Image could not be read");
-             System.exit(1);
-         }
-     }
-	 
-	 private static void loadImage4(String fileName){
-
-         try {
-             right = ImageIO.read(new File("src/res/pics/"+fileName)); 
-
-         } catch (IOException e) {
-             e.printStackTrace();
-             System.out.println("Image could not be read");
-             System.exit(1);
-         }
-     }
-	 private static void loadImage5(String fileName){
-
-         try {
-             down = ImageIO.read(new File("src/res/pics/"+fileName)); 
-
-         } catch (IOException e) {
-             e.printStackTrace();
-             System.out.println("Image could not be read");
-             System.exit(1);
-         }
-     }
-	 private static void loadImage6(String fileName){
-
-         try {
-             left = ImageIO.read(new File("src/res/pics/"+fileName)); 
-
-         } catch (IOException e) {
-             e.printStackTrace();
-             System.out.println("Image could not be read");
-             System.exit(1);
-         }
-     }
-	 private static void loadImage7(String fileName){
-
-         try {
-             small = ImageIO.read(new File("src/res/pics/"+fileName)); 
-
-         } catch (IOException e) {
-             e.printStackTrace();
-             System.out.println("Image could not be read: "+fileName);
-             System.exit(1);
-         }
-     }
-	 private static void loadImage8(String fileName){
-
-         try {
-             med = ImageIO.read(new File("src/res/pics/"+fileName)); 
-
-         } catch (IOException e) {
-             e.printStackTrace();
-             System.out.println("Image could not be read: "+fileName);
-             System.exit(1);
-         }
-     }
-	 private static void loadImage9(String fileName){
-
-         try {
-             large = ImageIO.read(new File("src/res/pics/"+fileName)); 
-
-         } catch (IOException e) {
-             e.printStackTrace();
-             System.out.println("Image could not be read: "+fileName);
-             System.exit(1);
-         }
-     }
-	 private static void loadImage10(String fileName){
-
-         try {
-             max = ImageIO.read(new File("src/res/pics/"+fileName)); 
-
-         } catch (IOException e) {
-             e.printStackTrace();
-             System.out.println("Image could not be read: "+fileName);
-             System.exit(1);
-         }
-     }
-	    
 	
 	@Override
     public void paintComponent(Graphics g) {
@@ -270,25 +173,25 @@ public class DrawScreen extends JPanel{
 			if(boolc) g.drawRect(i*mazeSize-1, (j+1)*mazeSize-1, mazeSize+1, 1);
 			if(gameplay.maze.interactives[i][j] instanceof Interactive) switch(gameplay.blinkMode) {
 				case 1:
-					g.drawImage(small, i*mazeSize, j*mazeSize, this);
+					g.drawImage(small, i*mazeSize+4, j*mazeSize+4, this);
 					break;
 				case 2:
-					g.drawImage(med, i*mazeSize, j*mazeSize, this);
+					g.drawImage(med, i*mazeSize+4, j*mazeSize+4, this);
 					break;
 				case 3:
-					g.drawImage(large, i*mazeSize, j*mazeSize, this);
+					g.drawImage(large, i*mazeSize+4, j*mazeSize+4, this);
 					break;
 				case 4:
-					g.drawImage(max, i*mazeSize, j*mazeSize, this);
+					g.drawImage(max, i*mazeSize+4, j*mazeSize+4, this);
 					break;
 				case 5:
-					g.drawImage(large, i*mazeSize, j*mazeSize, this);
+					g.drawImage(large, i*mazeSize+4, j*mazeSize+4, this);
 					break;
 				case 6:
-					g.drawImage(med, i*mazeSize, j*mazeSize, this);
+					g.drawImage(med, i*mazeSize+4, j*mazeSize+4, this);
 					break;
 				case 7:
-					g.drawImage(small, i*mazeSize, j*mazeSize, this);
+					g.drawImage(small, i*mazeSize+4, j*mazeSize+4, this);
 					break;
 			}
 		}
@@ -302,10 +205,10 @@ public class DrawScreen extends JPanel{
 	private void animate() {
 		state1 = !state1;
 		if(!state1) {
-			loadImage("state2.png");
+			test = loadImage("state2.png");
 			return;
 		}
-		loadImage("state1.png");
+		test = loadImage("state1.png");
 	}
 
 	
