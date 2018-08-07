@@ -63,6 +63,7 @@ public class Maze implements Interactive{
 			maze[a.first[0]][a.first[1]] |= a.second.bit;
 			maze[a.first[0] + a.second.dx][a.first[1]+a.second.dy] |= a.second.opposite.bit;
 		}
+		//enumNodes(getTree)
 		Collections.shuffle(spots);
 		for(int i = 0; i < spots.size()/15d; i++) {
 			//if(i < spots.size()*7/200d) {
@@ -100,7 +101,7 @@ public class Maze implements Interactive{
 		ArrayList<DefaultMutableTreeNode> spots = new ArrayList<DefaultMutableTreeNode>();
 		enumEndNodes(tree, spots, w);
 		return spots;
-	}
+	};
 	
 	private static void enumEndNodes(DefaultMutableTreeNode tree, ArrayList<DefaultMutableTreeNode> spots, double w) {
 		enumNodes(tree, spots, (u, v) -> u.getChildCount() == 0 && u.getLevel() >= w*((DefaultMutableTreeNode) v.getRoot()).getDepth(), false);
