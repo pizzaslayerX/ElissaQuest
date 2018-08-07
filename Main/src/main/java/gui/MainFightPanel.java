@@ -33,29 +33,34 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
 import entities.Enemy;
+import entities.Entity;
 import entities.Interactive;
 import misc.KeybindMaker;
+import misc.Pair;
 import run.GamePlay;
 import run.Window;
 
 public class MainFightPanel extends JPanel{
-	private ArrayList<Enemy> enemies;
+	private ArrayList<Pair<Enemy,JPanel>> enemies;
+
 	public GamePlay gameplay;
     public FlowLayout layout;
     public JLabel label;
+    public Fight fight;
     public static JLabel picSpace;
     public JPanel fightPanel,user;
     public Meter health,mana,stamina;
     public static JTextPane attack,item,special;
-    public static JPanel picArea,enemy,blankEnemy;
+    public static JPanel picArea,enemy,blankEnemy,menuBox;
     private static int choice ,  uhuugugyy= -1;
     public static boolean choosing = true;
     private static final Color HEALTH_GREEN = new Color(22, 150, 10);
     
 	public MainFightPanel(Enemy e, GamePlay gp){
 		gameplay = gp;
-		enemies = new ArrayList<Enemy>();
-		enemies.add(e);
+		
+		enemies = new ArrayList<Pair<Enemy,JPanel>>();
+		enemies.add(new Pair<Enemy,JPanel>(e,new JPanel()));
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
 		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
@@ -66,14 +71,16 @@ public class MainFightPanel extends JPanel{
 			e1.printStackTrace();
 		}
 		update(1);
+		fight = new Fight(gameplay.player,enemies,this);
 		//interact(gp);
 	}
 	
 	
 	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) {
 		gameplay = gp;
-		enemies = new ArrayList<Enemy>();
-		enemies.addAll(e);
+		enemies = new ArrayList<Pair<Enemy,JPanel>>();
+		for(Enemy en : e) enemies.add(new Pair<Enemy,JPanel>(en,new JPanel()));
+		
 		health = new Meter(gp.player.health,gp.player.maxHealth,Color.GREEN,Color.RED,"HP: " + gp.player.health + "/" + gp.player.maxHealth,15);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,15);
 		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),15);
@@ -84,6 +91,7 @@ public class MainFightPanel extends JPanel{
 			e1.printStackTrace();
 		}
 		update(1);
+		fight = new Fight(gameplay.player,enemies,this);
 		//interact(gp);
 	}
 	
@@ -137,7 +145,14 @@ public class MainFightPanel extends JPanel{
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
-
+		
+		menuBox = new JPanel();
+		menuBox.setPreferredSize(new Dimension(550,800));
+		menuBox.setVisible(true);
+		for(int i = 0;i<enemies.size();i++) {
+			//enemies.get(i).second.setPreferredSize(550);
+		}
+		
 		health.setMaximumSize(new Dimension(550,50));
 		health.setBackground(Color.BLACK);
 		health.setVisible(true);
@@ -206,21 +221,21 @@ public class MainFightPanel extends JPanel{
 		attack.setEditable(false);
 		attack.setMaximumSize(new Dimension(550,140));
 		attack.setBackground(Color.BLACK);
-		attack.setVisible(true);
+		//attack.setVisible(true);
 		attack.setBorder(d);
 		
 		item = new JTextPane();
 		item.setEditable(false);
 		item.setMaximumSize(new Dimension(550,140));
 		item.setBackground(Color.BLACK);
-		item.setVisible(true);
+		//item.setVisible(true);
 		item.setBorder(s);
 		
 		special = new JTextPane();
 		special.setEditable(false);
 		special.setMaximumSize(new Dimension(550,140));
 		special.setBackground(Color.BLACK);
-		special.setVisible(true);
+		//special.setVisible(true);
 		special.setBorder(a);
 		
 		user.add(health);
@@ -248,23 +263,17 @@ public class MainFightPanel extends JPanel{
 
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "up");
 		KeybindMaker.keybind(this, KeyEvent.VK_W, "up", u -> {
-			gameplay.player.health++;
-			gameplay.player.stamina--;
-			updateHealth();
 			update(1);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false), "down");
 		KeybindMaker.keybind(this, KeyEvent.VK_S, "down", u -> {
-			gameplay.player.health--;
-			gameplay.player.stamina++;
-			updateHealth();
 			update(-1);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		KeybindMaker.keybind(this, KeyEvent.VK_ENTER, "enter", u -> {
 			update(0);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		grabFocus();
-
+		
 	}
 
 	
@@ -314,6 +323,11 @@ public class MainFightPanel extends JPanel{
 	  }
 	}*/
 
+	public Entity getTarget() {
+		
+		return null;
+	}
+	
 	private void hideMenu() {
 		special.setVisible(false);
 		item.setVisible(false);
