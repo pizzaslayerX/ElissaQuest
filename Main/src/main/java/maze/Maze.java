@@ -65,11 +65,11 @@ public class Maze implements Interactive{
 		}
 		Collections.shuffle(spots);
 		for(int i = 0; i < spots.size()/15d; i++) {
-			if(i < spots.size()*7/200d) {
+			//if(i < spots.size()*7/200d) {
 				interactives[spots.get(i)[0]][spots.get(i)[1]] = Enemy.Enemies.skeleton();
-			} else {
+			/*} else {
 				interactives[spots.get(i)[0]][spots.get(i)[1]] = new Chest();
-			}
+			}*/
 		}
 		
 		display(); //debug
@@ -213,9 +213,8 @@ public class Maze implements Interactive{
 		return false;
 	}
 
-	@Override
-	public void interact(GamePlay g) {
-		while(!g.returnText.isEmpty() /*&& interactives[endx][endy] != null*/) {
+	/*public void interact(GamePlay g) {
+		while(!g.returnText.isEmpty() /*&& interactives[endx][endy] != null*//*) {
 			switch(g.returnText) {
 				case "up":
 					if((((maze[playerx][playery] & 1) != 0  && g.player.x % g.r.mazeSize <= g.r.mazeSize - 16)|| g.player.y % g.r.mazeSize != 0) ) g.player.y-=g.scale;
@@ -248,10 +247,16 @@ public class Maze implements Interactive{
 			if(interactives[playerx][playery] != null) interactives[playerx][playery].interact(g);
 			g.userWait();
 		}
-	}
+	}*/
 
 	@Override
 	public void disappear(Interactive[][] arr, int a, int b) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void interact(GamePlay g) {
 		// TODO Auto-generated method stub
 		
 	}
