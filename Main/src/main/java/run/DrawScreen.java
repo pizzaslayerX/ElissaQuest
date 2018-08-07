@@ -1,26 +1,20 @@
 package run;
 import javax.imageio.ImageIO;
+import javax.swing.Action;
 import javax.swing.JPanel;
 
 import entities.Enemy;
 import entities.Interactive;
-import entities.Player;
-import gui.MainFightPanel;
+import misc.KeybindMaker;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
 
 public class DrawScreen extends JPanel{
 	private static BufferedImage test;
@@ -33,6 +27,10 @@ public class DrawScreen extends JPanel{
 	private static BufferedImage med;
 	private static BufferedImage large;
 	private static BufferedImage max;
+	Action ac1;
+	Action ac2;
+	Action ac3;
+	Action ac4;
 	public GamePlay gameplay = new GamePlay(this);
 	public Window window;
 	private static int moveVal = 0;
@@ -55,8 +53,9 @@ public class DrawScreen extends JPanel{
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
-		addKeyListener(gameplay.listener);
-	//	gameplay.newFight(Enemy.Enemies.skeleton());
+		//addKeyListener(gameplay.listener);
+		//gameplay.newFight(Enemy.Enemies.skeleton());
+
 		
 		loadImage("state1.png");
 		loadImage2("circle.png");
@@ -68,7 +67,64 @@ public class DrawScreen extends JPanel{
 		loadImage8("EnemyLight2.png");
 		loadImage9("EnemyLight3.png");
 		loadImage10("EnemyLight4.png");
-	}  
+
+		KeybindMaker.keybind(this, KeyEvent.VK_W, "up", ac1 = KeybindMaker.actionMaker(u -> {
+			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 1) != 0  && gameplay.player.x % mazeSize <= mazeSize - 16)|| gameplay.player.y % mazeSize != 0) ) gameplay.player.y-=gameplay.scale;
+			repaint();
+			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
+			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
+			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
+				disable();
+				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+			}
+		}));
+		KeybindMaker.keybind(this, KeyEvent.VK_S, "down", ac2 = KeybindMaker.actionMaker(u -> {
+			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 4) != 0  && gameplay.player.x % mazeSize <= mazeSize - 16)|| gameplay.player.y % mazeSize != mazeSize - 16) ) gameplay.player.y+=gameplay.scale;
+			repaint();
+			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
+			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
+			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
+				disable();
+				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+			}
+		}));
+		KeybindMaker.keybind(this, KeyEvent.VK_D, "right", ac3 = KeybindMaker.actionMaker(u -> {
+			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 2) != 0 && gameplay.player.y % mazeSize <= mazeSize - 16)|| gameplay.player.x %mazeSize != mazeSize - 16) ) gameplay.player.x+=gameplay.scale;
+			repaint();
+			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
+			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
+			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
+				disable();
+				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+			}
+		}));
+		KeybindMaker.keybind(this, KeyEvent.VK_A, "left", ac4 = KeybindMaker.actionMaker(u -> {
+			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 8) != 0 && gameplay.player.y % mazeSize <= mazeSize - 16)|| gameplay.player.x %mazeSize != 0) )gameplay.player.x-=gameplay.scale;
+			repaint();
+			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
+			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
+			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
+				disable();
+				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+			}
+		}));
+		KeybindMaker.keybind(this, KeyEvent.VK_UP, "uparrow", u -> {ytrans += 4;
+		repaint();});
+		KeybindMaker.keybind(this, KeyEvent.VK_DOWN, "downarrow", u -> {ytrans -= 4;
+		repaint();});
+		KeybindMaker.keybind(this, KeyEvent.VK_RIGHT, "rightarrow", u -> {xtrans -= 4;
+		repaint();});
+		KeybindMaker.keybind(this, KeyEvent.VK_LEFT, "leftarrow", u -> {xtrans += 4;
+		repaint();});
+	}
+	
+	public void disable() {
+		ac1.setEnabled(false);
+		ac2.setEnabled(false);
+		ac3.setEnabled(false);
+		ac4.setEnabled(false);
+	}
+
 	
 	 private static void loadImage(String fileName){
 
@@ -81,6 +137,8 @@ public class DrawScreen extends JPanel{
 	                System.exit(1);
 	            }
 	        }
+	 
+	 
 	 private static void loadImage2(String fileName){
 
          try {
@@ -213,9 +271,6 @@ public class DrawScreen extends JPanel{
 			if(boolb) g.drawRect((i+1)*mazeSize-1, j*mazeSize-1, 1, mazeSize+1);
 			if(boolc) g.drawRect(i*mazeSize-1, (j+1)*mazeSize-1, mazeSize+1, 1);
 			if(gameplay.maze.interactives[i][j] instanceof Interactive) switch(gameplay.blinkMode) {
-				case 0:
-					g.drawImage(small, 60000, 6000, this);
-					break;
 				case 1:
 					g.drawImage(small, i*mazeSize, j*mazeSize, this);
 					break;

@@ -21,7 +21,7 @@ public class GamePlay implements Runnable{
 	public String returnText = " ";
 	public Player player = new Player(this);
 	public int blinkMode = 0;
-	public Listener listener = new Listener();
+	//public Listener listener = new Listener();
 	
 	
 	public GamePlay(DrawScreen r) {
@@ -55,20 +55,7 @@ public class GamePlay implements Runnable{
 		r.repaint();
 		maze.interact(this);
 	}
-	
-	public void userWait() {
-		synchronized(listener.returnText) {
-			while(listener.returnText.isEmpty()) {
-				System.out.println("looping");
-	        	try {
-	        		listener.returnText.wait();
-	        	} catch (InterruptedException e) {}
-	    	}
-			returnText = listener.returnText.remove(0);
-			
-		}
-		System.out.println("noipe");
-	}
+
 
 	@Override
 	public void run() {

@@ -21,9 +21,11 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.SimpleAttributeSet;
@@ -32,10 +34,11 @@ import javax.swing.text.StyledDocument;
 
 import entities.Enemy;
 import entities.Interactive;
+import misc.KeybindMaker;
 import run.GamePlay;
 import run.Window;
 
-public class MainFightPanel extends JPanel implements Interactive{
+public class MainFightPanel extends JPanel{
 	private ArrayList<Enemy> enemies;
 	public GamePlay gameplay;
     public FlowLayout layout;
@@ -57,13 +60,13 @@ public class MainFightPanel extends JPanel implements Interactive{
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
 		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
 		try {
-			init(e.getPic());
+			init("test.jpg"/*e.getPic()*/);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		update(1);
-		interact(gp);
+		//interact(gp);
 	}
 	
 	
@@ -81,7 +84,7 @@ public class MainFightPanel extends JPanel implements Interactive{
 			e1.printStackTrace();
 		}
 		update(1);
-		interact(gp);
+		//interact(gp);
 	}
 	
 	public static void append(JTextPane p,String n) {
@@ -132,7 +135,6 @@ public class MainFightPanel extends JPanel implements Interactive{
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
-		addKeyListener(gameplay.listener);
 
 		health.setMaximumSize(new Dimension(550,50));
 		health.setBackground(Color.BLACK);
@@ -239,7 +241,22 @@ public class MainFightPanel extends JPanel implements Interactive{
 		append(special,"   MAGIC",Color.WHITE,115,false);
 		append(item,"   ITEM",Color.WHITE,130,false);
 		System.out.println("Before repaint");
+
 		updateHealth();
+
+		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "up");
+		KeybindMaker.keybind(this, KeyEvent.VK_W, "up", u -> {
+			update(1);
+		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
+		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false), "down");
+		KeybindMaker.keybind(this, KeyEvent.VK_S, "down", u -> {
+			update(-1);
+		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
+		KeybindMaker.keybind(this, KeyEvent.VK_ENTER, "enter", u -> {
+			update(0);
+		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
+		grabFocus();
+
 	}
 
 	
@@ -302,7 +319,8 @@ public class MainFightPanel extends JPanel implements Interactive{
 			//return -1;
 		}
 		choice += num;
-		choice %= 3;
+		if(choice < 0) choice = 2;
+		if(choice > 2) choice = 0;
 		switch(choice) {
 		case 0:
 			attack.setBackground(Color.GRAY);
@@ -323,11 +341,12 @@ public class MainFightPanel extends JPanel implements Interactive{
 		//return choice;
 	}
 
-
+/*
 	@Override
 	public void interact(GamePlay g) {
 		// TODO Auto-generated method stub
 		while(!g.returnText.isEmpty()) {
+			System.out.println("aaaaaa");
 			switch(g.returnText) {
 				case "up": case "uparrow":
 					update(1);
@@ -339,7 +358,9 @@ public class MainFightPanel extends JPanel implements Interactive{
 					update(0);
 					break;
 			}
+			System.out.println("aaaabbb");
 			g.userWait();
+			System.out.println("bbb");
 		}
 	}
 
@@ -348,7 +369,7 @@ public class MainFightPanel extends JPanel implements Interactive{
 	public void disappear(Interactive[][] arr, int a, int b) {
 		// TODO Auto-generated method stub
 		
-	}
+	}*/
 	
 /*
 	@Override

@@ -5,13 +5,13 @@ import java.awt.event.KeyListener;
 import java.util.LinkedList;
 import java.util.List;
 
-public class Listener implements KeyListener {
+public class Listener implements KeyListener { //deprecated
 	public final List<String> returnText = new LinkedList<String>();
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e);
+		System.out.println("k");
 		switch(e.getKeyCode()) {
 		
 		case KeyEvent.VK_A:
