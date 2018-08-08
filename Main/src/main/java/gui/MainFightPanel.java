@@ -49,7 +49,7 @@ public class MainFightPanel extends JPanel{
     public Fight fight;
     public static JLabel picSpace;
     public JPanel fightPanel,user;
-    public Meter health,mana,stamina;
+    public Meter health,mana,stamina, ehealth, emana, estamina;
     public static JTextPane attack,item,special;
     public static JPanel picArea,enemy,blankEnemy,menuBox;
     public int choice = -1,  target = 0;
@@ -64,6 +64,7 @@ public class MainFightPanel extends JPanel{
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
 		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
+		ehealth = new Meter(e.health, e.maxHealth, HEALTH_GREEN,Color.BLACK, "", 19);
 		try {
 			init("test.jpg"/*e.getPic()*/);
 		} catch (Exception e1) {
@@ -84,6 +85,7 @@ public class MainFightPanel extends JPanel{
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
 		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
+		ehealth = new Meter(e.get(0).health, e.get(0).maxHealth, HEALTH_GREEN,Color.BLACK, "", 19);
 		try {
 			init(e.get(0).getPic());
 		} catch (Exception e1) {
@@ -101,6 +103,7 @@ public class MainFightPanel extends JPanel{
 		health.update(gameplay.player.health,"HP: " + gameplay.player.health + "/" + gameplay.player.maxHealth);
 		mana.update(gameplay.player.mana,"Mana: " + gameplay.player.mana + "/" + gameplay.player.maxMana);
 		stamina.update((int)gameplay.player.stamina,"Stamina: " + (int)gameplay.player.stamina + "/" + (int)gameplay.player.maxStamina);
+		ehealth.update(enemies.get(0).first.health,  "");
 	}
 	
 	public static void append(JTextPane p, String n, Color c,int size, boolean bold) {
@@ -175,6 +178,21 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		stamina.setVisible(true);
 		stamina.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 		
+		ehealth.setPreferredSize(new Dimension(550,25));
+		ehealth.setBackground(Color.BLACK);
+		ehealth.setVisible(true);
+		ehealth.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+		/*
+		emana.setMaximumSize(new Dimension(550,50));
+		emana.setBackground(Color.BLACK);
+		emana.setVisible(true);
+		emana.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+		
+		estamina.setMaximumSize(new Dimension(550,50));
+		estamina.setBackground(Color.BLACK);
+		estamina.setVisible(true);
+		estamina.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));*/
+		
 		
 		TitledBorder border12 = new TitledBorder("Enemy");
         border12.setTitleColor(Color.WHITE);
@@ -189,12 +207,12 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		enemy.add(Box.createHorizontalStrut(5));
 		enemy.setBorder(border12);
 		//enemy.setLayout(new BoxLayout(enemy,BoxLayout.Y_AXIS));
-
+/*
 		blankEnemy = new JPanel();
 		blankEnemy.setPreferredSize(new Dimension(205,205));
 		blankEnemy.setBackground(enemy.getBackground());
-		blankEnemy.setVisible(true);
-		enemy.add(blankEnemy);
+		blankEnemy.setVisible(true);*/
+		//enemy.add(blankEnemy);
 		
 		picArea = new JPanel();
 		 BufferedImage image = ImageIO.read(new File("src/res/pics/" + "test.jpg"));	
@@ -205,6 +223,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		picArea.setBackground(Color.BLACK);
 		picArea.setVisible(true);
 		
+		enemy.add(ehealth);
 		enemy.add(picArea);
 		
 		TitledBorder border2 = new TitledBorder("Battle");

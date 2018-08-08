@@ -173,6 +173,12 @@ public class DrawScreen extends JPanel{
 		g.translate(xtrans, ytrans);
 		g.drawImage(test,gameplay.player.x,gameplay.player.y,this);
 		g.setColor(Color.WHITE);
+		try {
+			gameplay.latch.await();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for(int i = 0; i < gameplay.maze.x; i++) for(int j = 0; j < gameplay.maze.y; j++) {
 			g.drawRect(-1, -1, mazeSize*gameplay.maze.x, 1);
 			g.drawRect(-1, -1, 1, mazeSize*gameplay.maze.y);
