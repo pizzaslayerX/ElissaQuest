@@ -38,6 +38,11 @@ public class Player extends Entity{
 	}
 	
 	
+	
+	
+	
+	
+	
 	public boolean removeItem(Item i,int amt) {
 		boolean dispose = false;
 		if(!containsItem(i)) {System.out.println("No item to remove!");return false;}

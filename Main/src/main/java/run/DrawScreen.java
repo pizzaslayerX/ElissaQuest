@@ -58,13 +58,13 @@ public class DrawScreen extends JPanel{
 		//gameplay.newFight(Enemy.Enemies.skeleton());
 
 
-	//	   /*
+		//   /*
 		ArrayList<Enemy> g = new ArrayList<Enemy>();
 		g.add(Enemy.Enemies.skeleton());
 		g.add(Enemy.Enemies.skeleton());
 		g.add(Enemy.Enemies.skeleton());
 		gameplay.newFight(g);
-	//	  */
+	//  */
 		
 		test = loadImage("state1.png");
 		FOV = loadImage("circle.png");
@@ -154,7 +154,7 @@ public class DrawScreen extends JPanel{
 	
 	@Override
     public void paintComponent(Graphics g) {
-		if(moveVal < 5)
+		if(moveVal < 3)
 			moveVal++;
 		else {
 			moveVal = 0;

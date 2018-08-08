@@ -379,32 +379,42 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 	}
 	
 	private void update(int num) {
-	if(targetSelect == true) {
+	if(targetSelect == true) {		
 		if(num == 0) {
 			menuBox.setVisible(false);
 			targetSelect = false;
 			target = choice;
 			fight.getPlayerTurn("attack");
-		}
-		choice += -num;
-		if(choice < 0) choice = enemies.size()-1;
-		if(choice > enemies.size()-1) choice = 0;
-		for(int i = 0;i<enemies.size();i++) {
-			if(i!=choice) 
-				enemies.get(i).second.setBackground(Color.BLACK);
-			else 
-				enemies.get(i).second.setBackground(Color.GRAY);
+		}else {
+			choice += -num;
+			if(choice < 0) choice = enemies.size()-1;
+			if(choice > enemies.size()-1) choice = 0;
+			for(int i = 0;i<enemies.size();i++) {
+				if(i!=choice) 
+					enemies.get(i).second.setBackground(Color.BLACK);
+				else 
+					enemies.get(i).second.setBackground(Color.GRAY);
+			}
 		}
 	}
 	if(choosing == true) {
 		if(num == 0){
 			hideMenu();
 			choosing = false;
-			menuBox.setVisible(true);
-			menuBox.setBorder(genBorder("Select Target",0));
-			targetSelect = true;
-			choice = 0;
-			return;
+			if(choice==0) {
+				System.out.println("Size of enemies"+enemies.size());
+				if(enemies.size()==1) {
+					target = 0;
+					choice = 0;
+					fight.getPlayerTurn("attack");
+					return;
+				}
+				menuBox.setVisible(true);
+				menuBox.setBorder(genBorder("Select Target",0));
+				targetSelect = true;
+				choice = 0;
+				return;
+			}
 		}
 		choice += num;
 		if(choice < 0) choice = 2;
