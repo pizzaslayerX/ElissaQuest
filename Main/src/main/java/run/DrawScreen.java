@@ -15,6 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class DrawScreen extends JPanel{
 	private static BufferedImage test;
@@ -53,9 +54,13 @@ public class DrawScreen extends JPanel{
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
-		//addKeyListener(gameplay.listener);
-		gameplay.newFight(Enemy.Enemies.skeleton());
-
+	//	/*
+		ArrayList<Enemy> g = new ArrayList<Enemy>();
+		g.add(Enemy.Enemies.skeleton());
+		g.add(Enemy.Enemies.skeleton());
+		g.add(Enemy.Enemies.skeleton());
+		gameplay.newFight(g);
+	//	*/
 		
 		test = loadImage("state1.png");
 		FOV = loadImage("circle.png");
