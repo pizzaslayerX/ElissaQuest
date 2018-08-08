@@ -48,7 +48,26 @@ public class Enemy extends Entity implements Interactive{
 	
 
 	public static class Enemies {
+		/*
+		 * 5 normal enemies
+		 * 3 hard enemies
+		 * 2 dungeon bosses
+		 * 1 floor boss
+		 */
+		
 		//forbidden forest
+		
+		//normal
+		
+		//hard
+		
+		//dungeon - wendigo
+		
+		//boss - basilisk
+		
+		//secluded swamp
+		
+		//normal
 		
 		public static Enemy skeleton() {
 			return new Enemy("Skeleton.png",new ArrayList<Pair<Probability<Item>,Integer>>(Arrays.asList(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.rustyDagger(),.35),1))), (u,v) -> {
@@ -56,15 +75,56 @@ public class Enemy extends Entity implements Interactive{
 			}, new Weapon[] {new Weapon("Bone club", "%1$s bone clubs %2$s", 3, 2)});
 		}
 		
-		//secluded swamp
+		//hard
+				
+		//dungeon
+				
+		//boss - plant thing
+				
 		
 		//rotted ruins
 		
+		//normal - ghoul
+		
+		//hard
+				
+		//dungeon
+				
+		//boss
+				
+		
 		//arctic alps
+		
+		//normal
+		
+		//hard
+				
+		//dungeon
+				
+		//boss
+				
 		
 		//dark dungeon
 		
-		//
+		//normal
+		
+		//hard
+				
+		//dungeon
+				
+		//boss
+				
+		
+		//hagridden hell
+		
+		//normal
+		
+		//hard
+				
+		//dungeon
+				
+		//boss - hades
+				
 	}
 
 }
