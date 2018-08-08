@@ -64,7 +64,7 @@ public class MainFightPanel extends JPanel{
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
 		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),new Color(255, 127, 0),Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
-		ehealth = new Meter(e.health, e.maxHealth, new Color(200,0,0),Color.BLACK, "", 19);
+		ehealth = new Meter(e.health, e.maxHealth, new Color(200,0,0),Color.BLACK, "HP", 19);
 		try {
 			init("test.jpg"/*e.getPic()*/);
 		} catch (Exception e1) {
@@ -85,7 +85,7 @@ public class MainFightPanel extends JPanel{
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
 		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),new Color(255, 127, 0),Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
-		ehealth = new Meter(e.get(0).health, e.get(0).maxHealth, new Color(200,0,0),Color.BLACK, "", 19);
+		ehealth = new Meter(e.get(0).health, e.get(0).maxHealth, new Color(200,0,0),Color.BLACK, "HP", 19);
 		try {
 			init(e.get(0).getPic());
 		} catch (Exception e1) {
@@ -183,12 +183,12 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		ehealth.setVisible(true);
 		ehealth.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 		/*
-		emana.setMaximumSize(new Dimension(550,50));
+		emana.setMaximumSize(new Dimension(550,25));
 		emana.setBackground(Color.BLACK);
 		emana.setVisible(true);
 		emana.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 		
-		estamina.setMaximumSize(new Dimension(550,50));
+		estamina.setMaximumSize(new Dimension(550,25));
 		estamina.setBackground(Color.BLACK);
 		estamina.setVisible(true);
 		estamina.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));*/
