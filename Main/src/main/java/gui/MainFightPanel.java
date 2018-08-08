@@ -63,8 +63,8 @@ public class MainFightPanel extends JPanel{
 		enemies.add(new Pair<Enemy,JTextPane>(e,new JTextPane()));
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
-		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
-		ehealth = new Meter(e.health, e.maxHealth, HEALTH_GREEN,Color.BLACK, "", 19);
+		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),new Color(255, 127, 0),Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
+		ehealth = new Meter(e.health, e.maxHealth, new Color(200,0,0),Color.BLACK, "", 19);
 		try {
 			init("test.jpg"/*e.getPic()*/);
 		} catch (Exception e1) {
@@ -84,8 +84,8 @@ public class MainFightPanel extends JPanel{
 		
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
-		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
-		ehealth = new Meter(e.get(0).health, e.get(0).maxHealth, HEALTH_GREEN,Color.BLACK, "", 19);
+		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),new Color(255, 127, 0),Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
+		ehealth = new Meter(e.get(0).health, e.get(0).maxHealth, new Color(200,0,0),Color.BLACK, "", 19);
 		try {
 			init(e.get(0).getPic());
 		} catch (Exception e1) {
