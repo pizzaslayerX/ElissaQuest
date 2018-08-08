@@ -384,7 +384,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 			menuBox.setVisible(false);
 			targetSelect = false;
 			target = choice;
-			fight.getPlayerTurn(0);
+			fight.getPlayerTurn("attack");
 		}
 		choice += -num;
 		if(choice < 0) choice = enemies.size()-1;

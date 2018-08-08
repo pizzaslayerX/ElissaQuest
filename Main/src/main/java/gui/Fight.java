@@ -25,9 +25,9 @@ public class Fight {
 		gameplay = mf.gameplay;
 	}
 	
-	public void getPlayerTurn(int action) {
+	public void getPlayerTurn(String action) {
 		switch(action) {
-		case 0:
+		case "attack":
 			System.out.println("success!\nTargetted #"+ mainFight.target + ": "+ mainFight.getTarget().name);
 			player.attack(mainFight.getTarget(), gameplay);
 			break;
