@@ -14,11 +14,11 @@ public class Player extends Entity{
 	public int level;
 	public int x;
 	public int y;
-	private ArrayList<Pair<Item,Integer>> inventory;
-	private ArrayList<Pair<Item,Integer>> pots;
-	private ArrayList<Pair<Item,Integer>> weapons;
-	private ArrayList<Pair<Item,Integer>> equipment;
-	private ArrayList<Spell> spells;
+	public ArrayList<Pair<Item,Integer>> inventory;
+	public ArrayList<Pair<Item,Integer>> pots;
+	public ArrayList<Pair<Item,Integer>> weapons;
+	public ArrayList<Pair<Item,Integer>> equipment;
+	public ArrayList<Spell> spells;
 	
 	public Player(GamePlay d) {
 		runner = d;

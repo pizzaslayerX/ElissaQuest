@@ -52,13 +52,15 @@ public class MainFightPanel extends JPanel{
     public Meter health,mana,stamina, ehealth, emana, estamina;
     public static JTextPane attack,item,special;
     public static JPanel picArea,enemy,blankEnemy,menuBox;
-    public int choice = -1,  target = 0;
-    public boolean choosing = true,targetSelect=false;
+    public InventoryPair pots;
+    public int choice = 1,  target = 0;
+    public boolean choosing = true,targetSelect=false,itemSelect=false;
     private static final Color HEALTH_GREEN = new Color(22, 150, 10);
     
 	public MainFightPanel(Enemy e, GamePlay gp){
 		gameplay = gp;
 		
+		pots = new InventoryPair(gameplay.player.pots);
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		enemies.add(new Pair<Enemy,JTextPane>(e,new JTextPane()));
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
@@ -81,6 +83,8 @@ public class MainFightPanel extends JPanel{
 	
 	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) {
 		gameplay = gp;
+		
+		pots = new InventoryPair(gameplay.player.pots);
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		for(Enemy en : e) enemies.add(new Pair<Enemy,JTextPane>(en,new JTextPane()));
 		
@@ -200,6 +204,12 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		estamina.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));//*/
 		
 		
+		pots.setFocusable(false);
+		pots.setVisible(false);
+		pots.setBackground(Color.BLACK);
+		pots.setMaximumSize(new Dimension(595,550));
+		
+		
 		TitledBorder border12 = new TitledBorder("Enemy");
         border12.setTitleColor(Color.WHITE);
         border12.setTitleFont(new Font("Monospaced", Font.BOLD, 18));
@@ -256,6 +266,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		
 		attack = new JTextPane();
 		attack.setEditable(false);
+		attack.setFocusable(false);
 		attack.setMaximumSize(new Dimension(550,140));
 		attack.setBackground(Color.BLACK);
 		attack.setVisible(true);
@@ -267,6 +278,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		item.setBackground(Color.BLACK);
 		item.setVisible(true);
 		item.setBorder(s);
+		item.setFocusable(false);
 		
 		special = new JTextPane();
 		special.setEditable(false);
@@ -274,6 +286,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		special.setBackground(Color.BLACK);
 		special.setVisible(true);
 		special.setBorder(a);
+		special.setFocusable(false);
 		
 		user.add(Box.createVerticalStrut(5));
 		user.add(health);
@@ -287,6 +300,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		user.add(special);
 		user.add(Box.createVerticalStrut(10));
 		user.add(item);
+		user.add(pots);
 		
 		
 		 
@@ -300,16 +314,15 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 			enemies.get(i).second.setPreferredSize(new Dimension(580,50));
 			enemies.get(i).second.setBorder(genBorder("",0));
 			enemies.get(i).second.setBackground(Color.BLACK);
+			enemies.get(i).second.setFocusable(false);
 			append(enemies.get(i).second,enemies.get(i).first.name+"",Color.WHITE,35,false,1);
 			if(i==0) enemies.get(i).second.setBackground(Color.GRAY);
 				
 			menuBox.add(enemies.get(i).second);
 		}
-		//boo
 		add(enemy);	
 		add(user);	
-		//System.out.println("Before repaint");
-		//System.out.println("Before repaint");
+		
 		
 		append(attack," ATTACK",Color.WHITE,120,false);
 		append(special,"   MAGIC",Color.WHITE,115,false);
@@ -410,6 +423,9 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 	}
 	
 	private void update(int num) {
+	if(itemSelect == true) {
+		
+	}
 	if(targetSelect == true) {		
 		if(num == 0) {
 			menuBox.setVisible(false);
@@ -445,26 +461,34 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 				targetSelect = true;
 				choice = 0;
 				return;
+			}else if(choice==1) {
+				System.out.println("Magic");
+			}else if(choice==2){
+				System.out.println("Items");
+				pots.setVisible(true);
+				itemSelect = true;
+				choice = 0;
+				return;
 			}
 		}
-		choice += num;
+		choice += -num;
 		if(choice < 0) choice = 2;
 		if(choice > 2) choice = 0;
 		switch(choice) {
 		case 0:
 			attack.setBackground(Color.GRAY);
-			item.setBackground(Color.BLACK);
 			special.setBackground(Color.BLACK);
+			item.setBackground(Color.BLACK);
 			break;
 		case 1:
 			attack.setBackground(Color.BLACK);
-			item.setBackground(Color.GRAY);
-			special.setBackground(Color.BLACK);
+			special.setBackground(Color.GRAY);
+			item.setBackground(Color.BLACK);
 			break;
 		case 2:
 			attack.setBackground(Color.BLACK);
-			item.setBackground(Color.BLACK);
-			special.setBackground(Color.GRAY);
+			special.setBackground(Color.BLACK);
+			item.setBackground(Color.GRAY);
 			break;
 		}
 	  }
