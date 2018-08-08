@@ -264,12 +264,13 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		special.setVisible(true);
 		special.setBorder(a);
 		
+		user.add(Box.createVerticalStrut(5));
 		user.add(health);
 		user.add(Box.createVerticalStrut(5));
 		user.add(mana);
 		user.add(Box.createVerticalStrut(5));
 		user.add(stamina);
-		user.add(Box.createVerticalStrut(25));
+		user.add(Box.createVerticalStrut(20));
 		user.add(attack);
 		user.add(Box.createVerticalStrut(10));
 		user.add(special);
