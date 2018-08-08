@@ -28,7 +28,9 @@ public class Fight {
 	public void getPlayerTurn(int action) {
 		switch(action) {
 		case 0:
+			System.out.println("success!\nTargetted #"+ mainFight.target + ": "+ mainFight.getTarget().name);
 			player.attack(mainFight.getTarget(), gameplay);
+			break;
 		}
 	}
 	

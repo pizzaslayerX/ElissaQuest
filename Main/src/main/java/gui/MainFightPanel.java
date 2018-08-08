@@ -52,8 +52,8 @@ public class MainFightPanel extends JPanel{
     public Meter health,mana,stamina;
     public static JTextPane attack,item,special;
     public static JPanel picArea,enemy,blankEnemy,menuBox;
-    private static int choice ,  uhuugugyy= -1;
-    public static boolean choosing = true,targetSelect=false;
+    public int choice ,  target = 0;
+    public boolean choosing = true,targetSelect=false;
     private static final Color HEALTH_GREEN = new Color(22, 150, 10);
     
 	public MainFightPanel(Enemy e, GamePlay gp){
@@ -270,6 +270,8 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 			enemies.get(i).second.setBorder(genBorder("",0));
 			enemies.get(i).second.setBackground(Color.BLACK);
 			append(enemies.get(i).second,enemies.get(i).first.name+"",Color.WHITE,35,false,1);
+			if(i==0) enemies.get(i).second.setBackground(Color.GRAY);
+				
 			menuBox.add(enemies.get(i).second);
 		}
 		//boo
@@ -353,13 +355,9 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		selectChoice();
 	  }
 	}*/
-
+	
 	public Entity getTarget() {
-	//	if(enemies.size() == 1)
-		//	return enemies.get(0).first;
-		menuBox.setVisible(true);
-		menuBox.setBorder(genBorder("Select Target",0));
-		return null;
+		return enemies.get(target).first;
 	}
 	
 	private void hideMenu() {
@@ -381,12 +379,32 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 	}
 	
 	private void update(int num) {
-		
+	if(targetSelect == true) {
+		if(num == 0) {
+			menuBox.setVisible(false);
+			targetSelect = false;
+			target = choice;
+			fight.getPlayerTurn(0);
+		}
+		choice += -num;
+		if(choice < 0) choice = enemies.size()-1;
+		if(choice > enemies.size()-1) choice = 0;
+		for(int i = 0;i<enemies.size();i++) {
+			if(i!=choice) 
+				enemies.get(i).second.setBackground(Color.BLACK);
+			else 
+				enemies.get(i).second.setBackground(Color.GRAY);
+		}
+	}
+	if(choosing == true) {
 		if(num == 0){
 			hideMenu();
-			fight.getPlayerTurn(choice);
+			choosing = false;
+			menuBox.setVisible(true);
+			menuBox.setBorder(genBorder("Select Target",0));
+			targetSelect = true;
+			choice = 0;
 			return;
-			//return -1;
 		}
 		choice += num;
 		if(choice < 0) choice = 2;
@@ -408,7 +426,8 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 			special.setBackground(Color.GRAY);
 			break;
 		}
-		//return choice;
+	  }
+		
 	}
 
 /*
