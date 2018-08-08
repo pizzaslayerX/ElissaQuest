@@ -210,7 +210,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		enemy.setPreferredSize(new Dimension(((int)Window.GAME_SIZE.getWidth()/2-10),((int)Window.GAME_SIZE.getHeight()-40)));
 		enemy.setBackground(Color.BLACK);
 		enemy.setVisible(true);
-		enemy.add(Box.createHorizontalStrut(5));
+		//enemy.add(Box.createHorizontalStrut(5));
 		enemy.setBorder(border12);
 		//enemy.setLayout(new BoxLayout(enemy,BoxLayout.Y_AXIS));
 /*
@@ -234,6 +234,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		enemy.add(emana);
 		enemy.add(Box.createVerticalStrut(5));
 		enemy.add(estamina);
+		enemy.add(Box.createVerticalStrut(5));
 		enemy.add(picArea);
 		
 		TitledBorder border2 = new TitledBorder("Battle");

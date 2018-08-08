@@ -58,14 +58,14 @@ public class DrawScreen extends JPanel{
 		//gameplay.newFight(Enemy.Enemies.skeleton());
 
 
-		   /*
+		 //  /*
 
 		ArrayList<Enemy> g = new ArrayList<Enemy>();
 		g.add(Enemy.Enemies.skeleton());
 		g.add(Enemy.Enemies.skeleton());
 		g.add(Enemy.Enemies.skeleton());
 		gameplay.newFight(g);
-		  */
+	//	  */
 
 		
 		test = loadImage("state1.png");
