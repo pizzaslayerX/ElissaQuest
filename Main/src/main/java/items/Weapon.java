@@ -108,7 +108,7 @@ public class Weapon extends Item { //add stamina reduction
 	
 	@SuppressWarnings("unchecked")
 	public Weapon clone() { //make this clone rest of fields
-		return new Weapon(name, message, baseDmg, range, staminaDepletion, flatStaminaDepletion, hits, sparkChance, sparkBonus, lifeSteal, (ArrayList<Probability<StatusEffect>>)atkEnemyEffects.clone(), (ArrayList<Probability<StatusEffect>>)atkSelfEffects.clone(), Arrays.stream(criticals).map(double[]::clone).toArray(double[][]::new));
+		return new Weapon(name, message, baseDmg, range, staminaDepletion, flatStaminaDepletion, hits, sparkChance, sparkBonus, lifeSteal, atkEnemyEffects == null ? null : (ArrayList<Probability<StatusEffect>>)atkEnemyEffects.clone(), atkSelfEffects == null ? null : (ArrayList<Probability<StatusEffect>>)atkSelfEffects.clone(), criticals == null ? null : Arrays.stream(criticals).map(double[]::clone).toArray(double[][]::new));
 	}
 	
 	public String toString() {

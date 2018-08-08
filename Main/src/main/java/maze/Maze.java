@@ -32,7 +32,7 @@ public class Maze{
 	public final int endx;
 	public final int endy;
 	public final Interactive[][] interactives;
-	public String wait = "wait";
+	
 	
  
 	public Maze(int x, int y) {

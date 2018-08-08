@@ -87,6 +87,8 @@ public abstract class Entity { //add armor slots
 		staminaRegen = baseStaminaRegen;
 		defense = baseDefense;
 		flatDefense = baseFlatDefense;
+		sparkMitigation = baseSparkMitigation;
+		endurance = baseEndurance;
 		dmgReflect = 0;
 		atkMultiplier = dmgMultiplier = 1;
 		currWeapon = baseCurrWeapon.clone();

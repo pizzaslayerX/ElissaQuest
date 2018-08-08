@@ -1,6 +1,7 @@
 package run;
 
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -21,6 +22,7 @@ public class GamePlay implements Runnable{
 	//public String returnText = " ";
 	public Player player = new Player(this);
 	public int blinkMode = 0;
+	public CountDownLatch latch = new CountDownLatch(1);
 	//public Listener listener = new Listener();
 	
 	
@@ -52,6 +54,7 @@ public class GamePlay implements Runnable{
 		player.y = maze.starty*r.mazeSize;
 		r.xtrans = (int)(r.window.GAME_SIZE.getWidth()/4) - player.x;
 		r.ytrans = (int)(r.window.GAME_SIZE.getHeight()/4) - player.y;
+		latch.countDown();
 		r.repaint();
 	}
 
