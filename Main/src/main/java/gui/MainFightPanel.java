@@ -272,7 +272,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 			append(enemies.get(i).second,enemies.get(i).first.name+"",Color.WHITE,35,false,1);
 			menuBox.add(enemies.get(i).second);
 		}
-		
+		//boo
 		add(enemy);	
 		add(user);	
 		//System.out.println("Before repaint");
