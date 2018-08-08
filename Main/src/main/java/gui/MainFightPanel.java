@@ -52,7 +52,7 @@ public class MainFightPanel extends JPanel{
     public Meter health,mana,stamina;
     public static JTextPane attack,item,special;
     public static JPanel picArea,enemy,blankEnemy,menuBox;
-    public int choice ,  target = 0;
+    public int choice = -1,  target = 0;
     public boolean choosing = true,targetSelect=false;
     private static final Color HEALTH_GREEN = new Color(22, 150, 10);
     
