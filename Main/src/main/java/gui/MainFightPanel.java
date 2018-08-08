@@ -41,7 +41,7 @@ import run.GamePlay;
 import run.Window;
 
 public class MainFightPanel extends JPanel{
-	private ArrayList<Pair<Enemy,JPanel>> enemies;
+	private ArrayList<Pair<Enemy,JTextPane>> enemies;
 
 	public GamePlay gameplay;
     public FlowLayout layout;
@@ -53,14 +53,14 @@ public class MainFightPanel extends JPanel{
     public static JTextPane attack,item,special;
     public static JPanel picArea,enemy,blankEnemy,menuBox;
     private static int choice ,  uhuugugyy= -1;
-    public static boolean choosing = true;
+    public static boolean choosing = true,targetSelect=false;
     private static final Color HEALTH_GREEN = new Color(22, 150, 10);
     
 	public MainFightPanel(Enemy e, GamePlay gp){
 		gameplay = gp;
 		
-		enemies = new ArrayList<Pair<Enemy,JPanel>>();
-		enemies.add(new Pair<Enemy,JPanel>(e,new JPanel()));
+		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
+		enemies.add(new Pair<Enemy,JTextPane>(e,new JTextPane()));
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
 		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
@@ -78,12 +78,12 @@ public class MainFightPanel extends JPanel{
 	
 	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) {
 		gameplay = gp;
-		enemies = new ArrayList<Pair<Enemy,JPanel>>();
-		for(Enemy en : e) enemies.add(new Pair<Enemy,JPanel>(en,new JPanel()));
+		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
+		for(Enemy en : e) enemies.add(new Pair<Enemy,JTextPane>(en,new JTextPane()));
 		
-		health = new Meter(gp.player.health,gp.player.maxHealth,Color.GREEN,Color.RED,"HP: " + gp.player.health + "/" + gp.player.maxHealth,15);
-		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,15);
-		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),15);
+		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
+		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
+		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),Color.ORANGE,Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
 		try {
 			init(e.get(0).getPic());
 		} catch (Exception e1) {
@@ -95,17 +95,7 @@ public class MainFightPanel extends JPanel{
 		//interact(gp);
 	}
 	
-	public static void append(JTextPane p,String n) {
-    	
-    	StyledDocument doc = p.getStyledDocument();
-
-    	SimpleAttributeSet keyWord = new SimpleAttributeSet();
-    	StyleConstants.setForeground(keyWord, Color.WHITE);
-       try
-    	{
-    	   doc.insertString(doc.getLength(),n, keyWord);
-    	} catch(Exception e) { System.out.println(e);}
-    }
+	
 
 	public void updateHealth() {
 		health.update(gameplay.player.health,"HP: " + gameplay.player.health + "/" + gameplay.player.maxHealth);
@@ -120,6 +110,28 @@ public class MainFightPanel extends JPanel{
     	SimpleAttributeSet keyWord = new SimpleAttributeSet();
     	StyleConstants.setForeground(keyWord,c);
     	StyleConstants.setBold(keyWord, bold);
+    	if(size != 0)
+    		StyleConstants.setFontSize(keyWord, size);
+    		try
+    		{
+    			doc.insertString(doc.getLength(),n, keyWord);
+    		} catch(Exception e) { System.out.println(e);}
+    }
+	
+public static void append(JTextPane p, String n, Color c,int size, boolean bold,int a) {
+    	
+    	StyledDocument doc = p.getStyledDocument();
+
+    	SimpleAttributeSet keyWord = new SimpleAttributeSet();
+    	StyleConstants.setForeground(keyWord,c);
+    	StyleConstants.setBold(keyWord, bold);
+    	switch(a){
+    		case 1: 
+    		StyleConstants.setAlignment(keyWord,StyleConstants.ALIGN_CENTER);
+    		StyleConstants.setFontFamily(keyWord, "Monospace");
+    		break;
+    	}
+    	doc.setParagraphAttributes(0, doc.getLength(), keyWord, false);
     	if(size != 0)
     		StyleConstants.setFontSize(keyWord, size);
     		try
@@ -254,7 +266,11 @@ public class MainFightPanel extends JPanel{
 		
 		user.add(menuBox);
 		for(int i = 0;i<enemies.size();i++) {
-			//enemies.get(i).second.setPreferredSize(550);
+			enemies.get(i).second.setPreferredSize(new Dimension(580,50));
+			enemies.get(i).second.setBorder(genBorder("",0));
+			enemies.get(i).second.setBackground(Color.BLACK);
+			append(enemies.get(i).second,enemies.get(i).first.name+"",Color.WHITE,35,false,1);
+			menuBox.add(enemies.get(i).second);
 		}
 		//boo
 		add(enemy);	
@@ -285,7 +301,7 @@ public class MainFightPanel extends JPanel{
 	}
 
 	
-	private TitledBorder borderGen(String n,int orient) {
+	private TitledBorder genBorder(String n,int orient) {
 		TitledBorder border3 = new TitledBorder(n);
         border3.setTitleColor(Color.WHITE);
         border3.setTitleFont(new Font("Monospaced", Font.BOLD, 18));
@@ -339,9 +355,10 @@ public class MainFightPanel extends JPanel{
 	}*/
 
 	public Entity getTarget() {
+	//	if(enemies.size() == 1)
+		//	return enemies.get(0).first;
 		menuBox.setVisible(true);
-		menuBox.setBorder(borderGen("Select Target",0));
-		System.out.println("eue");
+		menuBox.setBorder(genBorder("Select Target",0));
 		return null;
 	}
 	
@@ -349,9 +366,9 @@ public class MainFightPanel extends JPanel{
 		special.setVisible(false);
 		item.setVisible(false);
 		attack.setVisible(false);
-		health.setMaximumSize(new Dimension(550,25));
-		mana.setMaximumSize(new Dimension(550,25));
-		stamina.setMaximumSize(new Dimension(550,25));
+		health.setMaximumSize(new Dimension(550,29));
+		mana.setMaximumSize(new Dimension(550,29));
+		stamina.setMaximumSize(new Dimension(550,29));
 	}
 	
 	private void showMenu() {
@@ -364,6 +381,7 @@ public class MainFightPanel extends JPanel{
 	}
 	
 	private void update(int num) {
+		
 		if(num == 0){
 			hideMenu();
 			fight.getPlayerTurn(choice);

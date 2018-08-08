@@ -3,6 +3,7 @@ package gui;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+import javax.swing.JTextPane;
 
 import entities.Enemy;
 import entities.Entity;
@@ -12,12 +13,12 @@ import run.GamePlay;
 
 public class Fight {
 	public Player player;
-	public ArrayList<Pair<Enemy,JPanel>> enemies;
+	public ArrayList<Pair<Enemy,JTextPane>> enemies;
 	public MainFightPanel mainFight;
 	public GamePlay gameplay;
 	public boolean playerTurn = true;
 	
-	public Fight(Player p,ArrayList<Pair<Enemy,JPanel>> e,MainFightPanel mf) {
+	public Fight(Player p,ArrayList<Pair<Enemy,JTextPane>> e,MainFightPanel mf) {
 		player = p;
 		enemies = e;
 		mainFight = mf;
