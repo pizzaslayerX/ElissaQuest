@@ -34,6 +34,7 @@ public class Player extends Entity{
 		pots = new ArrayList<Pair<Item,Integer>>();
 		weapons = new ArrayList<Pair<Item,Integer>>();
 		equipment = new ArrayList<Pair<Item,Integer>>();
+		
 		spells = new ArrayList<Spell>();
 	}
 	

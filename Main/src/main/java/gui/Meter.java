@@ -54,7 +54,7 @@ public class Meter extends JPanel{
 		g.fillRect(0, 0,getFillWidth(),(int)(getHeight()));
 		System.out.println("fullWidth: "+fullWidth);
 		System.out.println((int)(getWidth()));
-		System.out.println((int)(getHeight()));
+		System.out.println(title+": "+(int)(getHeight()));
 		g.setColor(empty);
 		g.fillRect(getFillWidth(), 0,getEmptyWidth(),(int)(getHeight()));
 		g.setColor(Color.WHITE);

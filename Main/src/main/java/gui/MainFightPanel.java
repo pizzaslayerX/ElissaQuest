@@ -60,7 +60,7 @@ public class MainFightPanel extends JPanel{
 	public MainFightPanel(Enemy e, GamePlay gp){
 		gameplay = gp;
 		
-		pots = new InventoryPair(gameplay.player.pots);
+		pots = new InventoryPair(gameplay.player.pots,"Item Selection",595,550);
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		enemies.add(new Pair<Enemy,JTextPane>(e,new JTextPane()));
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
@@ -81,10 +81,10 @@ public class MainFightPanel extends JPanel{
 	}
 	
 	
-	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) {
+	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) { 
 		gameplay = gp;
 		
-		pots = new InventoryPair(gameplay.player.pots);
+		pots = new InventoryPair(gameplay.player.pots,"Item Selection",595,455);
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		for(Enemy en : e) enemies.add(new Pair<Enemy,JTextPane>(en,new JTextPane()));
 		
@@ -204,10 +204,6 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		estamina.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));//*/
 		
 		
-		pots.setFocusable(false);
-		pots.setVisible(false);
-		pots.setBackground(Color.BLACK);
-		pots.setMaximumSize(new Dimension(595,550));
 		
 		
 		TitledBorder border12 = new TitledBorder("Enemy");
@@ -255,6 +251,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
         
 		user = new JPanel();
 		user.setLayout(new BoxLayout(user,BoxLayout.PAGE_AXIS));
+		//user.setLayout(new BoxLayout(null);
 		user.setPreferredSize(new Dimension(((int)Window.GAME_SIZE.getWidth()/2-20),((int)Window.GAME_SIZE.getHeight()-40)));
 		user.setBackground(Color.BLACK);
 		user.setVisible(true);
@@ -300,7 +297,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		user.add(special);
 		user.add(Box.createVerticalStrut(10));
 		user.add(item);
-		user.add(pots);
+		
 		
 		
 		 
@@ -310,6 +307,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		menuBox.setVisible(false);
 		
 		user.add(menuBox);
+		user.add(pots);
 		for(int i = 0;i<enemies.size();i++) {
 			enemies.get(i).second.setPreferredSize(new Dimension(580,50));
 			enemies.get(i).second.setBorder(genBorder("",0));
@@ -466,6 +464,10 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 			}else if(choice==2){
 				System.out.println("Items");
 				pots.setVisible(true);
+				System.out.println("\n\nAfter choice\n\n");
+				health.setMaximumSize(new Dimension(550,25));
+				mana.setMaximumSize(new Dimension(550,25));
+				stamina.setMaximumSize(new Dimension(550,25));
 				itemSelect = true;
 				choice = 0;
 				return;

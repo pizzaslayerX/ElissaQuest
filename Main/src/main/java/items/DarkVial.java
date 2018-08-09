@@ -20,7 +20,6 @@ public class DarkVial extends Item implements Consumable{
 		new StatusEffect("endurance",10,6).addTo(p);
 		new StatusEffect("disenchantment",4,6).addTo(p);
 		new StatusEffect("curse",3,3).addTo(p);
-		
 	}
 
 	@Override
