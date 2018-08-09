@@ -83,7 +83,7 @@ public class InventoryPair extends JPanel{
 				items.get(i).second.setBorder(genBorder("",0));
 				//System.out.println(items.get(i).first.getDesc());
 				itemTab.add(items.get(i).second);
-				append(items.get(i).second,items.get(i).first.name,Color.WHITE,35,false,1);
+				append(items.get(i).second,items.get(i).first.name,Color.WHITE,35,true,1);
 			}else
 				itemTab.add(emptyPane());
 		}
