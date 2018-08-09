@@ -151,5 +151,11 @@ public class Consumable extends Item{
 		}
 		
 	}
+
+	@Override
+	public boolean equals(Item i) {
+		// TODO Auto-generated method stub
+		return name.equals(i.name) && desc.equals(i.desc);
+	}
 	
 }

@@ -38,6 +38,8 @@ public class Player extends Entity{
 		equipment = new ArrayList<Pair<Item,Integer>>();*/
 
 		spells = new ArrayList<Spell>();
+		
+		inventory.add(Consumable.Consumables.aether()); // testing
 	}
 	
 	

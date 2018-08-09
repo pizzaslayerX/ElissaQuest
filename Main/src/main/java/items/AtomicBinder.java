@@ -44,4 +44,10 @@ public class AtomicBinder extends Item{
 		return null;
 	}
 
+	@Override
+	public boolean equals(Item i) {
+		// TODO Auto-generated method stub
+		return (i instanceof AtomicBinder) && ((AtomicBinder)i).level == level;
+	}
+
 }

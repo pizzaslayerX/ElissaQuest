@@ -60,7 +60,7 @@ public class MainFightPanel extends JPanel{
 	public MainFightPanel(Enemy e, GamePlay gp){
 		gameplay = gp;
 
-		pots = new InventoryPair(gameplay.player.inventory.getConsumableInv(), "Item Selection",595,550);
+		pots = new InventoryPair(gameplay.player.inventory.getConsumableInv(), "Item Selection",595,455);
 
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		enemies.add(new Pair<Enemy,JTextPane>(e,new JTextPane()));
