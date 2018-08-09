@@ -1,11 +1,11 @@
 package items;
 
-public class AtomicBinder extends Item{
-
+public class VoidFuser extends Item{
+//make void deconstructor, which deconstructs a weapon into a bunch of atomic units, which will need to be used up when atomic binding
 	int level = 1;
 	
-	public AtomicBinder() {
-		super("Atomic Binder");
+	public VoidFuser() {
+		super("Void Fuser");
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -47,7 +47,7 @@ public class AtomicBinder extends Item{
 	@Override
 	public boolean equals(Item i) {
 		// TODO Auto-generated method stub
-		return (i instanceof AtomicBinder) && ((AtomicBinder)i).level == level;
+		return (i instanceof VoidFuser) && ((VoidFuser)i).level == level;
 	}
 
 }

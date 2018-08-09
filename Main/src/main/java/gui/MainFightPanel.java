@@ -85,7 +85,7 @@ public class MainFightPanel extends JPanel{
 	
 	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) { 
 		gameplay = gp;
-		gameplay.player.inventory.add(Consumable.Consumables.darkVial());
+		//gameplay.player.inventory.add(Consumable.Consumables.darkVial());
 		System.out.println(gameplay.player.inventory.getConsumableInv().size());
 		pots = new InventoryPair(gameplay.player.inventory.getConsumableInv(),"Item Selection",595,455);
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();

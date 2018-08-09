@@ -1,6 +1,8 @@
 package entities;
 import java.util.ArrayList;
+import java.util.Arrays;
 
+import items.Equipment;
 import items.StatusEffect;
 import items.Weapon;
 import misc.Probability;
@@ -35,6 +37,8 @@ public abstract class Entity { //add armor slots
 	public double dmgReflect; //base 0
 	public double dmgMultiplier = 1; //base 1
 	public double atkMultiplier = 1; //base 1
+	public Equipment[] equipment = new Equipment[7];
+	public Equipment[] baseEquipment = new Equipment[7];
 	public Weapon currWeapon;
 	public Weapon baseCurrWeapon;
 	public ArrayList<StatusEffect> statusEffects = new ArrayList<StatusEffect>();
@@ -43,7 +47,7 @@ public abstract class Entity { //add armor slots
 	public void attack(Entity e, GamePlay g) { //add slow multi hit display (maybe in enhancements?)
 		double sparkMultiplier = 1;
 		for(int i = 0; i < currWeapon.hits; i++) {
-			double dmg = currWeapon.baseDmg - currWeapon.range + (.7 + .3*Math.random())*currWeapon.range*(1 + stamina/maxStamina - e.stamina/e.maxStamina);
+			double dmg = currWeapon.baseDmg - currWeapon.range + (.7 + .6*Math.random())*currWeapon.range*(1 + stamina/maxStamina - e.stamina/e.maxStamina); // should .6 be .3?
 			if(i > 0 && Math.random() < currWeapon.sparkChance) {
 				sparkMultiplier *= 1 + (1-e.sparkMitigation)*currWeapon.sparkBonus; 
 				//r.text.append("\nSpark!\tx " + (int)(100*(1 + e.sparkMitigation*currWeapon.sparkBonus)) + "%");
@@ -92,6 +96,7 @@ public abstract class Entity { //add armor slots
 		dmgReflect = 0;
 		atkMultiplier = dmgMultiplier = 1;
 		currWeapon = baseCurrWeapon.clone();
+		equipment = Arrays.copyOf(baseEquipment, 7);
 		for(StatusEffect se : statusEffects) if(se.active) se.affect(this);
 	}
 	

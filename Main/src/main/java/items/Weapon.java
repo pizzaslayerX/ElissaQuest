@@ -123,7 +123,7 @@ public class Weapon extends Item { //add stamina reduction
 		return "Message: " + String.format(message, "You", "[enemy]")
 		+ "\nBase damage: " + baseDmg
 		+ "\nVariance: " + range
-		+ "\nCriticals:" + crits;//add crits. add enhancements
+		+ "\nCriticals:" + crits;
 	}
 	
 	public static final class Weapons { //make methods
@@ -174,7 +174,7 @@ public class Weapon extends Item { //add stamina reduction
 		}
 		
 		public static Weapon randWeapon1() {
-			double dmg = Math.random()*19+1;
+			double dmg = Math.random()*Math.random()*16+4;
 			return new Weapon(weaponA[(int)(Math.random()*weaponA.length)] + " " + weaponB[(int)(Math.random()*weaponB.length)], weaponC[(int)(Math.random()*weaponC.length)] ,dmg, Math.random()*dmg, (int)(Math.random()*3)+1, Math.random()*.5, Math.random(), new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect(Effect.debuff().get((int)(Math.random()*Effect.debuff().size())), 1, 3), .4*Math.random()))), null);
 		}
 		
@@ -186,7 +186,7 @@ public class Weapon extends Item { //add stamina reduction
 	}
 
 	@Override
-	public boolean equals(Item i) {          //DO LATER
+	public boolean equals(Item i) {          //DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER DO LATER
 		// TODO Auto-generated method stub
 		
 
