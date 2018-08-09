@@ -21,8 +21,8 @@ import misc.Pair;
 public class InventoryPair extends JPanel{
 	private ArrayList<Pair<Item,JTextPane>> items;
 	public FlowLayout layout;
-	private JTextPane itemTab,descTab;
-	private int width,height;
+	private JPanel itemTab,descTab;
+	private int width,height,itW,itH;
 	
 	public InventoryPair(ArrayList<Pair<Item,Integer>> in,String str,int w, int h) {
 		items = new ArrayList<Pair<Item,JTextPane>>();
@@ -37,43 +37,51 @@ public class InventoryPair extends JPanel{
 		width=w;
 		height=h;
 		
-		itemTab = new JTextPane();		
-		itemTab.setPreferredSize(new Dimension(width/2-20,height-45));
+		itemTab = new JPanel();		
+		itW = width/2-20;
+		itH = height-45;
+		itemTab.setPreferredSize(new Dimension(itW,itH));
 		itemTab.setFocusable(false);
 		itemTab.setVisible(true);
 		itemTab.setBackground(Color.BLACK);
-		itemTab.setLayout(layout);
 		//itemTab.setBorder(genBorder("",0));
 		add(itemTab);
+		itemTab.add(Box.createRigidArea(new Dimension(itW-10,itH/16+7)));
 		//add(Box.createHorizontalStrut(1));
-		descTab = new JTextPane();		
-		descTab.setPreferredSize(new Dimension(width/2-20,height-45));
+		descTab = new JPanel();		
+		descTab.setPreferredSize(new Dimension(itW,itH-11));
 		descTab.setFocusable(false);
 		descTab.setVisible(true);
 		descTab.setBackground(Color.BLACK);
 		descTab.setBorder(genBorder("",0));
+		
 		add(descTab);
 		
 		for(int i=0;i<in.size();i++) {
 			
 			items.add(new Pair<Item,JTextPane>(in.get(i).first,new JTextPane()));
-			items.get(i).second.setMaximumSize(new Dimension(350,500));
-			items.get(i).second.setPreferredSize(new Dimension(350,500));
+			items.get(i).second.setMaximumSize(new Dimension(itW-10,itH/8));
+			items.get(i).second.setPreferredSize(new Dimension(itW-10,itH/8));
 			items.get(i).second.setBackground(Color.BLACK);
 			items.get(i).second.setFocusable(false);
 			items.get(i).second.setEditable(false);
 			items.get(i).second.setVisible(true);
 			items.get(i).second.setBorder(genBorder("",0));
 			//System.out.println(items.get(i).first.getDesc());
-			append(items.get(i).second,items.get(i).second.getName(),Color.WHITE,25,true,1);
+			
 			itemTab.add(items.get(i).second);
-			itemTab.revalidate();
+			append(items.get(i).second,items.get(i).first.name,Color.WHITE,35,false,1);
 		}
+		for(int i=0;i<5;i++) {
+			itemTab.add(emptyPane());
+		}
+		
 	}
 	
 	private JTextPane emptyPane() {
 		JTextPane dummy = new JTextPane();
-		dummy.setMaximumSize(new Dimension(350,500));
+		dummy.setMaximumSize(new Dimension(itW-10,itH/8));
+		dummy.setPreferredSize(new Dimension(itW-10,itH/8));
 		dummy.setBackground(Color.BLACK);
 		dummy.setFocusable(false);
 		dummy.setEditable(false);
