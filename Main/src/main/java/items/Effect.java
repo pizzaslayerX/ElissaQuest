@@ -81,7 +81,7 @@ public enum Effect {
 	},null),
 	lifeSteal("Life Steal", (e,p) -> {
 		e.currWeapon.lifeSteal += p/20d;
-	});
+	});//add effect where regen is proportional to missing health/mana/stamina
 	
 	public String name;
 	public BiConsumer<Entity, Integer> function; //constant for duration of effect
