@@ -21,7 +21,8 @@ import misc.Pair;
 public class InventoryPair extends JPanel{
 	public ArrayList<Pair<Item,JTextPane>> items;
 	public FlowLayout layout;
-	public JPanel itemTab,descTab;
+	public JPanel itemTab;
+	public JTextPane descTab;
 	public int width,height,itW,itH;
 	public Pair<ArrayList<Item>,Integer> in;
 	
@@ -49,9 +50,10 @@ public class InventoryPair extends JPanel{
 		add(itemTab);
 		
 		//add(Box.createHorizontalStrut(1));
-		descTab = new JPanel();		
+		descTab = new JTextPane();		
 		descTab.setPreferredSize(new Dimension(itW,itH-11));
 		descTab.setFocusable(false);
+		descTab.setEditable(false);
 		descTab.setVisible(true);
 		descTab.setBackground(Color.BLACK);
 		descTab.setBorder(genBorder("",0));
@@ -63,6 +65,7 @@ public class InventoryPair extends JPanel{
 	}
 	
 	public void display() {
+		descTab.setText("");
 		itemTab.removeAll();
 		itemTab.add(Box.createRigidArea(new Dimension(itW-10,itH/16+30)));
 		for(Pair<Item,JTextPane> j:items) j.second.removeAll();
@@ -72,7 +75,7 @@ public class InventoryPair extends JPanel{
 				items.add(new Pair<Item,JTextPane>(in.first.get(i),new JTextPane()));
 				items.get(i).second.setMaximumSize(new Dimension(itW-10,itH/8));
 				items.get(i).second.setPreferredSize(new Dimension(itW-10,itH/8));
-				if(i==0) items.get(i).second.setBackground(Color.GRAY);
+				if(i==0) { items.get(i).second.setBackground(Color.GRAY); append(descTab,in.first.get(i).desc,Color.WHITE,25,false,2);}
 				else items.get(i).second.setBackground(Color.BLACK);
 				items.get(i).second.setFocusable(false);
 				items.get(i).second.setEditable(false);

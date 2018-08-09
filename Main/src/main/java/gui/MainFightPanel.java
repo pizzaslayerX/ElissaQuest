@@ -440,8 +440,11 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 				for(int i = 0;i<gameplay.player.equippedPots.first.size();i++) {
 					if(i!=choice) 
 						pots.items.get(i).second.setBackground(Color.BLACK);
-					else 
+					else {
 						pots.items.get(i).second.setBackground(Color.GRAY);
+						pots.descTab.setText("");
+						append(pots.descTab,gameplay.player.equippedPots.first.get(i).desc,Color.WHITE,25,false);
+					}
 			}
 			}
 		}
