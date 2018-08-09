@@ -27,7 +27,7 @@ public class Consumable extends Item{
 	public static class Consumables {
 		
 		public static Consumable aether() {
-			return new Consumable("Aether", "An edible sphere imbued with magical energy. Restores 25% of Mana.", p -> {;
+			return new Consumable("Aether", "An edible sphere imbued with magical energy. Restores 25% of Mana.", p -> {
 				//Play drink sound
 				//remove from inventory
 				p.mana = Math.min(p.maxMana, p.mana + p.maxMana / 4);
@@ -131,7 +131,7 @@ public class Consumable extends Item{
 		}
 		
 		public static Consumable superAether() {
-			return new Consumable("Super Aether", "A tesseract containing a large reservoir of magical energy. Restores 50% of Mana.", p -> {;
+			return new Consumable("Super Aether", "A tesseract containing a large reservoir of magical energy. Restores 50% of Mana.", p -> {
 				//Play drink sound
 				//remove from inventory
 				p.mana = Math.min(p.maxMana, p.mana + p.maxMana / 2);
@@ -150,6 +150,12 @@ public class Consumable extends Item{
 			});
 		}
 		
+	}
+
+	@Override
+	public boolean equals(Item i) {
+		// TODO Auto-generated method stub
+		return name.equals(i.name) && desc.equals(i.desc);
 	}
 	
 }

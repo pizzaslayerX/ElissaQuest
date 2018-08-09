@@ -11,4 +11,6 @@ public class Probability<T> { //extends Pair<T, Double>?
 	public boolean execute() {
 		return Math.random() < probability;
 	}
+	
+	
 }

@@ -184,4 +184,17 @@ public class Weapon extends Item { //add stamina reduction
 			return new Weapon("Rat whip", "%1$s rat tail %2$s", 4, 1, new double[]{.5, 2});
 		}*/
 	}
+
+	@Override
+	public boolean equals(Item i) {          //DO LATER
+		// TODO Auto-generated method stub
+		
+
+		/*
+		Weapon w;
+		if(i instanceof Weapon) w = (Weapon)i;
+		else return false;
+		return name.equals(w.name) && message.equals(w.message) && baseDmg == w.baseDmg;*/
+		return false;
+	}
 }

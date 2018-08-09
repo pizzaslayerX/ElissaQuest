@@ -21,4 +21,10 @@ public class Equipment extends Item{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public boolean equals(Item i) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

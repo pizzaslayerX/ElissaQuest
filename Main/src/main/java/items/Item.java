@@ -18,4 +18,6 @@ public abstract class Item{
 	
 	abstract public Item clone();
 	
+	abstract public boolean equals(Item i);
+	
 }
