@@ -49,12 +49,12 @@ public class Meter extends JPanel{
 	
 	private void drawObjects(Graphics g) {
 		fullWidth = (int)(getWidth());
-		System.out.println("workeddraw");
+		//System.out.println("workeddraw");
 		g.setColor(fill);
 		g.fillRect(0, 0,getFillWidth(),(int)(getHeight()));
-		System.out.println("fullWidth: "+fullWidth);
-		System.out.println((int)(getWidth()));
-		System.out.println(title+": "+(int)(getHeight()));
+		//System.out.println("fullWidth: "+fullWidth);
+		//System.out.println((int)(getWidth()));
+		//System.out.println(title+": "+(int)(getHeight()));
 		g.setColor(empty);
 		g.fillRect(getFillWidth(), 0,getEmptyWidth(),(int)(getHeight()));
 		g.setColor(Color.WHITE);
@@ -64,7 +64,7 @@ public class Meter extends JPanel{
 	
 	private int getFillWidth() {
 		double ratio = (double)current / max;
-		System.out.println(ratio);
+		//System.out.println(ratio);
 		return (int)(ratio * fullWidth);
 	}
 	

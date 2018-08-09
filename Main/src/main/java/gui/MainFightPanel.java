@@ -35,6 +35,7 @@ import javax.swing.text.StyledDocument;
 import entities.Enemy;
 import entities.Entity;
 import entities.Interactive;
+import items.DarkVial;
 import misc.KeybindMaker;
 import misc.Pair;
 import run.GamePlay;
@@ -59,8 +60,7 @@ public class MainFightPanel extends JPanel{
     
 	public MainFightPanel(Enemy e, GamePlay gp){
 		gameplay = gp;
-		
-		pots = new InventoryPair(gameplay.player.pots,"Item Selection",595,550);
+		pots = new InventoryPair(gameplay.player.pots,"Item Selection",595,455);
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		enemies.add(new Pair<Enemy,JTextPane>(e,new JTextPane()));
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
@@ -83,7 +83,8 @@ public class MainFightPanel extends JPanel{
 	
 	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) { 
 		gameplay = gp;
-		
+		gameplay.player.addItem(new DarkVial("Dark Vial"));
+		System.out.println(gameplay.player.pots.size());
 		pots = new InventoryPair(gameplay.player.pots,"Item Selection",595,455);
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		for(Enemy en : e) enemies.add(new Pair<Enemy,JTextPane>(en,new JTextPane()));
