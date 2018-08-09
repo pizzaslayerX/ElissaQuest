@@ -1,5 +1,5 @@
 package items;
-
+//deprecated
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -26,6 +26,32 @@ public class Inventory {
 	
 	public ArrayList<Pair<Item, Integer>> get(int a) {
 		return inv.get(a);
+	}
+	
+	public ArrayList<Pair<Item, Integer>> getSubInv(Class<?> c) {
+		for(ArrayList<Pair<Item, Integer>> ar : inv) if(ar.get(0).first.getClass().equals(c)) return ar;
+		return null;
+	}
+	
+	public ArrayList<Pair<Item, Integer>> getSubInv(String s) {
+		try {
+			return getSubInv(Class.forName(s));
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public ArrayList<Pair<Item, Integer>> getWeaponInv() {
+		return getSubInv("items.Weapon");
+	}
+	
+	public ArrayList<Pair<Item, Integer>> getConsumableInv() {
+		return getSubInv("items.Consumable");
+	}
+	
+	public ArrayList<Pair<Item, Integer>> getEquipmentInv() {
+		return getSubInv("items.Equipment");
 	}
 	
 	public Item get(int a, int b) {

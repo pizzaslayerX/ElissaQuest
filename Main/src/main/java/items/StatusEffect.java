@@ -25,6 +25,22 @@ public class StatusEffect implements Comparable<StatusEffect> {
 		active = true;
 	}
 	
+	public static StatusEffect removeEffect(Entity e, Effect ef) {
+		for(StatusEffect se : e.statusEffects) if(se.effect.equals(ef)) {
+			e.statusEffects.remove(se);
+			return se;
+		}
+		return null;
+	}
+	
+	public static StatusEffect removeEffect(Entity e, String s) {
+		for(StatusEffect se : e.statusEffects) if(se.effect.name().equals(s) || se.effect.name.equals(s)) {
+			e.statusEffects.remove(se);
+			return se;
+		}
+		return null;
+	}
+	
 	public static void checkEffects(Entity e) {
 		for(int i = 0; i < e.statusEffects.size(); i++) if(--e.statusEffects.get(i).duration <= 0) {
 			StatusEffect se = e.statusEffects.remove(i--);
