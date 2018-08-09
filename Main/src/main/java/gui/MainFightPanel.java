@@ -62,7 +62,7 @@ public class MainFightPanel extends JPanel{
 		gameplay = gp;
 
 
-		pots = new InventoryPair(gameplay.player.inventory.getConsumableInv(), "Item Selection",595,455);
+		pots = new InventoryPair(gameplay.player.equippedPots, "Item Selection",595,455);
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		enemies.add(new Pair<Enemy,JTextPane>(e,new JTextPane()));
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
@@ -85,9 +85,7 @@ public class MainFightPanel extends JPanel{
 	
 	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) { 
 		gameplay = gp;
-		gameplay.player.inventory.add(Consumable.Consumables.darkVial());
-		System.out.println(gameplay.player.inventory.getConsumableInv().size());
-		pots = new InventoryPair(gameplay.player.inventory.getConsumableInv(),"Item Selection",595,455);
+		pots = new InventoryPair(gameplay.player.equippedPots,"Item Selection",595,455);
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		for(Enemy en : e) enemies.add(new Pair<Enemy,JTextPane>(en,new JTextPane()));
 		

@@ -14,7 +14,10 @@ public class Player extends Entity{
 	public GamePlay runner;
 	public int level;
 	public int x;
-	public int y;/*
+	public int y;
+	
+	public Pair<ArrayList<Item>,Integer> equippedPots;
+	/*
 	public ArrayList<Pair<Item,Integer>> inventory;
 	public ArrayList<Pair<Item,Integer>> pots;
 	public ArrayList<Pair<Item,Integer>> weapons;
@@ -32,94 +35,28 @@ public class Player extends Entity{
 		maxStamina = 30;
 		stamina = 15;
 		
-		inventory = new Inventory();/*new ArrayList<Pair<Item,Integer>>();
+		inventory = new Inventory(this);/*new ArrayList<Pair<Item,Integer>>();
 		pots = new ArrayList<Pair<Item,Integer>>();
 		weapons = new ArrayList<Pair<Item,Integer>>();
 		equipment = new ArrayList<Pair<Item,Integer>>();*/
 
 		spells = new ArrayList<Spell>();
-		
+		equippedPots = new Pair<ArrayList<Item>,Integer>(new ArrayList<Item>(),5);
 		inventory.add(Consumable.Consumables.aether()); // testing
+		inventory.add(Consumable.Consumables.darkVial());
+		inventory.add(Consumable.Consumables.darkVial());
+		inventory.add(Consumable.Consumables.potion());
 	}
 	
-	
-	
-	
-	
-	
-	/*
-	public boolean removeItem(Item i,int amt) {
-		boolean dispose = false;
-		if(!containsItem(i)) {System.out.println("No item to remove!");return false;}
-		if(inventory.get(findItem(i,inventory)).second - amt < 0) return false;
-		
-		inventory.get(findItem(i,inventory)).second -= amt;
-		if(inventory.get(findItem(i,inventory)).second == 0) {dispose = true;inventory.remove(findItem(i,inventory));}
-			
-		if(i instanceof Consumable) {
-			pots.get(findItem(i,pots)).second-=amt;
-			if(dispose) pots.remove(findItem(i,pots));
-		}
-		else if(i instanceof Weapon) {
-			weapons.get(findItem(i,weapons)).second-=amt;
-			if(dispose) weapons.remove(findItem(i,weapons));
-		}
-		else if(i instanceof Equipment) {
-			equipment.get(findItem(i,equipment)).second-=amt;
-			if(dispose) equipment.remove(findItem(i,equipment));
-		}
-		
-		return true;
+	public boolean openSlots(Pair<ArrayList<Item>,Integer> in) {
+		if(in.first.size()<in.second) return true;
+			return false;
 	}
 	
-	public boolean containsItem(Item i) {
-		for(Pair<Item,Integer> p : inventory)
-			if(p.first.getName().equals(i.getName()))
-				return true;
-		return false;
+	public void equipItem(Item item) {
+		if(item instanceof Consumable && openSlots(equippedPots)) equippedPots.first.add(item);
 	}
 	
-	public int findItem(Item i,ArrayList<Pair<Item,Integer>> list) {
-		for(int c = 0;c<list.size();c++)
-			if(list.get(c).first.getName().equals(i.getName()))
-				return c;
-		return -1;
-	}
-	
-	public void addItem(Item i) {
-		if(containsItem(i)) {
-			for(int c = 0;c<inventory.size();c++) {
-				if(inventory.get(c).first.getName().equals(i.getName())) {
-					inventory.get(c).second += 1;
-					if(i instanceof Consumable) pots.get(findItem(i,pots)).second++;
-					else if(i instanceof Weapon)  weapons.get(findItem(i,weapons)).second++;
-					else if(i instanceof Equipment)  equipment.get(findItem(i,equipment)).second++;
-				}
-			}
-		}else {
-			inventory.add(new Pair<Item,Integer>(i,1));
-			if(i instanceof Consumable) pots.add(new Pair<Item,Integer>(i,1));
-			else if(i instanceof Weapon)  weapons.add(new Pair<Item,Integer>(i,1));
-			else if(i instanceof Equipment)  equipment.add(new Pair<Item,Integer>(i,1));
-		}
-	}
-	public void addItem(Item i,int amt) {
-		if(containsItem(i)) {
-			for(int c = 0;c<inventory.size();c++) {
-				if(inventory.get(c).first.getName().equals(i.getName())) {
-					inventory.get(c).second += amt;
-					if(i instanceof Consumable) pots.get(findItem(i,pots)).second+=amt;
-					else if(i instanceof Weapon)  weapons.get(findItem(i,weapons)).second+=amt;
-					else if(i instanceof Equipment)  equipment.get(findItem(i,equipment)).second+=amt;
-				}
-			}
-		}else {
-			inventory.add(new Pair<Item,Integer>(i,amt));
-			if(i instanceof Consumable) pots.add(new Pair<Item,Integer>(i,amt));
-			else if(i instanceof Weapon)  weapons.add(new Pair<Item,Integer>(i,amt));
-			else if(i instanceof Equipment)  equipment.add(new Pair<Item,Integer>(i,amt));
-		}
-	}*/
 
 }
 
