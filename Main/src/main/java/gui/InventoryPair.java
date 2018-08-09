@@ -19,14 +19,16 @@ import misc.Pair;
 
 @SuppressWarnings("serial")
 public class InventoryPair extends JPanel{
-	private ArrayList<Pair<Item,JTextPane>> items;
+	public ArrayList<Pair<Item,JTextPane>> items;
 	public FlowLayout layout;
-	private JPanel itemTab,descTab;
-	private int width,height,itW,itH;
+	public JPanel itemTab;
+	public JTextPane descTab;
+	public int width,height,itW,itH;
+	public Pair<ArrayList<Item>,Integer> in;
 	
-	public InventoryPair(ArrayList<Pair<Item,Integer>> in,String str,int w, int h) {
+	public InventoryPair(Pair<ArrayList<Item>,Integer> i,String str,int w, int h) {
 		items = new ArrayList<Pair<Item,JTextPane>>();
-		
+		in = i;
 		setVisible(false);
 		setBorder(genBorder(str,0));
 		setMaximumSize(new Dimension(w,h));
@@ -46,36 +48,46 @@ public class InventoryPair extends JPanel{
 		itemTab.setBackground(Color.BLACK);
 		//itemTab.setBorder(genBorder("",0));
 		add(itemTab);
-		itemTab.add(Box.createRigidArea(new Dimension(itW-10,itH/16+7)));
+		
 		//add(Box.createHorizontalStrut(1));
-		descTab = new JPanel();		
+		descTab = new JTextPane();		
 		descTab.setPreferredSize(new Dimension(itW,itH-11));
 		descTab.setFocusable(false);
+		descTab.setEditable(false);
 		descTab.setVisible(true);
 		descTab.setBackground(Color.BLACK);
 		descTab.setBorder(genBorder("",0));
 		
 		add(descTab);
 		
-		for(int i=0;i<in.size();i++) {
-			
-			items.add(new Pair<Item,JTextPane>(in.get(i).first,new JTextPane()));
-			items.get(i).second.setMaximumSize(new Dimension(itW-10,itH/8));
-			items.get(i).second.setPreferredSize(new Dimension(itW-10,itH/8));
-			items.get(i).second.setBackground(Color.BLACK);
-			items.get(i).second.setFocusable(false);
-			items.get(i).second.setEditable(false);
-			items.get(i).second.setVisible(true);
-			items.get(i).second.setBorder(genBorder("",0));
-			//System.out.println(items.get(i).first.getDesc());
-			
-			itemTab.add(items.get(i).second);
-			append(items.get(i).second,items.get(i).first.name,Color.WHITE,35,false,1);
-		}
-		for(int i=0;i<5;i++) {
-			itemTab.add(emptyPane());
-		}
 		
+		
+	}
+	
+	public void display() {
+		descTab.setText("");
+		itemTab.removeAll();
+		itemTab.add(Box.createRigidArea(new Dimension(itW-10,itH/16+30)));
+		for(Pair<Item,JTextPane> j:items) j.second.removeAll();
+			items.clear();
+		for(int i=0;i<in.second;i++) {
+			if(i<in.first.size()&&in.first.get(i)!=null) {
+				items.add(new Pair<Item,JTextPane>(in.first.get(i),new JTextPane()));
+				items.get(i).second.setMaximumSize(new Dimension(itW-10,itH/8));
+				items.get(i).second.setPreferredSize(new Dimension(itW-10,itH/8));
+				if(i==0) { items.get(i).second.setBackground(Color.GRAY); append(descTab,in.first.get(i).desc,Color.WHITE,25,false,2);}
+				else items.get(i).second.setBackground(Color.BLACK);
+				items.get(i).second.setFocusable(false);
+				items.get(i).second.setEditable(false);
+				items.get(i).second.setVisible(true);
+				items.get(i).second.setBorder(genBorder("",0));
+				//System.out.println(items.get(i).first.getDesc());
+				itemTab.add(items.get(i).second);
+				append(items.get(i).second,items.get(i).first.name,Color.WHITE,35,true,1);
+			}else
+				itemTab.add(emptyPane());
+		}
+		revalidate();
 	}
 	
 	private JTextPane emptyPane() {
@@ -86,8 +98,9 @@ public class InventoryPair extends JPanel{
 		dummy.setFocusable(false);
 		dummy.setEditable(false);
 		dummy.setVisible(true);
-		System.out.println("WTF");
+		System.out.println("dummyPane");
 		dummy.setBorder(genBorder("",0));
+		append(dummy," ",Color.WHITE,35,false,1);
 		return dummy;
 		
 	}

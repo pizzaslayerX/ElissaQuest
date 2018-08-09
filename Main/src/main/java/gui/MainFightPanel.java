@@ -62,7 +62,7 @@ public class MainFightPanel extends JPanel{
 		gameplay = gp;
 
 
-		pots = new InventoryPair(gameplay.player.inventory.getConsumableInv(), "Item Selection",595,455);
+		pots = new InventoryPair(gameplay.player.equippedPots, "Item Selection",595,455);
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		enemies.add(new Pair<Enemy,JTextPane>(e,new JTextPane()));
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
@@ -85,9 +85,13 @@ public class MainFightPanel extends JPanel{
 	
 	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) { 
 		gameplay = gp;
+/*
 		//gameplay.player.inventory.add(Consumable.Consumables.darkVial());
 		System.out.println(gameplay.player.inventory.getConsumableInv().size());
 		pots = new InventoryPair(gameplay.player.inventory.getConsumableInv(),"Item Selection",595,455);
+=======*/
+		pots = new InventoryPair(gameplay.player.equippedPots,"Item Selection",595,455);
+
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		for(Enemy en : e) enemies.add(new Pair<Enemy,JTextPane>(en,new JTextPane()));
 		
@@ -425,7 +429,31 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 	
 	private void update(int num) {
 	if(itemSelect == true) {
-		
+		if(num == 0) {
+			if(gameplay.player.equippedPots.first.size()>0) {
+			//pots.setVisible(false);
+			//itemSelect = false;
+			target = choice;
+			fight.getPlayerTurn("item");
+			}
+			pots.display();
+			System.out.println(gameplay.player.equippedPots.first.size());
+		}else {
+			if(gameplay.player.equippedPots.first.size()>0) {
+				choice += -num;
+				if(choice < 0) choice = gameplay.player.equippedPots.first.size()-1;
+				if(choice > gameplay.player.equippedPots.first.size()-1) choice = 0;
+				for(int i = 0;i<gameplay.player.equippedPots.first.size();i++) {
+					if(i!=choice) 
+						pots.items.get(i).second.setBackground(Color.BLACK);
+					else {
+						pots.items.get(i).second.setBackground(Color.GRAY);
+						pots.descTab.setText("");
+						append(pots.descTab,gameplay.player.equippedPots.first.get(i).desc,Color.WHITE,25,false);
+					}
+			}
+			}
+		}
 	}
 	if(targetSelect == true) {		
 		if(num == 0) {
@@ -465,8 +493,10 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 			}else if(choice==1) {
 				System.out.println("Magic");
 			}else if(choice==2){
+				target = 0;
 				System.out.println("Items");
 				pots.setVisible(true);
+				pots.display();
 				System.out.println("\n\nAfter choice\n\n");
 				health.setMaximumSize(new Dimension(550,25));
 				mana.setMaximumSize(new Dimension(550,25));

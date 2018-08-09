@@ -8,6 +8,7 @@ import javax.swing.JTextPane;
 import entities.Enemy;
 import entities.Entity;
 import entities.Player;
+import items.Consumable;
 import misc.Pair;
 import run.GamePlay;
 
@@ -26,10 +27,17 @@ public class Fight {
 	}
 	
 	public void getPlayerTurn(String action) {
+		mainFight.choice = 0;
 		switch(action) {
 		case "attack":
 			System.out.println("success!\nTargetted #"+ mainFight.target + ": "+ mainFight.getTarget().name);
 			player.attack(mainFight.getTarget(), gameplay);
+			break;
+		case "item":
+			System.out.println("success!\nUsed #"+ mainFight.target + ": "+ player.equippedPots.first.get(mainFight.target).name);
+			((Consumable) player.equippedPots.first.get(mainFight.target)).use(player);
+			 player.equippedPots.first.remove(mainFight.target);
+			 mainFight.updateHealth();
 			break;
 		}
 	}

@@ -3,16 +3,19 @@ package items;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import entities.Player;
 import misc.Pair;
 
 public class Inventory {
 	ArrayList<ArrayList<Pair<Item, Integer>>> inv; //create subinv class to replace ArrayList<Pair<Item, Integer>>?
-	
-	public Inventory() {
+	Player player;
+	public Inventory(Player p) {
 		inv = new ArrayList<ArrayList<Pair<Item, Integer>>>();
+		player = p;
 	}
 	
 	public void add(Item i) {
+		player.equipItem(i);
 		for(ArrayList<Pair<Item, Integer>> ar : inv) if(ar.get(0).first.getClass().equals(i.getClass())) {
 			for(Pair<Item, Integer> p : ar) if(p.first.equals(i)) {
 				p.second++;
