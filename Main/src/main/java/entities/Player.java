@@ -29,8 +29,8 @@ public class Player extends Entity{
 		runner = d;
 		level = 1;
 		health = 12;
-		maxHealth = 20;
-		maxMana = 10;
+		maxHealth = 120;
+		maxMana = 110;
 		mana = 8;
 		maxStamina = 30;
 		stamina = 15;
@@ -43,8 +43,9 @@ public class Player extends Entity{
 		spells = new ArrayList<Spell>();
 		equippedPots = new Pair<ArrayList<Item>,Integer>(new ArrayList<Item>(),5);
 		inventory.add(Consumable.Consumables.aether()); // testing
-		inventory.add(Consumable.Consumables.darkVial());
-		inventory.add(Consumable.Consumables.darkVial());
+		inventory.add(Consumable.Consumables.superAether());
+		inventory.add(Consumable.Consumables.potion());
+
 		inventory.add(Consumable.Consumables.potion());
 	}
 	

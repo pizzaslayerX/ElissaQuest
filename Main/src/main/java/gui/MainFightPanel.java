@@ -423,7 +423,28 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 	
 	private void update(int num) {
 	if(itemSelect == true) {
-		
+		if(num == 0) {
+			if(gameplay.player.equippedPots.first.size()>0) {
+			//pots.setVisible(false);
+			//itemSelect = false;
+			target = choice;
+			fight.getPlayerTurn("item");
+			}
+			pots.display();
+			System.out.println(gameplay.player.equippedPots.first.size());
+		}else {
+			if(gameplay.player.equippedPots.first.size()>0) {
+				choice += -num;
+				if(choice < 0) choice = gameplay.player.equippedPots.first.size()-1;
+				if(choice > gameplay.player.equippedPots.first.size()-1) choice = 0;
+				for(int i = 0;i<gameplay.player.equippedPots.first.size();i++) {
+					if(i!=choice) 
+						pots.items.get(i).second.setBackground(Color.BLACK);
+					else 
+						pots.items.get(i).second.setBackground(Color.GRAY);
+			}
+			}
+		}
 	}
 	if(targetSelect == true) {		
 		if(num == 0) {
@@ -463,8 +484,10 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 			}else if(choice==1) {
 				System.out.println("Magic");
 			}else if(choice==2){
+				target = 0;
 				System.out.println("Items");
 				pots.setVisible(true);
+				pots.display();
 				System.out.println("\n\nAfter choice\n\n");
 				health.setMaximumSize(new Dimension(550,25));
 				mana.setMaximumSize(new Dimension(550,25));
