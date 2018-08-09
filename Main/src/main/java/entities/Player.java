@@ -3,6 +3,7 @@ import java.util.ArrayList;
 
 import items.Consumable;
 import items.Equipment;
+import items.Inventory;
 import items.Item;
 import items.Weapon;
 import misc.Pair;
@@ -13,11 +14,12 @@ public class Player extends Entity{
 	public GamePlay runner;
 	public int level;
 	public int x;
-	public int y;
+	public int y;/*
 	public ArrayList<Pair<Item,Integer>> inventory;
 	public ArrayList<Pair<Item,Integer>> pots;
 	public ArrayList<Pair<Item,Integer>> weapons;
-	public ArrayList<Pair<Item,Integer>> equipment;
+	public ArrayList<Pair<Item,Integer>> equipment;*/
+	public Inventory inventory;
 	public ArrayList<Spell> spells;
 	
 	public Player(GamePlay d) {
@@ -30,10 +32,10 @@ public class Player extends Entity{
 		maxStamina = 30;
 		stamina = 15;
 		
-		inventory = new ArrayList<Pair<Item,Integer>>();
+		inventory = new Inventory();/*new ArrayList<Pair<Item,Integer>>();
 		pots = new ArrayList<Pair<Item,Integer>>();
 		weapons = new ArrayList<Pair<Item,Integer>>();
-		equipment = new ArrayList<Pair<Item,Integer>>();
+		equipment = new ArrayList<Pair<Item,Integer>>();*/
 		spells = new ArrayList<Spell>();
 	}
 	
@@ -42,7 +44,7 @@ public class Player extends Entity{
 	
 	
 	
-	
+	/*
 	public boolean removeItem(Item i,int amt) {
 		boolean dispose = false;
 		if(!containsItem(i)) {System.out.println("No item to remove!");return false;}
@@ -114,7 +116,7 @@ public class Player extends Entity{
 			else if(i instanceof Weapon)  weapons.add(new Pair<Item,Integer>(i,amt));
 			else if(i instanceof Equipment)  equipment.add(new Pair<Item,Integer>(i,amt));
 		}
-	}
+	}*/
 
 }
 
