@@ -173,12 +173,18 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
     }
 	
 	public static void changePic(String pic) throws IOException {
+		picSpace.setVisible(false);
+		picArea.setVisible(false);
 		enemy.remove(picArea);
 		picArea.remove(picSpace);
 		 BufferedImage image = ImageIO.read(new File("src/res/pics/" + pic));
 		 picSpace = new JLabel(new ImageIcon(image));
 		 picArea.add(picSpace);
 		 enemy.add(picArea);
+		 picArea.setVisible(true);
+		 picSpace.setVisible(true);
+		 picArea.revalidate();
+		 enemy.revalidate();
 	}
 	
 	public void init(String pic) throws Exception {
@@ -246,7 +252,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		//enemy.add(blankEnemy);
 		
 		picArea = new JPanel();
-		 BufferedImage image = ImageIO.read(new File("src/res/pics/" + "test.jpg"));	
+		 BufferedImage image = ImageIO.read(new File("src/res/pics/" + enemies.get(0).first.getPic()));	
          picSpace = new JLabel(new ImageIcon(image));
         picArea.add(picSpace);
 
@@ -476,7 +482,6 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 			fight.getPlayerTurn("attack");
 			updateHealth();
 		}else {
-			enemy.removeAll();
 			choice += -num;
 			if(choice < 0) choice = enemies.size()-1;
 			if(choice > enemies.size()-1) choice = 0;
@@ -485,21 +490,14 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 					enemies.get(i).second.setBackground(Color.BLACK);
 				else {
 					enemies.get(i).second.setBackground(Color.GRAY);
-					enemy.add(ehealth.get(i));
-					enemy.add(Box.createVerticalStrut(5));
-					enemy.add(emana.get(i));
-					enemy.add(Box.createVerticalStrut(5));
-					enemy.add(estamina.get(i));
-					enemy.add(Box.createVerticalStrut(5));
 
-					enemy.add(picArea);
 					try {
 						changePic(enemies.get(i).first.getPic());
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
+						System.out.println("You dun goofed mate");
 						e.printStackTrace();
 					}
-					
 				}
 			}
 		}
