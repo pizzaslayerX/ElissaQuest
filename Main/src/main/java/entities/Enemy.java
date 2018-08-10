@@ -83,6 +83,12 @@ public class Enemy extends Entity implements Interactive{
 		
 		//normal
 		//man-eating deer
+		
+		public static Enemy manEatingDeer() {
+			return new Enemy("Man-Eating Deer","MEDeer.png",new ArrayList<Pair<Probability<Item>,Integer>>(Arrays.asList(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.rustyDagger(),.35),1))), (u,v) -> {
+				return 0;
+			}, 6, 0, 6, 0, 0, 0, 0, 2, 0, 0, new Weapon[] {new Weapon("Man-eating bite", "%1$s man-eating bites %2$s", 3, 2)});
+		}
 		//evil dryad
 		//redcap
 		//goblin
