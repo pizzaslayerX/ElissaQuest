@@ -63,7 +63,7 @@ public class DrawScreen extends JPanel{
 		ArrayList<Enemy> g = new ArrayList<Enemy>();
 		g.add(Enemy.Enemies.skeleton());
 		g.add(Enemy.Enemies.skeleton());
-		g.add(Enemy.Enemies.skeleton());
+		g.add(Enemy.Enemies.());
 		gameplay.newFight(g);
 		  
 

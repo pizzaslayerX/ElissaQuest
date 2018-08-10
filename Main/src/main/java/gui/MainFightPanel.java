@@ -129,9 +129,9 @@ public class MainFightPanel extends JPanel{
 		stamina.update((int)gameplay.player.stamina,"Stamina: " + (int)gameplay.player.stamina + "/" + (int)gameplay.player.maxStamina);
 		
 		for(int i=0;i<enemies.size();i++) {
-		ehealth.get(i).update(enemies.get(0).first.health,  "HP");
-		emana.get(i).update(enemies.get(0).first.mana, "Mana");
-		estamina.get(i).update((int)enemies.get(0).first.stamina, "Stamina");
+		ehealth.get(i).update(enemies.get(i).first.health,  "HP");
+		emana.get(i).update(enemies.get(i).first.mana, "Mana");
+		estamina.get(i).update((int)enemies.get(i).first.stamina, "Stamina");
 		}
 	}
 	
@@ -462,6 +462,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 						pots.items.get(i).second.setBackground(Color.GRAY);
 						pots.descTab.setText("");
 						append(pots.descTab,gameplay.player.equippedPots.first.get(i).desc,Color.WHITE,25,false);
+						
 					}
 			}
 			}
@@ -475,14 +476,31 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 			fight.getPlayerTurn("attack");
 			updateHealth();
 		}else {
+			enemy.removeAll();
 			choice += -num;
 			if(choice < 0) choice = enemies.size()-1;
 			if(choice > enemies.size()-1) choice = 0;
 			for(int i = 0;i<enemies.size();i++) {
 				if(i!=choice) 
 					enemies.get(i).second.setBackground(Color.BLACK);
-				else 
+				else {
 					enemies.get(i).second.setBackground(Color.GRAY);
+					enemy.add(ehealth.get(i));
+					enemy.add(Box.createVerticalStrut(5));
+					enemy.add(emana.get(i));
+					enemy.add(Box.createVerticalStrut(5));
+					enemy.add(estamina.get(i));
+					enemy.add(Box.createVerticalStrut(5));
+
+					enemy.add(picArea);
+					try {
+						changePic(enemies.get(i).first.getPic());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
 			}
 		}
 	}

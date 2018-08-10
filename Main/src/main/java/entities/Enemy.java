@@ -13,7 +13,7 @@ import misc.Probability;
 import run.GamePlay;
 
 public class Enemy extends Entity implements Interactive{
-	protected String pic = "test.jpg";
+	protected String pic;
 
 	public Weapon[][] attacks;
 	public ArrayList<Pair<Probability<Item>,Integer>> drops;
@@ -24,7 +24,7 @@ public class Enemy extends Entity implements Interactive{
 		drops = dr;
 		attackCalc = ac;
 		attacks = w;
-		pic  = "test.png";
+		pic  = p;
 		name = nm;
 		
 		
