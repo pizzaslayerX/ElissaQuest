@@ -36,7 +36,7 @@ import entities.Enemy;
 import entities.Entity;
 import entities.Interactive;
 import items.Consumable;
-import misc.KeybindMaker;
+import misc.Util;
 import misc.Pair;
 import run.GamePlay;
 import run.Window;
@@ -349,14 +349,14 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		updateHealth();
 
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "up");
-		KeybindMaker.keybind(this, KeyEvent.VK_W, "up", u -> {
+		Util.keybind(this, KeyEvent.VK_W, "up", u -> {
 			update(1);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false), "down");
-		KeybindMaker.keybind(this, KeyEvent.VK_S, "down", u -> {
+		Util.keybind(this, KeyEvent.VK_S, "down", u -> {
 			update(-1);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
-		KeybindMaker.keybind(this, KeyEvent.VK_ENTER, "enter", u -> {
+		Util.keybind(this, KeyEvent.VK_ENTER, "enter", u -> {
 			update(0);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		grabFocus();
