@@ -70,6 +70,10 @@ public class Enemy extends Entity implements Interactive{
 		//NYI
 	}
 	
+	public void attackTest(Player p) {
+		attackMode = attackCalc.apply(this, p);
+	}
+	
 
 	public static class Enemies {
 		/*
