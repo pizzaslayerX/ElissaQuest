@@ -425,10 +425,10 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 	if(itemSelect == true) {
 		if(num == 0) {
 			if(gameplay.player.equippedPots.first.size()>0) {
-			//pots.setVisible(false);
-			//itemSelect = false;
-			target = choice;
-			fight.getPlayerTurn("item");
+				//pots.setVisible(false);
+				//itemSelect = false;
+				target = choice;
+				fight.getPlayerTurn("item");
 			}
 			pots.display();
 			System.out.println(gameplay.player.equippedPots.first.size());
