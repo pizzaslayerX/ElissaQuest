@@ -82,16 +82,29 @@ public class Enemy extends Entity implements Interactive{
 		//forbidden forest
 		
 		//normal
+		//man-eating deer
+		//evil dryad
+		//redcap
+		//goblin
+		//gnome
 		
 		//hard
+		//ent
+		//dark elves
+		//manticore
 		
-		//dungeon - wendigo
+		//dungeon - hodag, burgeon (mushroom thing)
 		
 		//boss - basilisk
 		
 		//secluded swamp
 		
 		//normal
+		//kappa
+		//hag
+		//orgre
+		//shambling mound
+		//wight
 		
 		public static Enemy skeleton() {
 			return new Enemy("Skeleton","Skeleton.png",new ArrayList<Pair<Probability<Item>,Integer>>(Arrays.asList(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.rustyDagger(),.35),1))), (u,v) -> {
@@ -100,52 +113,87 @@ public class Enemy extends Entity implements Interactive{
 		}
 		
 		//hard
+		//man-eating tree
+		//tatzelwurm
+		//serpent
 				
-		//dungeon
+		//dungeon - hydra, shoggoth
 				
-		//boss - plant thing
-				
+		//boss - grootslang
+			
 		
 		//rotted ruins
 		
-		//normal - ghoul
+		//normal
+		//ghoul
+		//phantom
+		//draugr
+		//varcolac
+		//skeleton
 		
 		//hard
+		//wraith
+		//fext
+		//revenant
 				
-		//dungeon
+		//dungeon - necromancer, reaper
 				
-		//boss
+		//boss - lich
 				
 		
 		//arctic alps
 		
 		//normal
+		//yeti
+		//qalupalik
+		//keelut
+		//chraal
+		//tariaksuq
 		
 		//hard
+		//cryopheonix
+		//amarok
+		//ijiraq
 				
-		//dungeon
+		//dungeon - xixecal, wendigo
 				
-		//boss
+		//boss - remorhaz
 				
 		
 		//dark dungeon
 		
 		//normal
+		//dark caster
+		//cultists
+		//nightcrawler
+		//doppelganger
+		//living shadow
 		
 		//hard
+		//shambler
+		//drider
+		//demented - faceless creepy creature
 				
-		//dungeon
+		//dungeon - beyholder, forlorn - idk make someting up
 				
-		//boss
+		//boss - cerberus
 				
 		
 		//hagridden hell
 		
 		//normal
+		//quasit
+		//hellhound
+		//demon
+		//condemned -condemned soul
+		//infernal goblin
 		
 		//hard
+		//fallen angels
+		//archdemon
+		//phoenix
 				
-		//dungeon
+		//dungeon - ifrit, surtur
 				
 		//boss - hades
 				
