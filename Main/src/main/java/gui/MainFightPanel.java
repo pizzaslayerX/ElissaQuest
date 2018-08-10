@@ -68,9 +68,9 @@ public class MainFightPanel extends JPanel{
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
 		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),new Color(255, 127, 0),Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
-		ehealth = new Meter(e.health, e.maxHealth, new Color(200,0,0),Color.BLACK, "HP", 19);
+		ehealth = new Meter(e.health, e.maxHealth, new Color(0,127,127),Color.BLACK, "HP", 19);
 		emana = new Meter(e.mana, e.maxMana, new Color(127,0,127),Color.BLACK, "Mana", 19);
-		estamina = new Meter((int)e.stamina, (int)e.maxStamina, new Color(0,127,127),Color.BLACK, "HP", 19);
+		estamina = new Meter((int)e.stamina, (int)e.maxStamina, new Color(200,0,0),Color.BLACK, "HP", 19);
 		try {
 			init("test.jpg"/*e.getPic()*/);
 		} catch (Exception e1) {
@@ -98,9 +98,9 @@ public class MainFightPanel extends JPanel{
 		health = new Meter(gp.player.health,gp.player.maxHealth,HEALTH_GREEN,Color.BLACK,"HP: " + gp.player.health + "/" + gp.player.maxHealth,19);
 		mana = new Meter(gp.player.mana,gp.player.maxMana,Color.BLUE,Color.BLACK,"Mana: " + gp.player.mana + "/" + gp.player.maxMana,19);
 		stamina = new Meter((int)(gp.player.stamina),(int)(gp.player.maxStamina),new Color(255, 127, 0),Color.BLACK,"Stamina: " + (int)(gp.player.stamina) + "/" + (int)(gp.player.maxStamina),19);
-		ehealth = new Meter(e.get(0).health, e.get(0).maxHealth, new Color(200,0,0),Color.BLACK, "HP", 19);
+		ehealth = new Meter(e.get(0).health, e.get(0).maxHealth, new Color(0,127,127),Color.BLACK, "HP", 19);
 		emana = new Meter(e.get(0).mana, e.get(0).maxMana, new Color(127,0,127),Color.BLACK, "Mana", 19);
-		estamina = new Meter((int)e.get(0).stamina, (int)e.get(0).maxStamina, new Color(0,127,127),Color.BLACK, "HP", 19);
+		estamina = new Meter((int)e.get(0).stamina, (int)e.get(0).maxStamina, new Color(200,0,0),Color.BLACK, "HP", 19);
 		try {
 			init(e.get(0).getPic());
 		} catch (Exception e1) {
