@@ -1,15 +1,18 @@
 package misc;
 
 import java.awt.event.ActionEvent;
-
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.function.Consumer;
 
+import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 
-public class KeybindMaker {
+public class Util {
 	public static void keybind(JComponent com, int i, String s, Consumer<ActionEvent> c) {
 		com.getInputMap().put(KeyStroke.getKeyStroke(i, 0, false), s);
 		com.getActionMap().put(s, new AbstractAction() {
@@ -46,4 +49,17 @@ public class KeybindMaker {
 			}
 		};
 	}
+	
+	public static BufferedImage loadImage(String fileName){
+
+        try {
+            return ImageIO.read(new File("src/res/pics/"+fileName)); 
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Image could not be read");
+            System.exit(1);
+            return null;
+        }
+    }
 }

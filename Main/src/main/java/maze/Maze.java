@@ -177,6 +177,10 @@ public class Maze{
 		return getNode(a, b, null);
 	}
 	
+	public DefaultMutableTreeNode getTree(int a, int b, int c) {
+		return getNode(a, b, null, c);
+	}
+	
 	public boolean sameNode(DefaultMutableTreeNode a, DefaultMutableTreeNode b) {
 		return Arrays.equals((int[])a.getUserObject(), (int[])b.getUserObject());
 	}
@@ -186,6 +190,24 @@ public class Maze{
 		//System.out.println(a + " " + b);
 		for(DIR d : DIR.values()) if(!d.opposite.equals(dir) && (~maze[a][b] & d.bit) == 0 /*&& !(interactives[a][b] instanceof DungeonArea)*/) tree.add(getNode(a + d.dx, b + d.dy, d));
 		return tree;
+	}
+	
+	private DefaultMutableTreeNode getNode(int a, int b, DIR dir, int c) {
+		DefaultMutableTreeNode tree = new DefaultMutableTreeNode(new int[]{a, b});
+		//System.out.println(a + " " + b);
+		for(DIR d : DIR.values()) if(!d.opposite.equals(dir) && (~maze[a][b] & d.bit) == 0 && !(interactives[a][b] instanceof DungeonArea)) tree.add(getNode(a + d.dx, b + d.dy, d, --c));
+		return tree;
+	}
+	
+	public void enemyMove() {
+		ArrayList<int[]> enemies = new ArrayList<int[]>();
+		for(int i = 0; i < x; i++) for(int j = 0; j < y; j++) {
+			if(interactives[i][j] instanceof Enemy) enemies.add(new int[]{i, j});
+		}
+		Collections.shuffle(enemies);
+		for(int[] i : enemies) {
+			
+		}
 	}
  
 	private void generateMaze(int cx, int cy) {
@@ -262,6 +284,12 @@ public class Maze{
 			 return true;
 		}
 		return false;
+	}
+	
+	private static <T> void arraySwitch(T[][] arr, int a, int b, int c, int d) {
+		T temp = arr[a][b];
+		arr[a][b] = arr[c][d];
+		arr[c][d] = temp;
 	}
 
 	/*public void interact(GamePlay g) {

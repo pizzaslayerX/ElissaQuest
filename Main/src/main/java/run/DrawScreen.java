@@ -5,7 +5,7 @@ import javax.swing.JPanel;
 
 import entities.Enemy;
 import entities.Interactive;
-import misc.KeybindMaker;
+import misc.Util;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -69,18 +69,18 @@ public class DrawScreen extends JPanel{
 		  
 
 		
-		test = loadImage("state1.png");
-		FOV = loadImage("circle.png");
-		up = loadImage("2250x1000.png");
-		left = loadImage("1000x250.png");
-		down = loadImage("2250x1000.png");
-		right = loadImage("1000x250.png");
-		small = loadImage("EnemyLight1.png");
-		med =loadImage("EnemyLight2.png");
-		large = loadImage("EnemyLight3.png");
-		max = loadImage("EnemyLight4.png");
+		test = Util.loadImage("state1.png");
+		FOV = Util.loadImage("circle.png");
+		up = Util.loadImage("2250x1000.png");
+		left = Util.loadImage("1000x250.png");
+		down = Util.loadImage("2250x1000.png");
+		right = Util.loadImage("1000x250.png");
+		small = Util.loadImage("EnemyLight1.png");
+		med =Util.loadImage("EnemyLight2.png");
+		large = Util.loadImage("EnemyLight3.png");
+		max = Util.loadImage("EnemyLight4.png");
 
-		KeybindMaker.keybind(this, KeyEvent.VK_W, "up", ac1 = KeybindMaker.actionMaker(u -> {
+		Util.keybind(this, KeyEvent.VK_W, "up", ac1 = Util.actionMaker(u -> {
 			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 1) != 0  && gameplay.player.x % mazeSize <= mazeSize - 16)|| gameplay.player.y % mazeSize != 0) ) gameplay.player.y-=gameplay.scale;
 			repaint();
 			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
@@ -91,7 +91,7 @@ public class DrawScreen extends JPanel{
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
 		}));
-		KeybindMaker.keybind(this, KeyEvent.VK_S, "down", ac2 = KeybindMaker.actionMaker(u -> {
+		Util.keybind(this, KeyEvent.VK_S, "down", ac2 = Util.actionMaker(u -> {
 			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 4) != 0  && gameplay.player.x % mazeSize <= mazeSize - 16)|| gameplay.player.y % mazeSize != mazeSize - 16) ) gameplay.player.y+=gameplay.scale;
 			repaint();
 			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
@@ -102,7 +102,7 @@ public class DrawScreen extends JPanel{
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
 		}));
-		KeybindMaker.keybind(this, KeyEvent.VK_D, "right", ac3 = KeybindMaker.actionMaker(u -> {
+		Util.keybind(this, KeyEvent.VK_D, "right", ac3 = Util.actionMaker(u -> {
 			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 2) != 0 && gameplay.player.y % mazeSize <= mazeSize - 16)|| gameplay.player.x %mazeSize != mazeSize - 16) ) gameplay.player.x+=gameplay.scale;
 			repaint();
 			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
@@ -113,7 +113,7 @@ public class DrawScreen extends JPanel{
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
 		}));
-		KeybindMaker.keybind(this, KeyEvent.VK_A, "left", ac4 = KeybindMaker.actionMaker(u -> {
+		Util.keybind(this, KeyEvent.VK_A, "left", ac4 = Util.actionMaker(u -> {
 			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 8) != 0 && gameplay.player.y % mazeSize <= mazeSize - 16)|| gameplay.player.x %mazeSize != 0) )gameplay.player.x-=gameplay.scale;
 			repaint();
 			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
@@ -124,13 +124,13 @@ public class DrawScreen extends JPanel{
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
 		}));
-		KeybindMaker.keybind(this, KeyEvent.VK_UP, "uparrow", u -> {ytrans += 4;
+		Util.keybind(this, KeyEvent.VK_UP, "uparrow", u -> {ytrans += 4;
 		repaint();});
-		KeybindMaker.keybind(this, KeyEvent.VK_DOWN, "downarrow", u -> {ytrans -= 4;
+		Util.keybind(this, KeyEvent.VK_DOWN, "downarrow", u -> {ytrans -= 4;
 		repaint();});
-		KeybindMaker.keybind(this, KeyEvent.VK_RIGHT, "rightarrow", u -> {xtrans -= 4;
+		Util.keybind(this, KeyEvent.VK_RIGHT, "rightarrow", u -> {xtrans -= 4;
 		repaint();});
-		KeybindMaker.keybind(this, KeyEvent.VK_LEFT, "leftarrow", u -> {xtrans += 4;
+		Util.keybind(this, KeyEvent.VK_LEFT, "leftarrow", u -> {xtrans += 4;
 		repaint();});
 	}
 	
@@ -142,18 +142,6 @@ public class DrawScreen extends JPanel{
 	}
 
 	
-	 private static BufferedImage loadImage(String fileName){
-
-	            try {
-	                return ImageIO.read(new File("src/res/pics/"+fileName)); 
-
-	            } catch (IOException e) {
-	                e.printStackTrace();
-	                System.out.println("Image could not be read");
-	                System.exit(1);
-	                return null;
-	            }
-	        }
 	
 	@Override
     public void paintComponent(Graphics g) {
@@ -223,10 +211,10 @@ public class DrawScreen extends JPanel{
 	private void animate() {
 		state1 = !state1;
 		if(!state1) {
-			test = loadImage("state2.png");
+			test = Util.loadImage("state2.png");
 			return;
 		}
-		test = loadImage("state1.png");
+		test = Util.loadImage("state1.png");
 	}
 
 	
