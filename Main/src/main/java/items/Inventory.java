@@ -13,7 +13,7 @@ public class Inventory {
 		inv = new ArrayList<ArrayList<Pair<Item, Integer>>>();
 		player = p;
 	}
-	
+	 
 	public void add(Item i) {
 		player.equipItem(i);
 		for(ArrayList<Pair<Item, Integer>> ar : inv) if(ar.get(0).first.getClass().equals(i.getClass())) {

@@ -74,13 +74,9 @@ public abstract class Entity { //add armor slots
 				stamina = Math.max(0, stamina - 50/(50d+endurance)*(dmg2*currWeapon.staminaDepletion + currWeapon.flatStaminaDepletion));
 			}
 		}
-		for(Probability<StatusEffect> prob : currWeapon.atkEnemyEffects) if(prob.execute()) prob.item.addTo(e);
-		for(Probability<StatusEffect> prob : currWeapon.atkSelfEffects) if(prob.execute()) prob.item.addTo(this);
+	//	for(Probability<StatusEffect> prob : currWeapon.atkEnemyEffects) if(prob.execute()) prob.item.addTo(e); -Commented out for testing
+	//	for(Probability<StatusEffect> prob : currWeapon.atkSelfEffects) if(prob.execute()) prob.item.addTo(this);
 	}
-	/* avg damage:
-		double dmg = baseDmg;
-		for(double[] c : criticals) dmg *= 1 - c[0] + c[0]*c[1];
-	*/
 	
 	public void recalculateStats() {
 		maxHealth = baseMaxHealth;

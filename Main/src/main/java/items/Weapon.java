@@ -20,10 +20,6 @@ public class Weapon extends Item { //add stamina reduction
 	public double sparkBonus;
 	public double lifeSteal;
 	
-
-	
-
-	
 	public ArrayList<Probability<StatusEffect>> atkEnemyEffects;
 	public ArrayList<Probability<StatusEffect>> atkSelfEffects;
 	//add std miss chance?

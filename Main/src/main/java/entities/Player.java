@@ -17,11 +17,6 @@ public class Player extends Entity{
 	public int y;
 	
 	public Pair<ArrayList<Item>,Integer> equippedPots;
-	/*
-	public ArrayList<Pair<Item,Integer>> inventory;
-	public ArrayList<Pair<Item,Integer>> pots;
-	public ArrayList<Pair<Item,Integer>> weapons;
-	public ArrayList<Pair<Item,Integer>> equipment;*/
 	public Inventory inventory;
 	public ArrayList<Spell> spells;
 	
@@ -35,18 +30,17 @@ public class Player extends Entity{
 		maxStamina = 30;
 		stamina = 15;
 		
-		inventory = new Inventory(this);/*new ArrayList<Pair<Item,Integer>>();
-		pots = new ArrayList<Pair<Item,Integer>>();
-		weapons = new ArrayList<Pair<Item,Integer>>();
-		equipment = new ArrayList<Pair<Item,Integer>>();*/
-
+		inventory = new Inventory(this);
 		spells = new ArrayList<Spell>();
-		equippedPots = new Pair<ArrayList<Item>,Integer>(new ArrayList<Item>(),5);
+		equippedPots = new Pair<ArrayList<Item>,Integer>(new ArrayList<Item>(),5);  
+		
+		
 		inventory.add(Consumable.Consumables.aether()); // testing
 		inventory.add(Consumable.Consumables.superAether());
+		inventory.add(Consumable.Consumables.uberPotion());
 		inventory.add(Consumable.Consumables.potion());
-
 		inventory.add(Consumable.Consumables.potion());
+		inventory.add(Weapon.Weapons.fist());
 	}
 	
 	public boolean openSlots(Pair<ArrayList<Item>,Integer> in) {
@@ -56,6 +50,10 @@ public class Player extends Entity{
 	
 	public void equipItem(Item item) {
 		if(item instanceof Consumable && openSlots(equippedPots)) equippedPots.first.add(item);
+		if(item instanceof Weapon && (baseCurrWeapon == null || baseCurrWeapon.name.equals("Punch"))) {
+			baseCurrWeapon = (Weapon)item;
+			currWeapon = (Weapon)item;
+		}
 	}
 	
 
