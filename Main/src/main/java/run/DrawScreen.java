@@ -59,14 +59,13 @@ public class DrawScreen extends JPanel{
 
 
 		   
-
+		// /*
 		ArrayList<Enemy> g = new ArrayList<Enemy>();
 		g.add(Enemy.Enemies.manEatingDeer());
 		g.add(Enemy.Enemies.skeleton());
-		g.add(Enemy.Enemies.skeleton());
 
 		gameplay.newFight(g);
-		  
+		  //	*/
 
 		
 		test = Util.loadImage("state1.png");
@@ -145,7 +144,7 @@ public class DrawScreen extends JPanel{
 	
 	@Override
     public void paintComponent(Graphics g) {
-		if(moveVal < 3)
+		if(moveVal < 4)
 			moveVal++;
 		else {
 			moveVal = 0;

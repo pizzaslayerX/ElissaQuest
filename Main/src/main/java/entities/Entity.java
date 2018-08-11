@@ -46,6 +46,7 @@ public abstract class Entity { //add armor slots
 	@SuppressWarnings("static-access")
 	public void attack(Entity e, GamePlay g) { //add slow multi hit display (maybe in enhancements?)
 		double sparkMultiplier = 1;
+		
 		for(int i = 0; i < currWeapon.hits; i++) {
 			double dmg = currWeapon.baseDmg - currWeapon.range + (.7 + .6*Math.random())*currWeapon.range*(1 + stamina/maxStamina - e.stamina/e.maxStamina); // should .6 be .3?
 			if(i > 0 && Math.random() < currWeapon.sparkChance) {
@@ -61,6 +62,7 @@ public abstract class Entity { //add armor slots
 				//r.text.append("\n" + (tuple(critCount) + "critical!").toUpperCase() + "\tx" + (int)(c[1]*100) + "%");
 			}
 			int dmg1 = (int) Math.max(1, Math.round(atkMultiplier*e.dmgMultiplier*(1 - e.defense)*dmg - e.flatDefense));
+			System.out.println("Dmg dealt: "+dmg);
 			int dmg2 = (int) Math.max(1, Math.round(atkMultiplier*dmgMultiplier*e.dmgReflect*(1 - defense)*dmg - flatDefense));
 			e.health -= dmg1;
 			health = (int)Math.min(currWeapon.lifeSteal*dmg1+health, maxHealth);
