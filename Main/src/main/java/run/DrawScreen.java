@@ -61,13 +61,15 @@ public class DrawScreen extends JPanel{
 
 
 		   
-		/*
+
+		 /*
 		ArrayList<Enemy> g = new ArrayList<Enemy>();
 		g.add(Enemy.Enemies.skeleton());
 		g.add(Enemy.Enemies.skeleton());
-		g.add(Enemy.Enemies.skeleton());
+
 		gameplay.newFight(g);
 		  */
+
 
 		
 		test = walk1 = Util.loadImage("state1.png");
@@ -88,7 +90,7 @@ public class DrawScreen extends JPanel{
 			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
 			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
 			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				//disable();
+				disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
@@ -99,7 +101,7 @@ public class DrawScreen extends JPanel{
 			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
 			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
 			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				//disable();
+				disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
@@ -110,7 +112,7 @@ public class DrawScreen extends JPanel{
 			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
 			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
 			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				//disable();
+				disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
@@ -121,7 +123,7 @@ public class DrawScreen extends JPanel{
 			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
 			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
 			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				//disable();
+				disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
 			}
@@ -143,11 +145,16 @@ public class DrawScreen extends JPanel{
 		ac4.setEnabled(false);
 	}
 
-	
+	public void enable() {
+		ac1.setEnabled(true);
+		ac2.setEnabled(true);
+		ac3.setEnabled(true);
+		ac4.setEnabled(true);
+	}
 	
 	@Override
     public void paintComponent(Graphics g) {
-		if(moveVal < 3)
+		if(moveVal < 4)
 			moveVal++;
 		else {
 			moveVal = 0;

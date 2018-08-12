@@ -2,9 +2,11 @@ package entities;
 import java.util.ArrayList;
 
 import items.Consumable;
+import items.Effect;
 import items.Equipment;
 import items.Inventory;
 import items.Item;
+import items.StatusEffect;
 import items.Weapon;
 import misc.Pair;
 import run.GamePlay;
@@ -23,12 +25,16 @@ public class Player extends Entity{
 	public Player(GamePlay d) {
 		runner = d;
 		level = 1;
-		health = 12;
-		maxHealth = 120;
-		maxMana = 110;
-		mana = 8;
+		health = 20;
+		maxHealth = 20;
+		maxMana = 10;
+		mana = 10;
 		maxStamina = 30;
-		stamina = 15;
+		stamina = 30;
+		baseManaRegen = 1;
+		manaRegen = 1;
+		baseStaminaRegen = 3;
+		staminaRegen = 3;
 		
 		inventory = new Inventory(this);
 		spells = new ArrayList<Spell>();
@@ -41,6 +47,8 @@ public class Player extends Entity{
 		inventory.add(Consumable.Consumables.potion());
 		inventory.add(Consumable.Consumables.potion());
 		inventory.add(Weapon.Weapons.fist());
+		//new StatusEffect("accuracy",1,3).addTo(this);
+		//new StatusEffect("precision",1,3).addTo(this);
 	}
 	
 	public boolean openSlots(Pair<ArrayList<Item>,Integer> in) {

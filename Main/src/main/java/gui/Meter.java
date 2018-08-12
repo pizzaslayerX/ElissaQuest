@@ -14,11 +14,13 @@ public class Meter extends JPanel{
 	private int fullWidth,titleSize;
 	private String title;
 	
+	
 	public Meter(int current,int max,Color f,Color e) {
 		this.current = current;
 		this.max = max;
 		empty = e;
 		fill = f;
+		setDoubleBuffered(true);
 	}
 	public Meter(int current,int max,Color f,Color e,String t,int size) {
 		this.current = current;
@@ -27,12 +29,14 @@ public class Meter extends JPanel{
 		fill = f;
 		title = t;
 		titleSize = size;
+		setDoubleBuffered(true);
 	}
 
 	public void update(int current,String t) {
 		this.current = current;
 		title = t;
 		repaint();
+		
 	}
 	
 	public void update(int current) {
@@ -60,6 +64,7 @@ public class Meter extends JPanel{
 		g.setColor(Color.WHITE);
 		g.setFont(new Font("Monospaced", Font.BOLD, titleSize));
 		g.drawString(title, 5, (int)(getHeight()*0.7));
+		//System.out.println("repainted");
 	}
 	
 	private int getFillWidth() {

@@ -42,28 +42,30 @@ import run.GamePlay;
 import run.Window;
 
 public class MainFightPanel extends JPanel{
-	private ArrayList<Pair<Enemy,JTextPane>> enemies;
+	public ArrayList<Pair<Enemy,JTextPane>> enemies;
 
 	public GamePlay gameplay;
     public FlowLayout layout;
     public JLabel label;
     public Fight fight;
-    public static JLabel picSpace;
     public JPanel fightPanel,user;
     public Meter health,mana,stamina;
     public ArrayList<Meter> ehealth, emana, estamina;
-    public static JTextPane attack,item,special;
-    public static JPanel picArea,enemy,blankEnemy,menuBox;
+    public JTextPane attack,item,special;
+    public JPanel enemy,blankEnemy,menuBox;
     public InventoryPair pots;
     public int choice = 1,  target = 0;
     public boolean choosing = true,targetSelect=false,itemSelect=false;
     private static final Color HEALTH_GREEN = new Color(22, 150, 10);
+    public ArrayList<BufferedImage> enemyPics;
+    public DrawPanel enemyPic;
     
 	public MainFightPanel(Enemy e, GamePlay gp){
 		gameplay = gp;
 		ehealth = new ArrayList<Meter>();
 		emana = new ArrayList<Meter>();
 		estamina = new ArrayList<Meter>();
+		enemyPics = new ArrayList<BufferedImage>();
 		
 		pots = new InventoryPair(gameplay.player.equippedPots, "Item Selection",595,455);
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
@@ -74,8 +76,11 @@ public class MainFightPanel extends JPanel{
 		ehealth.add(new Meter(e.health, e.maxHealth, new Color(0,127,127),Color.BLACK, "HP", 19));
 		emana.add(new Meter(e.mana, e.maxMana, new Color(127,0,127),Color.BLACK, "Mana", 19));
 		estamina.add(new Meter((int)e.stamina, (int)e.maxStamina, new Color(200,0,0),Color.BLACK, "HP", 19));
+		for(int i=0;i<enemies.size();i++) {
+			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
+		}
 		try {
-			init("test.jpg"/*e.getPic()*/);
+			init();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -97,7 +102,8 @@ public class MainFightPanel extends JPanel{
 		emana = new ArrayList<Meter>();
 		estamina = new ArrayList<Meter>();
 		pots = new InventoryPair(gameplay.player.equippedPots,"Item Selection",595,455);
-
+		enemyPics = new ArrayList<BufferedImage>();
+		
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		for(Enemy en : e) enemies.add(new Pair<Enemy,JTextPane>(en,new JTextPane()));
 		
@@ -108,10 +114,13 @@ public class MainFightPanel extends JPanel{
 		for(int i=0;i<e.size();i++) {
 		ehealth.add(new Meter(e.get(i).health, e.get(i).maxHealth, new Color(0,127,127),Color.BLACK, "HP", 19));
 		emana.add(new Meter(e.get(i).mana, e.get(i).maxMana, new Color(127,0,127),Color.BLACK, "Mana", 19));
-		estamina.add(new Meter((int)e.get(i).stamina, (int)e.get(0).maxStamina, new Color(200,0,0),Color.BLACK, "HP", 19));
+		estamina.add(new Meter((int)e.get(i).stamina, (int)e.get(i).maxStamina, new Color(200,0,0),Color.BLACK, "HP", 19));
+		}
+		for(int i=0;i<enemies.size();i++) {
+			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
 		}
 		try {
-			init(e.get(0).getPic());
+			init();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -121,6 +130,16 @@ public class MainFightPanel extends JPanel{
 		//interact(gp);
 	}
 	
+	public void healthFocus(int e) {
+		for(int i=0;i<enemies.size();i++) {
+			ehealth.get(i).setVisible(false);
+			emana.get(i).setVisible(false);
+			estamina.get(i).setVisible(false);
+		}
+		ehealth.get(e).setVisible(true);
+		emana.get(e).setVisible(true);
+		estamina.get(e).setVisible(true);
+	}
 	
 
 	public void updateHealth() {
@@ -129,9 +148,9 @@ public class MainFightPanel extends JPanel{
 		stamina.update((int)gameplay.player.stamina,"Stamina: " + (int)gameplay.player.stamina + "/" + (int)gameplay.player.maxStamina);
 		
 		for(int i=0;i<enemies.size();i++) {
-		ehealth.get(i).update(enemies.get(0).first.health,  "HP");
-		emana.get(i).update(enemies.get(0).first.mana, "Mana");
-		estamina.get(i).update((int)enemies.get(0).first.stamina, "Stamina");
+			ehealth.get(i).update(enemies.get(i).first.health,  "HP");
+			emana.get(i).update(enemies.get(i).first.mana, "Mana");
+			estamina.get(i).update((int)enemies.get(i).first.stamina, "Stamina");
 		}
 	}
 	
@@ -172,16 +191,11 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
     		} catch(Exception e) { System.out.println(e);}
     }
 	
-	public static void changePic(String pic) throws IOException {
-		enemy.remove(picArea);
-		picArea.remove(picSpace);
-		 BufferedImage image = ImageIO.read(new File("src/res/pics/" + pic));
-		 picSpace = new JLabel(new ImageIcon(image));
-		 picArea.add(picSpace);
-		 enemy.add(picArea);
+	public void changePic(BufferedImage pic) throws IOException {
+		enemyPic.update(pic);
 	}
 	
-	public void init(String pic) throws Exception {
+	public void init() throws Exception {
 		updateHealth();
 		setPreferredSize(Window.GAME_SIZE);
 		setBackground(Color.BLACK);
@@ -189,54 +203,35 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
-		
-		
-		
-		health.setMaximumSize(new Dimension(550,50));
+		//grabFocus();
+		gameplay.r.disable();
+		for(int i=0;i<enemies.size();i++)
+			System.out.println("ENEMY ID: "+enemies.get(i).first.eid);
+		health.setPreferredSize(new Dimension(550,25));
+		health.setMaximumSize(new Dimension(550,25));
 		health.setBackground(Color.BLACK);
 		health.setVisible(true);
 		health.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 		
-		mana.setMaximumSize(new Dimension(550,50));
+		mana.setPreferredSize(new Dimension(550,25));
+		mana.setMaximumSize(new Dimension(550,25));
 		mana.setBackground(Color.BLACK);
 		mana.setVisible(true);
 		mana.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 		
-		stamina.setMaximumSize(new Dimension(550,50));
+		stamina.setPreferredSize(new Dimension(550,25));
+		stamina.setMaximumSize(new Dimension(550,25));
 		stamina.setBackground(Color.BLACK);
 		stamina.setVisible(true);
 		stamina.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-		
-		ehealth.get(0).setPreferredSize(new Dimension(550,25));
-		ehealth.get(0).setBackground(Color.BLACK);
-		ehealth.get(0).setVisible(true);
-		ehealth.get(0).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-		///*
-		emana.get(0).setPreferredSize(new Dimension(550,25));
-		emana.get(0).setBackground(Color.BLACK);
-		emana.get(0).setVisible(true);
-		emana.get(0).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-		
-		estamina.get(0).setPreferredSize(new Dimension(550,25));
-		estamina.get(0).setBackground(Color.BLACK);
-		estamina.get(0).setVisible(true);
-		estamina.get(0).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));//*/
-		
-		
-		
-		
-		TitledBorder border12 = new TitledBorder("Enemy");
-        border12.setTitleColor(Color.WHITE);
-        border12.setTitleFont(new Font("Monospaced", Font.BOLD, 18));
-        border12.setTitleJustification(TitledBorder.CENTER);
-        border12.setTitlePosition(TitledBorder.TOP);
 		
 		enemy = new JPanel();
 		enemy.setPreferredSize(new Dimension(((int)Window.GAME_SIZE.getWidth()/2-10),((int)Window.GAME_SIZE.getHeight()-40)));
 		enemy.setBackground(Color.BLACK);
 		enemy.setVisible(true);
 		//enemy.add(Box.createHorizontalStrut(5));
-		enemy.setBorder(border12);
+		enemy.setBorder(genBorder(enemies.get(0).first.name,1));
+		enemyPic = new DrawPanel(enemyPics.get(0),500,450);
 		//enemy.setLayout(new BoxLayout(enemy,BoxLayout.Y_AXIS));
 /*
 		blankEnemy = new JPanel();
@@ -245,22 +240,29 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		blankEnemy.setVisible(true);*/
 		//enemy.add(blankEnemy);
 		
-		picArea = new JPanel();
-		 BufferedImage image = ImageIO.read(new File("src/res/pics/" + "test.jpg"));	
-         picSpace = new JLabel(new ImageIcon(image));
-        picArea.add(picSpace);
-
-		picArea.setPreferredSize(new Dimension(600,370));
-		picArea.setBackground(Color.BLACK);
-		picArea.setVisible(true);
 		
-		enemy.add(ehealth.get(0));
-		enemy.add(Box.createVerticalStrut(5));
-		enemy.add(emana.get(0));
-		enemy.add(Box.createVerticalStrut(5));
-		enemy.add(estamina.get(0));
-		enemy.add(Box.createVerticalStrut(5));
-		enemy.add(picArea);
+		for(int i = 0;i<enemies.size();i++) {
+			ehealth.get(i).setPreferredSize(new Dimension(550,25));
+			ehealth.get(i).setBackground(Color.BLACK);
+			ehealth.get(i).setVisible(true);
+			ehealth.get(i).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+			///*
+			emana.get(i).setPreferredSize(new Dimension(550,25));
+			emana.get(i).setBackground(Color.BLACK);
+			emana.get(i).setVisible(true);
+			emana.get(i).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+			
+			estamina.get(i).setPreferredSize(new Dimension(550,25));
+			estamina.get(i).setBackground(Color.BLACK);
+			estamina.get(i).setVisible(true);
+			estamina.get(i).setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));//*/
+		enemy.add(ehealth.get(i));
+		enemy.add(emana.get(i));
+		enemy.add(estamina.get(i));
+		}
+		healthFocus(0);
+		
+		enemy.add(enemyPic);
 		
 		TitledBorder border2 = new TitledBorder("Battle");
         border2.setTitleColor(Color.WHITE);
@@ -283,14 +285,16 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		attack = new JTextPane();
 		attack.setEditable(false);
 		attack.setFocusable(false);
-		attack.setMaximumSize(new Dimension(550,140));
+		attack.setPreferredSize(new Dimension(550,150));
+		attack.setMaximumSize(new Dimension(550,150));
 		attack.setBackground(Color.BLACK);
 		attack.setVisible(true);
 		attack.setBorder(d);
 		
 		item = new JTextPane();
 		item.setEditable(false);
-		item.setMaximumSize(new Dimension(550,140));
+		item.setPreferredSize(new Dimension(550,150));
+		item.setMaximumSize(new Dimension(550,150));
 		item.setBackground(Color.BLACK);
 		item.setVisible(true);
 		item.setBorder(s);
@@ -298,7 +302,8 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		
 		special = new JTextPane();
 		special.setEditable(false);
-		special.setMaximumSize(new Dimension(550,140));
+		special.setPreferredSize(new Dimension(550,150));
+		special.setMaximumSize(new Dimension(550,150));
 		special.setBackground(Color.BLACK);
 		special.setVisible(true);
 		special.setBorder(a);
@@ -341,9 +346,9 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		add(user);	
 		
 		
-		append(attack," ATTACK",Color.WHITE,120,false);
-		append(special,"   MAGIC",Color.WHITE,115,false);
-		append(item,"   ITEM",Color.WHITE,130,false);
+		append(attack,"ATTACK",Color.WHITE,115,false,1);
+		append(special,"MAGIC",Color.WHITE,115,false,1);
+		append(item,"ITEM",Color.WHITE,115,false,1);
 		System.out.println("Before repaint");
 
 		updateHealth();
@@ -364,7 +369,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 	}
 
 	
-	private TitledBorder genBorder(String n,int orient) {
+	public TitledBorder genBorder(String n,int orient) {
 		TitledBorder border3 = new TitledBorder(n);
         border3.setTitleColor(Color.WHITE);
         border3.setTitleFont(new Font("Monospaced", Font.BOLD, 18));
@@ -425,28 +430,23 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		special.setVisible(false);
 		item.setVisible(false);
 		attack.setVisible(false);
-		health.setMaximumSize(new Dimension(550,29));        
-		mana.setMaximumSize(new Dimension(550,29));
-		stamina.setMaximumSize(new Dimension(550,29));
 	}
 	
-	private void showMenu() {
+	public void showMenu() {
 		special.setVisible(true);
 		item.setVisible(true);
 		attack.setVisible(true);
-		health.setMaximumSize(new Dimension(550,50));
-		mana.setMaximumSize(new Dimension(550,50));
-		stamina.setMaximumSize(new Dimension(550,50));
 	}
 	
 	private void update(int num) {
 	if(itemSelect == true) {
 		if(num == 0) {
 			if(gameplay.player.equippedPots.first.size()>0) {
-				//pots.setVisible(false);
-				//itemSelect = false;
+				pots.setVisible(false);
+				itemSelect = false;
 				target = choice;
 				fight.getPlayerTurn("item");
+				return;
 			}
 			pots.display();
 			System.out.println(gameplay.player.equippedPots.first.size());
@@ -462,8 +462,9 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 						pots.items.get(i).second.setBackground(Color.GRAY);
 						pots.descTab.setText("");
 						append(pots.descTab,gameplay.player.equippedPots.first.get(i).desc,Color.WHITE,25,false);
+						
 					}
-			}
+			    }
 			}
 		}
 	}
@@ -473,7 +474,8 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 			targetSelect = false;
 			target = choice;
 			fight.getPlayerTurn("attack");
-			updateHealth();
+		 	updateHealth();
+		 	return;
 		}else {
 			choice += -num;
 			if(choice < 0) choice = enemies.size()-1;
@@ -481,8 +483,18 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 			for(int i = 0;i<enemies.size();i++) {
 				if(i!=choice) 
 					enemies.get(i).second.setBackground(Color.BLACK);
-				else 
+				else {
 					enemies.get(i).second.setBackground(Color.GRAY);
+					enemy.setBorder(genBorder(enemies.get(i).first.name,1));
+					healthFocus(i);
+					try {
+						changePic(enemyPics.get(i));
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						System.out.println("You dun goofed mate");
+						e.printStackTrace();
+					}
+				}
 			}
 		}
 	}
@@ -496,6 +508,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 					target = 0;
 					choice = 0;
 					fight.getPlayerTurn("attack");
+					updateHealth();
 					return;
 				}
 				menuBox.setVisible(true);
@@ -511,9 +524,6 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 				pots.setVisible(true);
 				pots.display();
 				System.out.println("\n\nAfter choice\n\n");
-				health.setMaximumSize(new Dimension(550,25));
-				mana.setMaximumSize(new Dimension(550,25));
-				stamina.setMaximumSize(new Dimension(550,25));
 				itemSelect = true;
 				choice = 0;
 				return;
