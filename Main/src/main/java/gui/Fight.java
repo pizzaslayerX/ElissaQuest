@@ -75,6 +75,7 @@ public class Fight {
 	    	  		mainFight.updateHealth();
 	    	  }
 	    	 }else {
+	    		 enemyTurnDelay.stop();
 	    		 mainFight.setVisible(false);
 	    		 mainFight.gameplay.r.window.remove(mainFight);
 	    		 mainFight.gameplay.r.setVisible(true);
