@@ -19,13 +19,16 @@ public class Enemy extends Entity implements Interactive{
 	public ArrayList<Pair<Probability<Item>,Integer>> drops;
 	public int attackMode=0;
 	public BiFunction<Enemy, Player, Integer> attackCalc;
-
+	public static int id = -1;
+	public int eid;
+	
 	public Enemy(String nm, String p, ArrayList<Pair<Probability<Item>,Integer>> dr, BiFunction<Enemy, Player, Integer> ac, int h, int m, double s, double sm, int e, int hr, int mr, double sr, double d, double fd, Weapon[]... w) {
 		drops = dr;
 		attackCalc = ac;
 		attacks = w;
 		pic  = p;
 		name = nm;
+		eid=++id;
 		
 		
 		baseMaxHealth = h;
@@ -59,7 +62,7 @@ public class Enemy extends Entity implements Interactive{
 	@Override
 	public void disappear(Interactive[][] arr, int a, int b) {
 		// TODO Auto-generated method stub
-		
+		arr[a][b] = null;
 	}
 	
 	public String getPic() {

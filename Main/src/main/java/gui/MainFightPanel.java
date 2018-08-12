@@ -51,13 +51,13 @@ public class MainFightPanel extends JPanel{
     public JPanel fightPanel,user;
     public Meter health,mana,stamina;
     public ArrayList<Meter> ehealth, emana, estamina;
-    public static JTextPane attack,item,special;
-    public static JPanel enemy,blankEnemy,menuBox;
+    public JTextPane attack,item,special;
+    public JPanel enemy,blankEnemy,menuBox;
     public InventoryPair pots;
     public int choice = 1,  target = 0;
     public boolean choosing = true,targetSelect=false,itemSelect=false;
     private static final Color HEALTH_GREEN = new Color(22, 150, 10);
-    private ArrayList<BufferedImage> enemyPics;
+    public ArrayList<BufferedImage> enemyPics;
     public DrawPanel enemyPic;
     
 	public MainFightPanel(Enemy e, GamePlay gp){
@@ -203,9 +203,10 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
-		
-		
-		
+		//grabFocus();
+		gameplay.r.disable();
+		for(int i=0;i<enemies.size();i++)
+			System.out.println("ENEMY ID: "+enemies.get(i).first.eid);
 		health.setPreferredSize(new Dimension(550,25));
 		health.setMaximumSize(new Dimension(550,25));
 		health.setBackground(Color.BLACK);
@@ -368,7 +369,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 	}
 
 	
-	private TitledBorder genBorder(String n,int orient) {
+	public TitledBorder genBorder(String n,int orient) {
 		TitledBorder border3 = new TitledBorder(n);
         border3.setTitleColor(Color.WHITE);
         border3.setTitleFont(new Font("Monospaced", Font.BOLD, 18));
