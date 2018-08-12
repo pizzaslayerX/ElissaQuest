@@ -19,6 +19,8 @@ import java.util.ArrayList;
 
 public class DrawScreen extends JPanel{
 	private static BufferedImage test;
+	private static BufferedImage walk1;
+	private static BufferedImage walk2;
 	private static BufferedImage FOV;
 	private static BufferedImage up;
 	private static BufferedImage right;
@@ -59,16 +61,19 @@ public class DrawScreen extends JPanel{
 
 
 		   
+
 		 /*
 		ArrayList<Enemy> g = new ArrayList<Enemy>();
 		g.add(Enemy.Enemies.skeleton());
 		g.add(Enemy.Enemies.skeleton());
 
 		gameplay.newFight(g);
-		  //	*/
+		  */
+
 
 		
-		test = Util.loadImage("state1.png");
+		test = walk1 = Util.loadImage("state1.png");
+		walk2 = Util.loadImage("state2.png");
 		FOV = Util.loadImage("circle.png");
 		up = Util.loadImage("2250x1000.png");
 		left = Util.loadImage("1000x250.png");
@@ -215,10 +220,10 @@ public class DrawScreen extends JPanel{
 	private void animate() {
 		state1 = !state1;
 		if(!state1) {
-			test = Util.loadImage("state2.png");
+			test = walk2;
 			return;
 		}
-		test = Util.loadImage("state1.png");
+		test = walk1;
 	}
 
 	

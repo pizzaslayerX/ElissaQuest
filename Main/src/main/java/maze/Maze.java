@@ -6,6 +6,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.TreeNode;
 
 import entities.Enemy;
 import entities.Interactive;
@@ -58,7 +59,7 @@ public class Maze{
 		Collections.shuffle(enemySpots);
 		for(int i = 0; i < enemySpots.size(); i++) {
 			if(i < spots.size()*.7) {
-				modifyNodeValue(enemySpots.get(i), interactives, Enemy.Enemies.skeleton());;
+				modifyNodeValue(enemySpots.get(i), interactives, Enemy.Enemies.skeleton());
 			} else {
 				modifyNodeValue(enemySpots.get(i), interactives, new Chest());
 			}
@@ -76,6 +77,7 @@ public class Maze{
 			maze[a.first[0] + a.second.dx][a.first[1]+a.second.dy] |= a.second.opposite.bit;
 		}
 		display(); //debug
+		//enemyMove();
 	}
 	
 	public void display() {
@@ -123,18 +125,18 @@ public class Maze{
 		}
 	}
 	
-	public void enumNodes1(DefaultMutableTreeNode tree, Consumer<DefaultMutableTreeNode> function, BiPredicate<DefaultMutableTreeNode, DefaultMutableTreeNode> p, BiFunction<DefaultMutableTreeNode, DefaultMutableTreeNode, DefaultMutableTreeNode> nextTree, boolean b, boolean end) throws NodeException{
-		end = false;
+	public void enumNodes1(DefaultMutableTreeNode tree, Consumer<DefaultMutableTreeNode> function, BiPredicate<DefaultMutableTreeNode, DefaultMutableTreeNode> p, BiFunction<DefaultMutableTreeNode, DefaultMutableTreeNode, DefaultMutableTreeNode> nextTree, boolean b, boolean[] end) throws NodeException{
+		end[0] = false;
 		for(Enumeration<DefaultMutableTreeNode> e = tree.children(); e.hasMoreElements();) {
 			DefaultMutableTreeNode node = e.nextElement();
 			boolean bool = p.test(node, tree);
 			if(bool) function.accept(node);
-			if(end) throw new NodeException();
-			if(b || !bool) enumNodes1(nextTree.apply(node, tree), function, p,  nextTree, b, false);
+			if(end[0]) throw new NodeException();
+			if(b || !bool) enumNodes1(nextTree.apply(node, tree), function, p,  nextTree, b, end);
 		}
 	}
 	
-	public void enumEnemyNodes(DefaultMutableTreeNode tree, ArrayList<DefaultMutableTreeNode> spots, ArrayList<DefaultMutableTreeNode> enemySpots) {
+	public void enumEnemyNodes(DefaultMutableTreeNode tree, ArrayList<DefaultMutableTreeNode> spots, ArrayList<DefaultMutableTreeNode> enemySpots) { //change some stuff here
 		spots.add(tree);
 		enumNodes(tree, t -> {}, (u,v) -> u.getLevel() > (7+(int)(8*Math.random())), (u,v) -> {spots.add(u); System.out.println(((int[])u.getUserObject())[0] + " " + ((int[])u.getUserObject())[1]); return u;}, false);
 		//splatter
@@ -154,10 +156,10 @@ public class Maze{
 			}, (u,v) -> {
 				for(DefaultMutableTreeNode t : spots) if(sameNode(t,u)) return false;
 				return true;
-			}, (u, v) -> u, false, end[0]);
+			}, (u, v) -> u, false, end);
 		} catch (NodeException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
@@ -195,7 +197,7 @@ public class Maze{
 	private DefaultMutableTreeNode getNode(int a, int b, DIR dir, int c) {
 		DefaultMutableTreeNode tree = new DefaultMutableTreeNode(new int[]{a, b});
 		//System.out.println(a + " " + b);
-		for(DIR d : DIR.values()) if(!d.opposite.equals(dir) && (~maze[a][b] & d.bit) == 0 && !(interactives[a][b] instanceof DungeonArea)) tree.add(getNode(a + d.dx, b + d.dy, d, --c));
+		if(c > 0) for(DIR d : DIR.values()) if(!d.opposite.equals(dir) && (~maze[a][b] & d.bit) == 0 && !(interactives[a][b] instanceof DungeonArea)) tree.add(getNode(a + d.dx, b + d.dy, d, --c));
 		return tree;
 	}
 	
@@ -205,9 +207,56 @@ public class Maze{
 			if(interactives[i][j] instanceof Enemy) enemies.add(new int[]{i, j});
 		}
 		Collections.shuffle(enemies);
+		ArrayList<TreeNode[]> paths = new ArrayList<TreeNode[]>();
 		for(int[] i : enemies) {
-			
+			DefaultMutableTreeNode e = getTree(i[0], i[1], 12);
+			int count1 = 0;
+			for(Enumeration<DefaultMutableTreeNode> ee = e.breadthFirstEnumeration();ee.hasMoreElements();) {
+				DefaultMutableTreeNode node = ee.nextElement();
+				count1++;
+			}
+			System.out.println(i[0] + " " + i[1] + "               "+count1);
+			enumNodes(e, u -> {paths.add(u.getPath());}, (u,v) -> getNodeValue(u, interactives) instanceof Enemy, (u,v) -> u, false);
+			for(TreeNode[] p : paths) {
+				try {
+					((DefaultMutableTreeNode)p[Math.min(6, p.length - 1)]).removeFromParent(); //Math.min(6, p.length - 1)       6
+				} catch (ArrayIndexOutOfBoundsException a){
+					System.out.println("YA DONE FUCKED UP NOW KID");
+					System.out.println(p.length);
+					a.printStackTrace();
+				}
+			}
+			int count = 0;
+			System.out.println("depth " + e.getDepth());
+			int d = distance(Math.min(5, e.getDepth()));
+			System.out.println("d " + d);
+			ArrayList<DefaultMutableTreeNode> spots = new ArrayList<DefaultMutableTreeNode>();
+			for(Enumeration<DefaultMutableTreeNode> ee = e.breadthFirstEnumeration();ee.hasMoreElements();) {
+				count++;
+				DefaultMutableTreeNode node = ee.nextElement();
+				if(node.getLevel() == d) spots.add(node);
+			}
+			int[] spot = (int[])spots.get((int)(spots.size()*Math.random())).getUserObject();
+			System.out.println(count);
+			System.out.println("spot " + spot[0] + " " + spot[1]);
+			arraySwitch(interactives, i[0], i[1], spot[0], spot[1]);
 		}
+	}
+	
+	private int distance(int max) {
+		double rand = 1.5*harm(max)*Math.random();
+		System.out.println("rand " + rand);
+		for(int j = 1; j <= max; j++) {
+			System.out.println("harm" + harm(j));
+			if(rand < harm(j)) return j;
+		}
+		return 0;
+	}
+	
+	private double harm(int i) {
+		double res = 0;
+		for(int j = 1; j <= i; j++) res += 1d/j;
+		return res;
 	}
  
 	private void generateMaze(int cx, int cy) {

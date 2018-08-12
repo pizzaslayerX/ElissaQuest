@@ -67,6 +67,8 @@ public class GamePlay implements Runnable{
 			blink.scheduleAtFixedRate(new Runnable() {public void run() {
 				if(blinkMode++ >= 7) {
 					blinkMode = 0;
+					r.repaint();
+					maze.enemyMove();
 					blink.shutdown();
 				}
 				r.repaint();
