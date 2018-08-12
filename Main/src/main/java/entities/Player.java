@@ -46,7 +46,7 @@ public class Player extends Entity{
 		inventory.add(Consumable.Consumables.uberPotion());
 		inventory.add(Consumable.Consumables.potion());
 		inventory.add(Consumable.Consumables.potion());
-		inventory.add(Weapon.Weapons.critStaff());
+		inventory.add(Weapon.Weapons.fist());
 		//new StatusEffect("accuracy",1,3).addTo(this);
 		//new StatusEffect("precision",1,3).addTo(this);
 	}
