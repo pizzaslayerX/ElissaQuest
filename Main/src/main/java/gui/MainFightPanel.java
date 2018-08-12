@@ -66,7 +66,7 @@ public class MainFightPanel extends JPanel{
 		emana = new ArrayList<Meter>();
 		estamina = new ArrayList<Meter>();
 		enemyPics = new ArrayList<BufferedImage>();
-		
+		grabFocus();
 		pots = new InventoryPair(gameplay.player.equippedPots, "Item Selection",595,455);
 		enemies = new ArrayList<Pair<Enemy,JTextPane>>();
 		enemies.add(new Pair<Enemy,JTextPane>(e,new JTextPane()));
@@ -98,6 +98,7 @@ public class MainFightPanel extends JPanel{
 		System.out.println(gameplay.player.inventory.getConsumableInv().size());
 		pots = new InventoryPair(gameplay.player.inventory.getConsumableInv(),"Item Selection",595,455);
 =======*/
+		grabFocus();
 		ehealth = new ArrayList<Meter>();
 		emana = new ArrayList<Meter>();
 		estamina = new ArrayList<Meter>();
