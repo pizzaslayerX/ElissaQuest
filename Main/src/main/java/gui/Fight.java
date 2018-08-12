@@ -83,7 +83,7 @@ public class Fight {
 	    		 mainFight.gameplay.r.enable();
 	    	 }
 	      }
-	  };;
+	  };
 	
 	public Fight(Player p,ArrayList<Pair<Enemy,JTextPane>> e,MainFightPanel mf) {
 		player = p;
@@ -136,8 +136,6 @@ public class Fight {
 							mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(1).first.name,1));
 						} catch (IOException e) {}
 					 	mainFight.healthFocus(1);
-						
-					
 				}
 				mainFight.enemyPics.remove(i);
 				mainFight.enemy.remove(mainFight.ehealth.get(i));
@@ -149,6 +147,9 @@ public class Fight {
 				mainFight.enemies.remove(i);
 			}
 		}
+		mainFight.attack.setBackground(Color.GRAY);
+		mainFight.special.setBackground(Color.BLACK);
+		mainFight.item.setBackground(Color.BLACK);
 		enemyCount = 0;
 		enemyTurnDelay.start();		
 	}
