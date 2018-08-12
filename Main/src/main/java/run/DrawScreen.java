@@ -94,6 +94,7 @@ public class DrawScreen extends JPanel{
 				disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
+				System.out.println("test");
 			}
 		}));
 		Util.keybind(this, KeyEvent.VK_S, "down", ac2 = Util.actionMaker(u -> {
@@ -105,6 +106,7 @@ public class DrawScreen extends JPanel{
 				disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
+				System.out.println("test");
 			}
 		}));
 		Util.keybind(this, KeyEvent.VK_D, "right", ac3 = Util.actionMaker(u -> {
@@ -116,6 +118,7 @@ public class DrawScreen extends JPanel{
 				disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
+				System.out.println("test");
 			}
 		}));
 		Util.keybind(this, KeyEvent.VK_A, "left", ac4 = Util.actionMaker(u -> {
@@ -127,6 +130,7 @@ public class DrawScreen extends JPanel{
 				disable();
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
 				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
+				System.out.println("test");
 			}
 		}));
 		Util.keybind(this, KeyEvent.VK_UP, "uparrow", u -> {ytrans += 4;
