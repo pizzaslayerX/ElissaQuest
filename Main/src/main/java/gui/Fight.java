@@ -73,6 +73,15 @@ public class Fight {
 	    	  		mainFight.updateHealth();
 	    	  		StatusEffect.checkEffects(player);
 	    	  		mainFight.updateHealth();
+	    	  		if(player.health <= 0) {
+	    	  		 mainFight.gameplay.r.gameOver = true;
+	    	  		 enemyTurnDelay.stop();
+	   	    		 mainFight.setVisible(false);
+	   	    		 mainFight.gameplay.r.window.remove(mainFight);
+	   	    		 mainFight.gameplay.r.setVisible(true);
+	   	    		 mainFight.gameplay.r.grabFocus();
+	   	    		 mainFight.gameplay.r.enable();
+	    	  		}
 	    	  }
 	    	 }else {
 	    		 enemyTurnDelay.stop();
