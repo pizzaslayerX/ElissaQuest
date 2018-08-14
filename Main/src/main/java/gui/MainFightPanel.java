@@ -87,7 +87,6 @@ public class MainFightPanel extends JPanel{
 		}
 		update(1);
 		fight = new Fight(gameplay.player,enemies,this);
-		//interact(gp);
 	}
 	
 	
@@ -128,7 +127,6 @@ public class MainFightPanel extends JPanel{
 		}
 		update(1);
 		fight = new Fight(gameplay.player,enemies,this);
-		//interact(gp);
 	}
 	
 	public void healthFocus(int e) {
@@ -204,7 +202,6 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
-		//grabFocus();
 		gameplay.r.disable();
 		for(int i=0;i<enemies.size();i++)
 			System.out.println("ENEMY ID: "+enemies.get(i).first.eid);
