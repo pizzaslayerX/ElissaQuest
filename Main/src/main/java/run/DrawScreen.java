@@ -200,10 +200,10 @@ public class DrawScreen extends JPanel{
 		ac6.setEnabled(false);
 		ac7.setEnabled(false);
 		ac8.setEnabled(false);
-		sf1.cancel(false);
-		sf2.cancel(false);
-		sf3.cancel(false);
-		sf4.cancel(false);
+		if(sf1 != null) sf1.cancel(false);
+		if(sf2 != null) sf2.cancel(false);
+		if(sf3 != null) sf3.cancel(false);
+		if(sf4 != null) sf4.cancel(false);
 		System.out.println("disable");
 	}
 
