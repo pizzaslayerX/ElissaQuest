@@ -87,6 +87,7 @@ public class MainFightPanel extends JPanel{
 		}
 		update(1);
 		fight = new Fight(gameplay.player,enemies,this);
+		//interact(gp);
 	}
 	
 	
@@ -127,6 +128,7 @@ public class MainFightPanel extends JPanel{
 		}
 		update(1);
 		fight = new Fight(gameplay.player,enemies,this);
+		//interact(gp);
 	}
 	
 	public void healthFocus(int e) {
@@ -190,8 +192,8 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
     		} catch(Exception e) { System.out.println(e);}
     }
 	
-	public void changePic(BufferedImage pic,Entity e) throws IOException {
-		enemyPic.update(pic,e);
+	public void changePic(BufferedImage pic) throws IOException {
+		enemyPic.update(pic);
 	}
 	
 	public void init() throws Exception {
@@ -202,6 +204,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
+		//grabFocus();
 		gameplay.r.disable();
 		for(int i=0;i<enemies.size();i++)
 			System.out.println("ENEMY ID: "+enemies.get(i).first.eid);
@@ -229,7 +232,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		enemy.setVisible(true);
 		//enemy.add(Box.createHorizontalStrut(5));
 		enemy.setBorder(genBorder(enemies.get(0).first.name,1));
-		enemyPic = new DrawPanel(enemyPics.get(0),500,450,enemies.get(0).first);
+		enemyPic = new DrawPanel(enemyPics.get(0),500,450);
 		//enemy.setLayout(new BoxLayout(enemy,BoxLayout.Y_AXIS));
 /*
 		blankEnemy = new JPanel();
@@ -486,7 +489,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 					enemy.setBorder(genBorder(enemies.get(i).first.name,1));
 					healthFocus(i);
 					try {
-						changePic(enemyPics.get(i),enemies.get(i).first);
+						changePic(enemyPics.get(i));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						System.out.println("You dun goofed mate");

@@ -9,21 +9,16 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
 
-import entities.Entity;
-
 public class DrawPanel extends JPanel{
 	public BufferedImage pic;
 	int width, height;
-	Entity entity;
-	
-	public DrawPanel(BufferedImage p,int w,int h, Entity e) {
+	public DrawPanel(BufferedImage p,int w,int h) {
 		pic = p;
 		setPreferredSize(new Dimension(w,h));
 		setBackground(Color.BLACK);
 		setFocusable(false);
 		setDoubleBuffered(true);
 		width = w;
-		entity = e;
 		height = h;
 	}
 	
@@ -45,12 +40,10 @@ public class DrawPanel extends JPanel{
 		Toolkit.getDefaultToolkit().sync();
 	}
 	
+	
+	
 	private void drawObjects(Graphics g) {
 		g.drawImage(pic,(width-pic.getWidth())/2,height/6,this);
 		drawDamage(g,20,Color.RED);
-	}
-	
-	public class damagePanel extends JPanel{
-		
 	}
 }

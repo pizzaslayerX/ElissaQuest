@@ -30,13 +30,12 @@ public class Fight {
 	public int enemyCount = 0, delay = 1500;
 	public String paction = "";
 	
-	
 	public ActionListener taskPerformer  = new ActionListener() {
 	      public void actionPerformed(ActionEvent evt) {
 	    	 if(mainFight.enemies.size()>0) {
 	    	  if(enemyCount<mainFight.enemies.size()) {
 	    		  try {
-	    				mainFight.changePic(mainFight.enemyPics.get(enemyCount),enemies.get(enemyCount).first);
+	    				mainFight.changePic(mainFight.enemyPics.get(enemyCount));
 	    			} catch (IOException e1) {	}
 	    			mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(enemyCount).first.name,1));
 	    			mainFight.healthFocus(enemyCount);
@@ -46,7 +45,7 @@ public class Fight {
 	    		  mainFight.updateHealth();
 	    		  System.out.println("Health Updated!");
 	    		  try {
-						mainFight.changePic(mainFight.enemyPics.get(enemyCount),enemies.get(enemyCount).first);
+						mainFight.changePic(mainFight.enemyPics.get(enemyCount));
 						mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(enemyCount).first.name,1));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -62,7 +61,7 @@ public class Fight {
 					mainFight.healthFocus(0);
 					
 						try {
-							mainFight.changePic(mainFight.enemyPics.get(0),enemies.get(0).first);
+							mainFight.changePic(mainFight.enemyPics.get(0));
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
@@ -130,7 +129,7 @@ public class Fight {
 	public void getEnemyTurn() {
 		if(paction.equals("attack") && mainFight.getTarget().health <= 0) {
 			try {
-				mainFight.changePic(mainFight.enemyPics.get(0),enemies.get(0).first);
+				mainFight.changePic(mainFight.enemyPics.get(0));
 			} catch (IOException e1) {	}
 			mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(0).first.name,1));
 			mainFight.healthFocus(0);
@@ -142,7 +141,7 @@ public class Fight {
 				//Play death animation and death sound
 				if(mainFight.enemies.size()>1 && i==0) {
 					 try {
-							mainFight.changePic(mainFight.enemyPics.get(1),enemies.get(1).first);
+							mainFight.changePic(mainFight.enemyPics.get(1));
 							mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(1).first.name,1));
 						} catch (IOException e) {}
 					 	mainFight.healthFocus(1);
