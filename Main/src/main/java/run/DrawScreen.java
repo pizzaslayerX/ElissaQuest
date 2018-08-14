@@ -8,6 +8,7 @@ import entities.Interactive;
 import misc.Util;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
@@ -51,7 +52,7 @@ public class DrawScreen extends JPanel{
 	private static int moveVal = 0;
 	private static boolean state1 = true;
 	public int mazeSize = 24;
-
+	public boolean gameOver = false;
 	public int xtrans;
 	public int ytrans;
 	public DrawScreen(Window w) {
@@ -236,6 +237,7 @@ public class DrawScreen extends JPanel{
 	}
 	
 	private void drawObjects(Graphics g) {
+		if(!gameOver) {
 		g.translate(xtrans, ytrans);
 		g.drawImage(test,gameplay.player.x,gameplay.player.y,this);
 		g.setColor(Color.WHITE);
@@ -275,12 +277,20 @@ public class DrawScreen extends JPanel{
 					g.drawImage(small, i*mazeSize+4, j*mazeSize+4, this);
 					break;
 			}
-		}
+		  }
+		
 		g.drawImage(FOV, gameplay.player.x-117, gameplay.player.y-117, this);
 		g.drawImage(left, gameplay.player.x-1117, gameplay.player.y-117, this);
 		g.drawImage(right, gameplay.player.x+118, gameplay.player.y-117, this);
 		g.drawImage(up,  gameplay.player.x-1117, gameplay.player.y-1117, this);
 		g.drawImage(down, gameplay.player.x-1117, gameplay.player.y+118, this);
+	   }else {
+		   	g.setColor(Color.RED);
+			g.setFont(new Font("Monospaced", Font.BOLD, 50));
+			g.drawString("GAME OVER", 185,160);
+	   }
+		   
+		
 	}
 	
 	private void animate() {

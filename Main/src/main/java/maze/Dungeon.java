@@ -2,6 +2,7 @@ package maze;
 import java.util.ArrayList;
 
 import entities.Enemy;
+import entities.Enemy.Enemies;
 import entities.Interactive;
 import run.GamePlay;
 
@@ -11,8 +12,14 @@ public class Dungeon implements Interactive {
 	public Chest loot;
 	
 	public Dungeon(ArrayList<int[]> a, ArrayList<Enemy> e, Chest c) {
+		
 		area = a;
-		enemies = e;
+		//enemies = e;
+		enemies = new ArrayList<Enemy>();
+		for(int i=0;i<3;i++)
+		enemies.add(Enemies.skeleton());
+		enemies.add(Enemies.manEatingDeer());
+		enemies.add(Enemies.manEatingDeer());
 		loot = c;
 	}
 	@Override
