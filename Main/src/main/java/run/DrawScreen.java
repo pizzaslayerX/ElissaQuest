@@ -16,6 +16,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 public class DrawScreen extends JPanel{
 	private static BufferedImage test;
@@ -30,10 +34,18 @@ public class DrawScreen extends JPanel{
 	private static BufferedImage med;
 	private static BufferedImage large;
 	private static BufferedImage max;
-	Action ac1;
-	Action ac2;
-	Action ac3;
-	Action ac4;
+	public ScheduledFuture<?> sf1;
+	public ScheduledFuture<?> sf2;
+	public ScheduledFuture<?> sf3;
+	public ScheduledFuture<?> sf4;
+	public Action ac1;
+	public Action ac2;
+	public Action ac3;
+	public Action ac4;
+	public Action ac5;
+	public Action ac6;
+	public Action ac7;
+	public Action ac8;
 	public GamePlay gameplay = new GamePlay(this);
 	public Window window;
 	private static int moveVal = 0;
@@ -56,7 +68,6 @@ public class DrawScreen extends JPanel{
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
-		//addKeyListener(gameplay.listener);
 		//gameplay.newFight(Enemy.Enemies.skeleton());
 
 
@@ -84,54 +95,91 @@ public class DrawScreen extends JPanel{
 		large = Util.loadImage("EnemyLight3.png");
 		max = Util.loadImage("EnemyLight4.png");
 
+		
+		//key pressed keybind disables itself and runs SES that runs the command. key released reenables key pressed and cancels ses
+		
+		
+		
 		Util.keybind(this, KeyEvent.VK_W, "up", ac1 = Util.actionMaker(u -> {
-			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 1) != 0  && gameplay.player.x % mazeSize <= mazeSize - 16)|| gameplay.player.y % mazeSize != 0) ) gameplay.player.y-=gameplay.scale;
-			repaint();
-			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
-			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
-			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				disable();
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
-				System.out.println("test");
-			}
+			sf1 = gameplay.ses.scheduleAtFixedRate(new Runnable(){
+				public void run() {
+					if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 1) != 0  && gameplay.player.x % mazeSize <= mazeSize - 16)|| gameplay.player.y % mazeSize != 0) ) gameplay.player.y-=gameplay.scale;
+					repaint();
+					gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
+					gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
+					if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
+						gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+						gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
+						System.out.println("test");
+					}
+				}
+			}, 0, gameplay.period, TimeUnit.MILLISECONDS);
+			ac1.setEnabled(false);
 		}));
+		Util.keybind(this, KeyEvent.VK_W, "up1", ac5 = Util.actionMaker(u -> {
+			sf1.cancel(false);
+			ac1.setEnabled(true);
+		}), true);
 		Util.keybind(this, KeyEvent.VK_S, "down", ac2 = Util.actionMaker(u -> {
-			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 4) != 0  && gameplay.player.x % mazeSize <= mazeSize - 16)|| gameplay.player.y % mazeSize != mazeSize - 16) ) gameplay.player.y+=gameplay.scale;
-			repaint();
-			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
-			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
-			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				disable();
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
-				System.out.println("test");
-			}
+			sf2 = gameplay.ses.scheduleAtFixedRate(new Runnable() {
+				public void run() {
+					if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 4) != 0  && gameplay.player.x % mazeSize <= mazeSize - 16)|| gameplay.player.y % mazeSize != mazeSize - 16) ) gameplay.player.y+=gameplay.scale;
+					repaint();
+					gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
+					gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
+					if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
+						gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+						gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
+						System.out.println("test");
+					}
+				}
+			}, 0, gameplay.period, TimeUnit.MILLISECONDS);
+			ac2.setEnabled(false);
 		}));
+		Util.keybind(this, KeyEvent.VK_S, "down1", ac6 = Util.actionMaker(u -> {
+			sf2.cancel(false);
+			ac2.setEnabled(true);
+		}), true);
 		Util.keybind(this, KeyEvent.VK_D, "right", ac3 = Util.actionMaker(u -> {
-			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 2) != 0 && gameplay.player.y % mazeSize <= mazeSize - 16)|| gameplay.player.x %mazeSize != mazeSize - 16) ) gameplay.player.x+=gameplay.scale;
-			repaint();
-			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
-			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
-			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				disable();
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
-				System.out.println("test");
-			}
+			sf3 = gameplay.ses.scheduleAtFixedRate(new Runnable() {
+				public void run() {
+					if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 2) != 0 && gameplay.player.y % mazeSize <= mazeSize - 16)|| gameplay.player.x %mazeSize != mazeSize - 16) ) gameplay.player.x+=gameplay.scale;
+					repaint();
+					gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
+					gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
+					if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
+						gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+						gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
+						System.out.println("test");
+					}
+				}
+			}, 0, gameplay.period, TimeUnit.MILLISECONDS);
+			ac3.setEnabled(false);
 		}));
+		Util.keybind(this, KeyEvent.VK_D, "right1", ac7 = Util.actionMaker(u -> {
+			sf3.cancel(false);
+			ac3.setEnabled(true);
+		}), true);
 		Util.keybind(this, KeyEvent.VK_A, "left", ac4 = Util.actionMaker(u -> {
-			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 8) != 0 && gameplay.player.y % mazeSize <= mazeSize - 16)|| gameplay.player.x %mazeSize != 0) )gameplay.player.x-=gameplay.scale;
-			repaint();
-			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
-			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
-			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				disable();
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
-				System.out.println("test");
-			}
+			sf4 = gameplay.ses.scheduleAtFixedRate(new Runnable() {
+				public void run() {
+					if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 8) != 0 && gameplay.player.y % mazeSize <= mazeSize - 16)|| gameplay.player.x %mazeSize != 0) )gameplay.player.x-=gameplay.scale;
+					repaint();
+					gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
+					gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
+					if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
+						gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
+						gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
+						System.out.println("test");
+					}
+				}
+			}, 0, gameplay.period, TimeUnit.MILLISECONDS);
+			ac4.setEnabled(false);
 		}));
+		Util.keybind(this, KeyEvent.VK_A, "left1", ac8 = Util.actionMaker(u -> {
+			sf4.cancel(false);
+			ac4.setEnabled(true);
+		}), true);
 		Util.keybind(this, KeyEvent.VK_UP, "uparrow", u -> {ytrans += 4;
 		repaint();});
 		Util.keybind(this, KeyEvent.VK_DOWN, "downarrow", u -> {ytrans -= 4;
@@ -147,6 +195,15 @@ public class DrawScreen extends JPanel{
 		ac2.setEnabled(false);
 		ac3.setEnabled(false);
 		ac4.setEnabled(false);
+		ac5.setEnabled(false);
+		ac6.setEnabled(false);
+		ac7.setEnabled(false);
+		ac8.setEnabled(false);
+		sf1.cancel(false);
+		sf2.cancel(false);
+		sf3.cancel(false);
+		sf4.cancel(false);
+		System.out.println("disable");
 	}
 
 	public void enable() {
@@ -154,6 +211,11 @@ public class DrawScreen extends JPanel{
 		ac2.setEnabled(true);
 		ac3.setEnabled(true);
 		ac4.setEnabled(true);
+		ac5.setEnabled(true);
+		ac6.setEnabled(true);
+		ac7.setEnabled(true);
+		ac8.setEnabled(true);
+		System.out.println("enable");
 	}
 	
 	@Override

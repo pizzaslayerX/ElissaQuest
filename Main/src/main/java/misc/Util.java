@@ -31,6 +31,32 @@ public class Util {
 			}
 		});
 	}
+	public static void keybind(JComponent com, int i, String s, Consumer<ActionEvent> c, boolean b) {
+		com.getInputMap().put(KeyStroke.getKeyStroke(i, 0, b), s);
+		com.getActionMap().put(s, new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				c.accept(arg0);
+			}
+		});
+	}
+	public static void keybind(JComponent com, int i, String s, Consumer<ActionEvent> c, int j, boolean b) {
+		com.getInputMap(j).put(KeyStroke.getKeyStroke(i, 0, b), s);
+		com.getActionMap().put(s, new AbstractAction() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				c.accept(arg0);
+			}
+		});
+	}
+	public static void keybind(JComponent com, int i, String s, Action a, boolean b) {
+		com.getInputMap().put(KeyStroke.getKeyStroke(i, 0, b), s);
+		com.getActionMap().put(s, a);
+	}
+	public static void keybind(JComponent com, int i, String s, Action a, int j, boolean b) {
+		com.getInputMap(j).put(KeyStroke.getKeyStroke(i, 0, b), s);
+		com.getActionMap().put(s, a);
+	}
 	
 	public static void keybind(JComponent com, int i, String s, Action a) {
 		com.getInputMap().put(KeyStroke.getKeyStroke(i, 0, false), s);

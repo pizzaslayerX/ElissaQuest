@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 import entities.Enemy;
@@ -15,15 +16,17 @@ import maze.Maze;
 
  
 public class GamePlay implements Runnable{
-	public int scale = 2;
-	public static boolean openPanel = false;  //Unnecessary; remove
+	public int scale = 1;
+	public int period = 20;
+	public static boolean openPanel = false;  
 	public Maze maze;
 	public DrawScreen r;
 	//public String returnText = " ";
 	public Player player = new Player(this);
 	public int blinkMode = 0;
 	public CountDownLatch latch = new CountDownLatch(1);
-	//public Listener listener = new Listener();
+	public ScheduledExecutorService ses = Executors.newScheduledThreadPool(6);
+	public ScheduledFuture<?> blink;
 	
 	
 	public GamePlay(DrawScreen r) {
@@ -61,15 +64,13 @@ public class GamePlay implements Runnable{
 
 	@Override
 	public void run() {
-		ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
 		ses.scheduleAtFixedRate(new Runnable() {public void run() {
-			ScheduledExecutorService blink = Executors.newSingleThreadScheduledExecutor();
-			blink.scheduleAtFixedRate(new Runnable() {public void run() {
+			if(!openPanel) blink = ses.scheduleAtFixedRate(new Runnable() {public void run() {
 				if(blinkMode++ >= 7) {
 					blinkMode = 0;
 					r.repaint();
 					maze.enemyMove();
-					blink.shutdown();
+					blink.cancel(false);
 				}
 				r.repaint();
 			}}, 0, 100, TimeUnit.MILLISECONDS);
