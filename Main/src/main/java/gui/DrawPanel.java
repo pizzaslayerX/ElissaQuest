@@ -2,6 +2,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -21,6 +22,12 @@ public class DrawPanel extends JPanel{
 		height = h;
 	}
 	
+	public void drawDamage(Graphics g,int amt, Color c) {
+		g.setColor(c);
+		g.setFont(new Font("Monospaced", Font.BOLD, 30));
+		g.drawString(""+amt,0,height/8);
+	}
+	
 	public void update(BufferedImage p) {
 		pic = p;
 		repaint();
@@ -33,7 +40,10 @@ public class DrawPanel extends JPanel{
 		Toolkit.getDefaultToolkit().sync();
 	}
 	
+	
+	
 	private void drawObjects(Graphics g) {
 		g.drawImage(pic,(width-pic.getWidth())/2,height/6,this);
+		drawDamage(g,20,Color.RED);
 	}
 }

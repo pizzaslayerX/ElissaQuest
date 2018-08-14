@@ -175,7 +175,7 @@ public class DrawScreen extends JPanel{
 	}
 	
 	private void drawObjects(Graphics g) {
-		if(gameOver) {
+		if(!gameOver) {
 		g.translate(xtrans, ytrans);
 		g.drawImage(test,gameplay.player.x,gameplay.player.y,this);
 		g.setColor(Color.WHITE);
