@@ -44,9 +44,10 @@ public class Spell {
 	
 	public static class Spells{
 		public static Spell mist() {
+			return null;
 			
 			}
 		}
 		
 	}
-}
+
