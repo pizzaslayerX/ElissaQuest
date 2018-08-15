@@ -81,7 +81,7 @@ public class Meter extends JPanel{
 		DrawPanel dp = (DrawPanel)getParent();
 		BufferedImage bf = new BufferedImage(dp.width, dp.height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D gr = bf.createGraphics();
-		gr.setFont(new Font("Monospaced", Font.BOLD, 15));
+		gr.setFont(new Font("Monospaced", Font.BOLD, 20));
 		FontMetrics fm = ((Graphics2D)gr).getFontMetrics();
 		for(DamageDisplay dd : displays) {
 			gr.setColor(new Color(dd.dmg > 0 ? 255 : 0, dd.dmg < 0 ? 255 : 0 ,0,dd.transCount)); //dmg should never be 0 but makes sure you deal with that
@@ -139,7 +139,7 @@ public class Meter extends JPanel{
 		ScheduledExecutorService display = Executors.newScheduledThreadPool(1);
 			
 		dd.future = display.scheduleAtFixedRate(Util.guiRunnable(() -> {
-			dd.transCount-=3;
+			dd.transCount-=5;
 			dd.yCount+=1;
 			repaint();
 			if(dd.transCount <= 0) {
