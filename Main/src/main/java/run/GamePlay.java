@@ -19,7 +19,7 @@ import misc.Util;
 
  
 public class GamePlay implements Runnable{
-	public int scale = 2;
+	public int scale = 1;
 	public static boolean openPanel = false;  //Unnecessary; remove
 	public Maze maze;
 	public DrawScreen r;
@@ -103,19 +103,19 @@ public class GamePlay implements Runnable{
 				animate = true;
 			}
 			if(move[4]) {
-				r.ytrans += 4;
+				r.ytrans += 1;
 				change = true;
 			}
 			if(move[5]) {
-				r.ytrans -= 4;
+				r.ytrans -= 1;
 				change = true;
 			}
 			if(move[6]) {
-				r.xtrans -= 4;
+				r.xtrans -= 1;
 				change = true;
 			}
 			if(move[7]) {
-				r.xtrans += 4;
+				r.xtrans += 1;
 				change = true;
 			}
 			if(change) {
@@ -130,7 +130,7 @@ public class GamePlay implements Runnable{
 					System.out.println("test");
 				}
 			}
-		}), 0, 10 /*40*/, TimeUnit.MILLISECONDS);
+		}), 0, 20, TimeUnit.MILLISECONDS);
 		go();
 	}
 }
