@@ -61,7 +61,7 @@ public class Maze{
 			if(i < enemySpots.size()*.7 || true) {
 				modifyNodeValue(enemySpots.get(i), interactives, Enemy.Enemies.skeleton());
 			} else {
-				modifyNodeValue(enemySpots.get(i), interactives, new Chest());
+				modifyNodeValue(enemySpots.get(i), interactives, new Chest(true));
 			}
 		}
 		ArrayList<int[]> dungeons = new ArrayList<int[]>();

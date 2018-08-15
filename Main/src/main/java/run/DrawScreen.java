@@ -130,7 +130,7 @@ public class DrawScreen extends JPanel{
 	
 	public void repaintMove() {
 		moveVal++;
-		if((moveVal %= 8 ) == 0) animate();
+		if((moveVal %= 6 ) == 0) animate();
 		repaint();
 	}
 	

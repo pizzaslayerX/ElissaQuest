@@ -55,23 +55,35 @@ public class Spell {
 		public static Spell guard() {
 			return new Spell("Guard", "+20% def. for 2 turns", 3, 8, 0, false, (c,t) -> {
 				new StatusEffect("susceptible",20,2).addTo(t);
-			}, null, false);
-			
+			}, null, false);			
 		}
 		
 		public static Spell infection() {
 			return new Spell("Infectious Wave", "Inflicts Minor Curse and Minor Poison for 3 turns", 2, 6, 0, true, (c,t) -> {
 				new StatusEffect("poison",1,3).addTo(t);
 				new StatusEffect("curse",1,3).addTo(t);
-			}, null, false);
-			
+			}, null, false);			
 		}
 		
 		public static Spell deshell() {
-			return new Spell("Deshell", "Target suffers from -15% def. for 2 turns", 1, 5, 0, false, (c,t) -> {
+			return new Spell("Deshell", "Target suffers from -15% def. for 3 turns", 1, 5, 0, true, (c,t) -> {
 				new StatusEffect("fragility",15,2).addTo(t);
-			}, null, false);
-			
+			}, null, false);		
+		}
+		
+		public static Spell cure() {
+			return new Spell("Cure","Heals for 10% of max health",0,20,0,false,(c,t) -> {
+				t.health += t.maxHealth/10;
+				if(t.health>t.maxHealth)
+					t.health=t.maxHealth;
+			}, null, false);		
+		}
+		
+		public static Spell bravery() {
+			return new Spell("Instill Bravery","Grants Minor Stamina Regen and Minor Strength for 3 turns",2,0,0,false,(c,t) -> {
+				new StatusEffect("strength",1,2).addTo(t);
+				new StatusEffect("endurance",2,2).addTo(t);
+			}, null, false);		
 		}
 		
 	}

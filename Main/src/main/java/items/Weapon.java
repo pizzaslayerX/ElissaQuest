@@ -130,12 +130,15 @@ public class Weapon extends Item { //add stamina reduction
 		public static String[] weaponB = {"Ball","Knife","Sword","Balloon","Rapier","Gauntlets","Hatchet","Shovel","Spoon","Sickle","Sling","Bow","Slicer","Stabber","Smasher","Bat"};
 		public static String[] weaponC = {"You assault %2$s.","You flail your weapon wildly.","Ouch.","You hit the enemy on the nose!","Your weapon slices through tender meat.","Oof.","You throw your weapon at %2$s."};
 		
+		
+		
 		public static Weapon fist() {
 			return new Weapon("Punch", "%1$s punch %2$s", 1, 0, new double[]{.5, 2});
 		}
 		
 		public static Weapon rustyDagger() {
 			return new Weapon("Rusty Dagger", "%1$s drive a rusty dagger into %2$s", (3 + (int)(Math.random()*3)), 2, 2, .3, .2, new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect("weakness", 2, 3), .3))), null);
+
 		}
 		
 		public static Weapon ulfbehrt() {
@@ -172,8 +175,10 @@ public class Weapon extends Item { //add stamina reduction
 		}
 		
 		public static Weapon randWeapon1() {
-			double dmg = Math.random()*Math.random()*16+4;
-			return new Weapon(weaponA[(int)(Math.random()*weaponA.length)] + " " + weaponB[(int)(Math.random()*weaponB.length)], weaponC[(int)(Math.random()*weaponC.length)] ,dmg, Math.random()*dmg, (int)(Math.random()*3)+1, Math.random()*.5, Math.random(), new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect(Effect.debuff().get((int)(Math.random()*Effect.debuff().size())), 1, 3), .4*Math.random()))), null);
+			double dmg = Math.random()*Math.random()*16+2;
+			return new Weapon(weaponA[(int)(Math.random()*weaponA.length)] + " " + weaponB[(int)(Math.random()*weaponB.length)], weaponC[(int)(Math.random()*weaponC.length)] ,dmg, 
+			 Math.random()*dmg, (int)(Math.random()*2)+1, Math.random()*.5, Math.random(), 
+			 new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect(Effect.debuff().get((int)(Math.random()*Effect.debuff().size())), 1, 3), .4*Math.random()))), null);
 		}
 		
 		/*
