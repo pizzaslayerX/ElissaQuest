@@ -3,7 +3,7 @@ package items;
 import java.util.Collections;
 
 import entities.Entity;
-import maze.MultiplierUtils;
+import misc.MultiplierUtils;
 
 public class StatusEffect implements Comparable<StatusEffect> {
 	public Effect effect;

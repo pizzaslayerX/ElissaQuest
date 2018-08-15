@@ -90,9 +90,9 @@ public enum Effect {
 	
 	
 	public String name;
-	public BiConsumer<Entity, Integer> function; //constant for duration of effect
-	public BiConsumer<Entity, Integer> turn;
-	public BiConsumer<Entity, Integer> end;
+	public BiConsumer<Entity, Integer> function; //upon infliction
+	public BiConsumer<Entity, Integer> turn; //every turn
+	public BiConsumer<Entity, Integer> end; //at the end
 	
 	private Effect(String s, BiConsumer<Entity, Integer> f, boolean bool) {
 		name = s;

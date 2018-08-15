@@ -1,4 +1,4 @@
-package maze;
+package misc;
 
 import java.util.Collections;
 

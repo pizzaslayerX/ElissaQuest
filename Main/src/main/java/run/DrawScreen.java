@@ -31,10 +31,7 @@ public class DrawScreen extends JPanel{
 	private static BufferedImage med;
 	private static BufferedImage large;
 	private static BufferedImage max;
-	public Action ac1;
-	public Action ac2;
-	public Action ac3;
-	public Action ac4;
+	public Action[] ac = new Action[16];
 	public GamePlay gameplay = new GamePlay(this);
 	public Window window;
 	private static int moveVal = 0;
@@ -85,36 +82,31 @@ public class DrawScreen extends JPanel{
 		large = Util.loadImage("EnemyLight3.png");
 		max = Util.loadImage("EnemyLight4.png");
 
-		Util.keybind(this, KeyEvent.VK_W, "up", ac1 = Util.actionMaker(u -> {gameplay.move[0] = true;}));
-		Util.keybind(this, KeyEvent.VK_S, "down", ac2 = Util.actionMaker(u -> {gameplay.move[1] = true;}));
-		Util.keybind(this, KeyEvent.VK_D, "right", ac3 = Util.actionMaker(u -> {gameplay.move[2] = true;}));
-		Util.keybind(this, KeyEvent.VK_A, "left", ac4 = Util.actionMaker(u -> {gameplay.move[3] = true;}));
-		Util.keybind(this, KeyEvent.VK_UP, "uparrow", u -> {gameplay.move[4] = true;});
-		Util.keybind(this, KeyEvent.VK_DOWN, "downarrow", u -> {gameplay.move[5] = true;});
-		Util.keybind(this, KeyEvent.VK_RIGHT, "rightarrow", u -> {gameplay.move[6] = true;});
-		Util.keybind(this, KeyEvent.VK_LEFT, "leftarrow", u -> {gameplay.move[7] = true;});
-		Util.keybind(this, KeyEvent.VK_W, "up1", ac1 = Util.actionMaker(u -> {gameplay.move[0] = false;}), true);
-		Util.keybind(this, KeyEvent.VK_S, "down1", ac2 = Util.actionMaker(u -> {gameplay.move[1] = false;}), true);
-		Util.keybind(this, KeyEvent.VK_D, "right1", ac3 = Util.actionMaker(u -> {gameplay.move[2] = false;}), true);
-		Util.keybind(this, KeyEvent.VK_A, "left1", ac4 = Util.actionMaker(u -> {gameplay.move[3] = false;}), true);
-		Util.keybind(this, KeyEvent.VK_UP, "uparrow1", u -> {gameplay.move[4] = false;},true);
-		Util.keybind(this, KeyEvent.VK_DOWN, "downarrow1", u -> {gameplay.move[5] = false;},true);
-		Util.keybind(this, KeyEvent.VK_RIGHT, "rightarrow1", u -> {gameplay.move[6] = false;},true);
-		Util.keybind(this, KeyEvent.VK_LEFT, "leftarrow1", u -> {gameplay.move[7] = false;},true);
+		Util.keybind(this, KeyEvent.VK_W, "up", ac[0] = Util.actionMaker(u -> {gameplay.move[0] = true;}));
+		Util.keybind(this, KeyEvent.VK_S, "down", ac[1] = Util.actionMaker(u -> {gameplay.move[1] = true;}));
+		Util.keybind(this, KeyEvent.VK_D, "right", ac[2] = Util.actionMaker(u -> {gameplay.move[2] = true;}));
+		Util.keybind(this, KeyEvent.VK_A, "left", ac[3] = Util.actionMaker(u -> {gameplay.move[3] = true;}));
+		Util.keybind(this, KeyEvent.VK_UP, "uparrow", ac[4] = Util.actionMaker(u -> {gameplay.move[4] = true;}));
+		Util.keybind(this, KeyEvent.VK_DOWN, "downarrow", ac[5] = Util.actionMaker(u -> {gameplay.move[5] = true;}));
+		Util.keybind(this, KeyEvent.VK_RIGHT, "rightarrow", ac[6] =Util.actionMaker(u -> {gameplay.move[6] = true;}));
+		Util.keybind(this, KeyEvent.VK_LEFT, "leftarrow", ac[7] = Util.actionMaker(u -> {gameplay.move[7] = true;}));
+		Util.keybind(this, KeyEvent.VK_W, "up1", ac[8] = Util.actionMaker(u -> {gameplay.move[0] = false;}), true);
+		Util.keybind(this, KeyEvent.VK_S, "down1", ac[9] = Util.actionMaker(u -> {gameplay.move[1] = false;}), true);
+		Util.keybind(this, KeyEvent.VK_D, "right1", ac[10] = Util.actionMaker(u -> {gameplay.move[2] = false;}), true);
+		Util.keybind(this, KeyEvent.VK_A, "left1", ac[11] = Util.actionMaker(u -> {gameplay.move[3] = false;}), true);
+		Util.keybind(this, KeyEvent.VK_UP, "uparrow1", ac[12] = Util.actionMaker(u -> {gameplay.move[4] = false;}),true);
+		Util.keybind(this, KeyEvent.VK_DOWN, "downarrow1", ac[13] = Util.actionMaker(u -> {gameplay.move[5] = false;}),true);
+		Util.keybind(this, KeyEvent.VK_RIGHT, "rightarrow1", ac[14] = Util.actionMaker(u -> {gameplay.move[6] = false;}),true);
+		Util.keybind(this, KeyEvent.VK_LEFT, "leftarrow1", ac[15] = Util.actionMaker(u -> {gameplay.move[7] = false;}),true);
 	}
 	
 	public void disable() {
-		ac1.setEnabled(false);
-		ac2.setEnabled(false);
-		ac3.setEnabled(false);
-		ac4.setEnabled(false);
+		for(Action a : ac) a.setEnabled(false);
+		gameplay.move = new boolean[8];
 	}
 
 	public void enable() {
-		ac1.setEnabled(true);
-		ac2.setEnabled(true);
-		ac3.setEnabled(true);
-		ac4.setEnabled(true);
+		for(Action a : ac) a.setEnabled(true);
 	}
 	
 	@Override
@@ -130,7 +122,7 @@ public class DrawScreen extends JPanel{
 	
 	public void repaintMove() {
 		moveVal++;
-		if((moveVal %= 8 /*3*/) == 0) animate();
+		if((moveVal %= 8 ) == 0) animate();
 		repaint();
 	}
 	

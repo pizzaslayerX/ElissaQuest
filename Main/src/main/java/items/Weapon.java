@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
-import maze.MultiplierUtils;
+import misc.MultiplierUtils;
 import misc.Pair;
 import misc.Probability;
 
@@ -36,6 +36,8 @@ public class Weapon extends Item { //add stamina reduction
 		lifeSteal = 0;
 		sparkChance = 0;
 		sparkBonus = 0;
+		atkEnemyEffects =  new ArrayList<Probability<StatusEffect>>();
+		atkSelfEffects = new ArrayList<Probability<StatusEffect>>();
 	}
 	
 	public Weapon(String name, String msg, double a, double b, double sd, double fsd, int h, double sc, double sb, ArrayList<Probability<StatusEffect>> aee, ArrayList<Probability<StatusEffect>> ase, double[]... c) {
@@ -50,8 +52,8 @@ public class Weapon extends Item { //add stamina reduction
 		lifeSteal = 0;
 		sparkChance = sc;
 		sparkBonus = sb;
-		atkEnemyEffects = aee;
-		atkSelfEffects = ase;
+		atkEnemyEffects = aee == null ? new ArrayList<Probability<StatusEffect>>() : aee;
+		atkSelfEffects = ase == null ? new ArrayList<Probability<StatusEffect>>() : ase;
 	}
 	
 	public Weapon(String name, String msg, double a, double b, double sd, double fsd, int h, double sc, double sb, double ls, ArrayList<Probability<StatusEffect>> aee, ArrayList<Probability<StatusEffect>> ase, double[]... c) {
@@ -66,8 +68,8 @@ public class Weapon extends Item { //add stamina reduction
 		sparkChance = sc;
 		sparkBonus = sb;
 		lifeSteal = ls;
-		atkEnemyEffects = aee;
-		atkSelfEffects = ase;
+		atkEnemyEffects = aee == null ? new ArrayList<Probability<StatusEffect>>() : aee;
+		atkSelfEffects = ase == null ? new ArrayList<Probability<StatusEffect>>() : ase;
 	}
 	
 	public Weapon(String name, String msg, double a, double b, int h, double sc, double sb, ArrayList<Probability<StatusEffect>> aee, ArrayList<Probability<StatusEffect>> ase, double[]... c) {
@@ -81,8 +83,8 @@ public class Weapon extends Item { //add stamina reduction
 		flatStaminaDepletion = baseDmg/3;
 		sparkChance = sc;
 		sparkBonus = sb;
-		atkEnemyEffects = aee;
-		atkSelfEffects = ase;
+		atkEnemyEffects = aee == null ? new ArrayList<Probability<StatusEffect>>() : aee;
+		atkSelfEffects = ase == null ? new ArrayList<Probability<StatusEffect>>() : ase;
 		lifeSteal = 0;
 	}
 	
@@ -98,8 +100,8 @@ public class Weapon extends Item { //add stamina reduction
 		sparkChance = sc;
 		sparkBonus = sb;
 		lifeSteal = ls;
-		atkEnemyEffects = aee;
-		atkSelfEffects = ase;
+		atkEnemyEffects = aee == null ? new ArrayList<Probability<StatusEffect>>() : aee;
+		atkSelfEffects = ase == null ? new ArrayList<Probability<StatusEffect>>() : ase;
 	}
 	
 	@SuppressWarnings("unchecked")

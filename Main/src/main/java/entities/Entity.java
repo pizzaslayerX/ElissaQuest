@@ -5,6 +5,7 @@ import java.util.Arrays;
 import items.Equipment;
 import items.StatusEffect;
 import items.Weapon;
+import misc.MultiplierUtils;
 import misc.Probability;
 import run.ElissaRunner;
 import run.GamePlay;
@@ -51,7 +52,7 @@ public abstract class Entity { //add armor slots
 			double dmg = currWeapon.baseDmg - currWeapon.range + (.7 + .6*Math.random())*currWeapon.range*(1 + stamina/maxStamina - e.stamina/e.maxStamina); // should .6 be .3?
 			if(i > 0 && Math.random() < currWeapon.sparkChance) {
 				sparkMultiplier *= 1 + (1-e.sparkMitigation)*currWeapon.sparkBonus; 
-				//r.text.append("\nSpark!\tx " + (int)(100*(1 + e.sparkMitigation*currWeapon.sparkBonus)) + "%");
+				System.out.println("Spark!\tx " + (int)(100*(1 + e.sparkMitigation*currWeapon.sparkBonus)) + "%");
 			}
 			dmg *= sparkMultiplier;
 			int critCount = 0;
@@ -59,26 +60,26 @@ public abstract class Entity { //add armor slots
 				dmg *= c[1];
 				critCount++;
 				//r.pause(500);
-				//r.text.append("\n" + (tuple(critCount) + "critical!").toUpperCase() + "\tx" + (int)(c[1]*100) + "%");
+				System.out.println((MultiplierUtils.tuple(critCount) + "critical!").toUpperCase() + "\tx" + (int)(c[1]*100) + "%");
 			}
-			int dmg1 = (int) Math.max(1, Math.round(atkMultiplier*e.dmgMultiplier*(1 - e.defense)*dmg - e.flatDefense));
-			System.out.println("Dmg dealt: "+dmg);
+			double dmga = atkMultiplier*e.dmgMultiplier*(1 - e.defense)*dmg - e.flatDefense;
+			int dmg1 =  (int)Math.max(1, Math.floor(dmga) + (Math.random() < dmga % 1d ? 1 : 0));
 			int dmg2 = (int) Math.max(1, Math.round(atkMultiplier*dmgMultiplier*e.dmgReflect*(1 - defense)*dmg - flatDefense));
 			e.health -= dmg1;
-			health = (int)Math.min(currWeapon.lifeSteal*dmg1+health, maxHealth);
+			health = (int)Math.min(currWeapon.lifeSteal*dmg1+health, maxHealth); // do green dmg indicator
 			//r.pause(1500);
-			//r.text.append("\n" + dmg1 + " damage");
+			System.out.println(dmg1 + " damage");
 			g.mfp.dmgIndicator.displayDamage(dmg1);
 			e.stamina = Math.max(0, e.stamina - 50/(50d+e.endurance)*(dmg1*currWeapon.staminaDepletion + currWeapon.flatStaminaDepletion));
 			if(e.dmgReflect != 0) {
 				health -= dmg2;
 				//r.pause(1500);
-				//r.text.append("\n" + dmg2 + " reflect damage");
+				System.out.println(dmg2 + " reflect damage");
 				stamina = Math.max(0, stamina - 50/(50d+endurance)*(dmg2*currWeapon.staminaDepletion + currWeapon.flatStaminaDepletion));
 			}
 		}
-	//	for(Probability<StatusEffect> prob : currWeapon.atkEnemyEffects) if(prob.execute()) prob.item.addTo(e); -Commented out for testing
-	//	for(Probability<StatusEffect> prob : currWeapon.atkSelfEffects) if(prob.execute()) prob.item.addTo(this);
+		for(Probability<StatusEffect> prob : currWeapon.atkEnemyEffects) if(prob.execute()) prob.item.addTo(e); 
+		for(Probability<StatusEffect> prob : currWeapon.atkSelfEffects) if(prob.execute()) prob.item.addTo(this);
 	}
 	
 	public void recalculateStats() {

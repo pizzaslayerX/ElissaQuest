@@ -7,6 +7,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -17,17 +18,12 @@ import entities.Entity;
 import misc.Util;
 
 public class DamageIndicator extends JPanel{
-	public int width,height,dmg;
-	
-	private int transCount,yCount;
-	private ScheduledFuture<?> future;
+	public int width,height;
+	public ArrayList<DamageDisplay> displays = new ArrayList<DamageDisplay>();
 	
 	public DamageIndicator(int w, int h) {
 		width = w;
 		height = h;
-		dmg = 0;
-		transCount = 0;
-		yCount = 20;
 		
 		setPreferredSize(new Dimension(width,height));
 		setMaximumSize(new Dimension(width,height));
@@ -43,32 +39,45 @@ public class DamageIndicator extends JPanel{
 	}
 	
 	public void drawObjects(Graphics g) {
-		g.setColor(new Color(255,0,0,transCount));
-		g.setFont(new Font("Monospaced", Font.BOLD, 30));
-		
-		Graphics2D g2d = (Graphics2D)g;
-		FontMetrics fm = g2d.getFontMetrics();
-		int x = (width - fm.stringWidth(dmg+"")) / 2;
-		int y = ((height - fm.getHeight()) / 2) + fm.getAscent();
-		g.drawString(dmg+"", x, y+yCount);
+		FontMetrics fm = ((Graphics2D)g).getFontMetrics();
+		for(DamageDisplay dd : displays) {
+			g.setColor(new Color(dd.dmg > 0 ? 255 : 0, dd.dmg < 0 ? 255 : 0 ,0,dd.transCount)); //dmg should never be 0 but makes sure you deal with that
+			g.setFont(new Font("Monospaced", Font.BOLD, 30));
+			int x = (width - fm.stringWidth((int)Math.abs(dd.dmg)+"")) / 2;
+			int y = ((height - fm.getHeight()) / 2) + fm.getAscent();
+			g.drawString((int)Math.abs(dd.dmg)+"", x, y+dd.yCount);
+		}
 	}
 	  
 	
 	public void displayDamage(int d) {
-		dmg = d;
-		transCount = 255;
-		yCount = 20; // set dmg
+		DamageDisplay dd = new DamageDisplay(d);
+		displays.add(dd);
 
 		ScheduledExecutorService display = Executors.newScheduledThreadPool(1);
 			
-		future = display.scheduleAtFixedRate(Util.guiRunnable(() -> {
-			transCount-=17;
-			yCount-=2;
+		dd.future = display.scheduleAtFixedRate(Util.guiRunnable(() -> {
+			dd.transCount-=5;
+			dd.yCount-=1;
 			repaint();
-			if(transCount <= 0) future.cancel(false);
-		}), 0, 100, TimeUnit.MILLISECONDS);	
+			if(dd.transCount <= 0) {
+				displays.remove(dd);
+				dd.future.cancel(false);
+			}
+		}), 0, 25, TimeUnit.MILLISECONDS);	
 			
 			
+	}
+	
+	public class DamageDisplay {
+		public int transCount,yCount,dmg;
+		private ScheduledFuture<?> future;
+		
+		public DamageDisplay(int d) {
+			dmg = d;
+			transCount = 255;
+			yCount = 20;
+		}
 	}
 	
 	

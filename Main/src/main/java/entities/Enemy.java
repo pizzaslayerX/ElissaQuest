@@ -19,7 +19,7 @@ public class Enemy extends Entity implements Interactive{
 	public ArrayList<Pair<Probability<Item>,Integer>> drops;
 	public int attackMode=0;
 	public BiFunction<Enemy, Player, Integer> attackCalc;
-	public static int id = -1;
+	public static int id = -1; //testing purposes
 	public int eid;
 	
 	public Enemy(String nm, String p, ArrayList<Pair<Probability<Item>,Integer>> dr, BiFunction<Enemy, Player, Integer> ac, int h, int m, double s, double sm, int e, int hr, int mr, double sr, double d, double fd, Weapon[]... w) {
@@ -28,7 +28,7 @@ public class Enemy extends Entity implements Interactive{
 		attacks = w;
 		pic  = p;
 		name = nm;
-		eid=++id;
+		eid=++id; //testing purposes
 		
 		
 		baseMaxHealth = h;
@@ -122,7 +122,7 @@ public class Enemy extends Entity implements Interactive{
 		public static Enemy skeleton() {
 			return new Enemy("Skeleton","Skeleton.png",new ArrayList<Pair<Probability<Item>,Integer>>(Arrays.asList(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.rustyDagger(),.35),1))), (u,v) -> {
 				return 0;
-			}, 10, 10, 10, 0, 0, 0, 1, 2, 0, 0, new Weapon[] {new Weapon("Bone club", "%1$s bone clubs %2$s", 3, 2)});
+			}, 1000000, 10, 10, 0, 0, 0, 1, 2, 0, 0, new Weapon[] {new Weapon("Bone club", "%1$s bone clubs %2$s", 3, 2)});
 		}
 		
 		//hard
