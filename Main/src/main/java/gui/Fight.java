@@ -76,7 +76,7 @@ public class Fight {
 	    	  		if(player.health <= 0) {
 	    	  			//gameover                                                                                                          MAKE SURE TO RENABLE
 	    	  			
-	    	  		 //mainFight.gameplay.r.gameOver = true;
+	    	  		 mainFight.gameplay.r.gameOver = true;
 	    	  		 enemyTurnDelay.stop();
 	   	    		 mainFight.setVisible(false);
 	   	    		 mainFight.gameplay.r.window.remove(mainFight);
@@ -87,6 +87,7 @@ public class Fight {
 	    	  }
 	    	 }else {
 	    		 enemyTurnDelay.stop();
+	    		 GamePlay.openPanel = false;
 	    		 mainFight.setVisible(false);
 	    		 mainFight.gameplay.r.window.remove(mainFight);
 	    		 mainFight.gameplay.r.setVisible(true);
@@ -155,6 +156,7 @@ public class Fight {
 				mainFight.emana.remove(i);
 				mainFight.enemy.remove(mainFight.estamina.get(i));
 				mainFight.estamina.remove(i);
+				mainFight.menuBox.remove(mainFight.enemies.get(i).second);
 				mainFight.enemies.remove(i);
 			}
 		}

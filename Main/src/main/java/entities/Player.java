@@ -25,8 +25,8 @@ public class Player extends Entity{
 	public Player(GamePlay d) {
 		runner = d;
 		level = 1;
-		health = 20;
-		maxHealth = baseMaxHealth = 20;
+		health = 200;
+		maxHealth = baseMaxHealth = 200;
 		maxMana = baseMaxMana = 10;
 		mana = 10;
 		maxStamina = baseMaxStamina = 30;
@@ -45,14 +45,7 @@ public class Player extends Entity{
 		equippedPots = new Pair<ArrayList<Item>,Integer>(new ArrayList<Item>(),5);  
 		
 		
-		inventory.add(Consumable.Consumables.aether()); // testing
-		inventory.add(Consumable.Consumables.superAether());
-		inventory.add(Consumable.Consumables.uberPotion());
-		inventory.add(Consumable.Consumables.potion());
-		inventory.add(Consumable.Consumables.potion());
-		inventory.add(Weapon.Weapons.hadesScythe(90));
-		new StatusEffect("accuracy", 12, 90).addTo(this);
-		new StatusEffect("precision", 12, 90).addTo(this);
+		inventory.add(Weapon.Weapons.critStaff());
 	}
 	
 	public boolean openSlots(Pair<ArrayList<Item>,Integer> in) {

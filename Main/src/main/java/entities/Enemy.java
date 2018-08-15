@@ -122,7 +122,7 @@ public class Enemy extends Entity implements Interactive{
 		public static Enemy skeleton() {
 			return new Enemy("Skeleton","Skeleton.png",new ArrayList<Pair<Probability<Item>,Integer>>(Arrays.asList(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.rustyDagger(),.35),1))), (u,v) -> {
 				return 0;
-			}, 1000000, 10, 10, 0, 0, 0, 1, 2, 0, 0, new Weapon[] {new Weapon("Bone club", "%1$s bone clubs %2$s", 3, 2)});
+			}, 500, 10, 10, 0, 0, 0, 1, 2, 0, 0, new Weapon[] {new Weapon("Bone club", "%1$s bone clubs %2$s", 3, 2)});
 		}
 		
 		//hard
