@@ -58,7 +58,7 @@ public class Maze{
 		enumEnemyNodes(getTree(startx, starty), spots, enemySpots);
 		Collections.shuffle(enemySpots);
 		for(int i = 0; i < enemySpots.size(); i++) {
-			if(i < (int)(enemySpots.size()*.7)) {
+			if(i < (int)(enemySpots.size()*.4)) {
 				modifyNodeValue(enemySpots.get(i), interactives, Enemy.Enemies.skeleton());
 			} else {
 				modifyNodeValue(enemySpots.get(i), interactives, new Chest(true));
