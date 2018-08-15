@@ -134,7 +134,7 @@ public class GamePlay implements Runnable{
 					System.out.println("test");
 				}
 			}
-		}), 0, 20, TimeUnit.MILLISECONDS);
+		}), 0, 20 /*40*/, TimeUnit.MILLISECONDS);
 		go();
 	}
 }
