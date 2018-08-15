@@ -74,7 +74,9 @@ public class Fight {
 	    	  		StatusEffect.checkEffects(player);
 	    	  		mainFight.updateHealth();
 	    	  		if(player.health <= 0) {
-	    	  		 mainFight.gameplay.r.gameOver = true;
+	    	  			//gameover                                                                                                          MAKE SURE TO RENABLE
+	    	  			
+	    	  		 //mainFight.gameplay.r.gameOver = true;
 	    	  		 enemyTurnDelay.stop();
 	   	    		 mainFight.setVisible(false);
 	   	    		 mainFight.gameplay.r.window.remove(mainFight);
