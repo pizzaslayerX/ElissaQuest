@@ -97,10 +97,17 @@ public class DrawScreen extends JPanel{
 		Util.keybind(this, KeyEvent.VK_S, "down1", ac2 = Util.actionMaker(u -> {gameplay.move[1] = false;}), true);
 		Util.keybind(this, KeyEvent.VK_D, "right1", ac3 = Util.actionMaker(u -> {gameplay.move[2] = false;}), true);
 		Util.keybind(this, KeyEvent.VK_A, "left1", ac4 = Util.actionMaker(u -> {gameplay.move[3] = false;}), true);
+<<<<<<< HEAD
 		Util.keybind(this, KeyEvent.VK_UP, "uparrow1", u -> {gameplay.move[4] = false;},true);
 		Util.keybind(this, KeyEvent.VK_DOWN, "downarrow1", u -> {gameplay.move[5] = false;},true);
 		Util.keybind(this, KeyEvent.VK_RIGHT, "rightarrow1", u -> {gameplay.move[6] = false;},true);
 		Util.keybind(this, KeyEvent.VK_LEFT, "leftarrow1", u -> {gameplay.move[7] = false;},true);
+=======
+		Util.keybind(this, KeyEvent.VK_UP, "uparrow1", u -> {gameplay.move[4] = false;}, true);
+		Util.keybind(this, KeyEvent.VK_DOWN, "downarrow1", u -> {gameplay.move[5] = false;}, true);
+		Util.keybind(this, KeyEvent.VK_RIGHT, "rightarrow1", u -> {gameplay.move[6] = false;}, true);
+		Util.keybind(this, KeyEvent.VK_LEFT, "leftarrow1", u -> {gameplay.move[7] = false;}, true);
+>>>>>>> refs/remotes/origin/master
 	}
 	
 	public void disable() {
@@ -130,7 +137,11 @@ public class DrawScreen extends JPanel{
 	
 	public void repaintMove() {
 		moveVal++;
+<<<<<<< HEAD
 		if((moveVal %= 8 /*3*/) == 0) animate();
+=======
+		if((moveVal %= 8) == 0) animate();
+>>>>>>> refs/remotes/origin/master
 		repaint();
 	}
 	
