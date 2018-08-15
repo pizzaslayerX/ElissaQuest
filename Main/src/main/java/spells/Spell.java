@@ -1,7 +1,7 @@
 package spells;
 
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
+import java.util.function.BiPredicate;
 
 import entities.Entity;
 import entities.Player;
@@ -12,8 +12,9 @@ public class Spell {
 	public Player player;
 	public boolean useTurn;
 	public BiConsumer<Entity, Entity> ability;
+	public BiPredicate<Entity, Entity> able;
 	
-	public Spell(String n,String d,int co, int mc,int hc,boolean ut,BiConsumer<Entity, Entity> u, boolean override) {
+	public Spell(String n,String d,int co, int mc,int hc,boolean ut,BiConsumer<Entity, Entity> u, BiPredicate<Entity, Entity> ab, boolean override) {
 		name = n;
 		desc = d;
 		cooldown = co;
@@ -22,22 +23,25 @@ public class Spell {
 		healthCost = hc;
 		useTurn = ut;
 		if(override) ability = u;
-		else ability = (c, a) -> {
-			if(canUse(c)) {
-				u.accept(c, a);
+		else ability = (c, t) -> {
+			if(canUse(c, t)) {
+				u.accept(c, t);
 				cooldownTimer = cooldown;
 				c.mana -= manaCost;
 				c.health -= healthCost;
 			}
 		};
+		if(ab == null) able = (c, t) -> cooldownTimer == 0 && c.mana >= manaCost && c.health >= healthCost;
+		else able = ab;
+		
 	}
 	
-	public void use(Entity caster, Entity attacked) {
-		ability.accept(caster, attacked);
+	public void use(Entity caster, Entity target) {
+		ability.accept(caster, target);
 	}
 	
-	public boolean canUse(Entity e) {
-		return cooldownTimer == 0 && e.mana >= manaCost && e.health >= healthCost;
+	public boolean canUse(Entity caster, Entity target) {
+		return able.test(caster, target);
 	}
 	
 	
@@ -47,9 +51,9 @@ public class Spell {
 	
 	public static class Spells{
 		public static Spell mist() {
-			return new Spell("Mist", "Fucking misty", 1, 1, 0, true, (c,a) -> {
-				a.health = Math.max(0, a.health - 3);
-			}, false);
+			return new Spell("Mist", "Fucking misty", 1, 1, 0, true, (c,t) -> {
+				t.health = Math.max(0, t.health - 3);
+			}, null, false);
 		}
 	}
 		
