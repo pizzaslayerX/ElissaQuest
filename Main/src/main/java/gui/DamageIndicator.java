@@ -81,7 +81,7 @@ public class DamageIndicator extends JPanel{
 			ScheduledExecutorService display = Executors.newScheduledThreadPool(1);
 			
 			future = display.scheduleAtFixedRate(Util.guiRunnable(() -> {
-				transCount-=16;
+				transCount-=17;
 				yCount-=2;
 				repaint();
 				if(transCount <= 0) future.cancel(false);
