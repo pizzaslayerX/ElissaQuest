@@ -68,6 +68,7 @@ public abstract class Entity { //add armor slots
 			health = (int)Math.min(currWeapon.lifeSteal*dmg1+health, maxHealth);
 			//r.pause(1500);
 			//r.text.append("\n" + dmg1 + " damage");
+			g.mfp.dmgIndicator.displayDamage(dmg1);
 			e.stamina = Math.max(0, e.stamina - 50/(50d+e.endurance)*(dmg1*currWeapon.staminaDepletion + currWeapon.flatStaminaDepletion));
 			if(e.dmgReflect != 0) {
 				health -= dmg2;

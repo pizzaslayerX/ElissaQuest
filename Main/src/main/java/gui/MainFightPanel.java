@@ -77,8 +77,8 @@ public class MainFightPanel extends JPanel{
 		ehealth.add(new Meter(e.health, e.maxHealth, new Color(0,127,127),Color.BLACK, "HP", 19));
 		emana.add(new Meter(e.mana, e.maxMana, new Color(127,0,127),Color.BLACK, "Mana", 19));
 		estamina.add(new Meter((int)e.stamina, (int)e.maxStamina, new Color(200,0,0),Color.BLACK, "HP", 19));
+		dmgIndicator = new DamageIndicator(500,80);
 		
-		dmgIndicator = new DamageIndicator(enemies.get(0).first,500,80, 5);//chamnge
 		for(int i=0;i<enemies.size();i++) {
 			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
 		}
@@ -121,7 +121,7 @@ public class MainFightPanel extends JPanel{
 		estamina.add(new Meter((int)e.get(i).stamina, (int)e.get(i).maxStamina, new Color(200,0,0),Color.BLACK, "HP", 19));
 		}
 		
-		dmgIndicator = new DamageIndicator(enemies.get(0).first,500,80, 5);
+		dmgIndicator = new DamageIndicator(500,80);
 		
 		for(int i=0;i<enemies.size();i++) {
 			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
