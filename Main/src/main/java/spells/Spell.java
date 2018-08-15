@@ -21,7 +21,7 @@ public class Spell {
 		healthCost = hc;
 		useTurn = ut;
 		if(override) ability = u;
-		else ability = e -> {
+		else u = e -> {
 			if(canUse(e)) {
 				ability.accept(e);
 				cooldownTimer = cooldown;
