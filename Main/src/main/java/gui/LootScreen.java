@@ -40,10 +40,10 @@ public class LootScreen extends JPanel{
 	
 	public void init() {
 		display = new JPanel();
-		setLayout(new BorderLayout());
+
 		setPreferredSize(new Dimension(width,height));
 		setMaximumSize(new Dimension(width,height));
-		setBackground(Color.BLUE);
+		setBackground(Color.BLACK);
 		
 		display.setPreferredSize(new Dimension(width/3,(int)(height*0.9)));
 		display.setMaximumSize(new Dimension(width/3,(int)(height*0.9)));

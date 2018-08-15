@@ -48,18 +48,18 @@ public class MainFightPanel extends JPanel{
     public FlowLayout layout;
     public JLabel label;
     public Fight fight;
-    public JPanel fightPanel,user;
+    public JPanel fightPanel;
     public Meter health,mana,stamina;
     public ArrayList<Meter> ehealth, emana, estamina;
     public JTextPane attack,item,special;
-    public JPanel enemy,blankEnemy,menuBox;
+    public JPanel blankEnemy,menuBox;
     public InventoryPair pots;
     public int choice = 1,  target = 0;
     public boolean choosing = true,targetSelect=false,itemSelect=false;
     private static final Color HEALTH_GREEN = new Color(22, 150, 10);
     public ArrayList<BufferedImage> enemyPics;
-    public DrawPanel enemyPic;
-    public DamageIndicator dmgIndicator;
+    public DrawPanel enemyPic,user,enemy;
+    //public DamageIndicator dmgIndicator;
     
 	public MainFightPanel(Enemy e, GamePlay gp){
 		gameplay = gp;
@@ -77,7 +77,7 @@ public class MainFightPanel extends JPanel{
 		ehealth.add(new Meter(e.health, e.maxHealth, new Color(0,127,127),Color.BLACK, "HP", 19));
 		emana.add(new Meter(e.mana, e.maxMana, new Color(127,0,127),Color.BLACK, "Mana", 19));
 		estamina.add(new Meter((int)e.stamina, (int)e.maxStamina, new Color(200,0,0),Color.BLACK, "HP", 19));
-		dmgIndicator = new DamageIndicator(500,80);
+		//dmgIndicator = new DamageIndicator(500,80);
 		
 		for(int i=0;i<enemies.size();i++) {
 			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
@@ -121,7 +121,7 @@ public class MainFightPanel extends JPanel{
 		estamina.add(new Meter((int)e.get(i).stamina, (int)e.get(i).maxStamina, new Color(200,0,0),Color.BLACK, "HP", 19));
 		}
 		
-		dmgIndicator = new DamageIndicator(500,80);
+		//dmgIndicator = new DamageIndicator(500,80);
 		
 		for(int i=0;i<enemies.size();i++) {
 			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
@@ -232,9 +232,7 @@ public class MainFightPanel extends JPanel{
 		stamina.setVisible(true);
 		stamina.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
 		
-		enemy = new JPanel();
-		enemy.setPreferredSize(new Dimension(((int)Window.GAME_SIZE.getWidth()/2-10),((int)Window.GAME_SIZE.getHeight()-40)));
-		enemy.setBackground(Color.BLACK);
+		enemy = new DrawPanel(((int)Window.GAME_SIZE.getWidth()/2-10),((int)Window.GAME_SIZE.getHeight()-40));
 		enemy.setVisible(true);
 		//enemy.add(Box.createHorizontalStrut(5));
 		enemy.setBorder(genBorder(enemies.get(0).first.name,1));
@@ -269,8 +267,8 @@ public class MainFightPanel extends JPanel{
 		}
 		healthFocus(0);
 		
-		enemy.add(dmgIndicator);
-		dmgIndicator.setVisible(true);
+		//enemy.add(dmgIndicator);
+		//dmgIndicator.setVisible(true);
 		
 		
 		enemy.add(enemyPic);
@@ -281,11 +279,9 @@ public class MainFightPanel extends JPanel{
         border2.setTitleJustification(TitledBorder.CENTER);
         border2.setTitlePosition(TitledBorder.TOP);
         
-		user = new JPanel();
+		user = new DrawPanel(((int)Window.GAME_SIZE.getWidth()/2-20),((int)Window.GAME_SIZE.getHeight()-40));
 		user.setLayout(new BoxLayout(user,BoxLayout.PAGE_AXIS));
 		//user.setLayout(new BoxLayout(null);
-		user.setPreferredSize(new Dimension(((int)Window.GAME_SIZE.getWidth()/2-20),((int)Window.GAME_SIZE.getHeight()-40)));
-		user.setBackground(Color.BLACK);
 		user.setVisible(true);
 		user.setBorder(border2);
 		

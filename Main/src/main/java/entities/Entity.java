@@ -80,7 +80,7 @@ public abstract class Entity { //add armor slots
 				System.out.println(dmg2 + " reflect damage");
 				stamina = Math.max(0, stamina - 50/(50d+endurance)*(dmg2*currWeapon.staminaDepletion + currWeapon.flatStaminaDepletion));
 			}
-			g.mfp.dmgIndicator.displayDamage(dmg1);
+			g.mfp.updateHealth();
 			
 		}
 		for(Probability<StatusEffect> prob : currWeapon.atkEnemyEffects) if(prob.execute()) prob.item.addTo(e); 
