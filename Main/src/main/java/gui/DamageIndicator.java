@@ -27,22 +27,20 @@ import entities.Enemy;
 import entities.Entity;
 import items.StatusEffect;
 import misc.Pair;
+import misc.Util;
 
 public class DamageIndicator extends JPanel{
-	public int width,height,entityHealth,diff;
+	public int width,height,dmg;
 	public Entity entity;
-	private DamageIndicator text;
 	
 	private int transCount,yCount;
 	private ScheduledFuture<?> future;
 	
-	public DamageIndicator(Entity e, int w, int h) {
+	public DamageIndicator(Entity e, int w, int h, int d) {
 		entity = e;
 		width = w;
-		diff = 0;
 		height = h;
-		entityHealth = entity.health;
-		text = this;
+		dmg = d;
 		transCount = 0;
 		yCount = 20;
 		
@@ -54,7 +52,6 @@ public class DamageIndicator extends JPanel{
 
 	public DamageIndicator update(Entity e) {
 		entity = e;
-		entityHealth = e.health;
 		return this;
 	}
 	  
@@ -71,24 +68,23 @@ public class DamageIndicator extends JPanel{
 		
 		Graphics2D g2d = (Graphics2D)g;
 		FontMetrics fm = g2d.getFontMetrics();
-		int x = (width - fm.stringWidth(diff+"")) / 2;
+		int x = (width - fm.stringWidth(dmg+"")) / 2;
 		int y = ((height - fm.getHeight()) / 2) + fm.getAscent();
-		g.drawString(diff+"", x, y+yCount);
+		g.drawString(dmg+"", x, y+yCount);
 	}
 	  
 	
 	public void displayDamage() {
 			transCount = 255;
-			yCount = 20;
-			diff = entityHealth - entity.health;
-			entityHealth = entity.health;
+			yCount = 20; // set dmg
 			ScheduledExecutorService display = Executors.newScheduledThreadPool(1);
 			
-			future = display.scheduleAtFixedRate(() -> {
-				SwingUtilities.invokeLater(() -> { transCount-=17; yCount-=2;
-				text.repaint();
-				if(transCount <= 0) future.cancel(false);});
-			}, 0, 100, TimeUnit.MILLISECONDS);	
+			future = display.scheduleAtFixedRate(Util.guiRunnable(() -> {
+				transCount-=16;
+				yCount-=2;
+				repaint();
+				if(transCount <= 0) future.cancel(false);
+			}), 0, 100, TimeUnit.MILLISECONDS);	
 			
 			
 	}

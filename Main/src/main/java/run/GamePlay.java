@@ -20,14 +20,13 @@ import misc.Util;
  
 public class GamePlay implements Runnable{
 	public int scale = 1;
-	public static boolean openPanel = false;  //Unnecessary; remove
+	public static boolean openPanel = false;  
 	public Maze maze;
 	public DrawScreen r;
-	//public String returnText = " ";
 	public Player player = new Player(this);
+	public MainFightPanel mfp;
 	public int blinkMode = 0;
 	public CountDownLatch latch = new CountDownLatch(1);
-	//public Listener listener = new Listener();
 	ScheduledExecutorService ses = Executors.newScheduledThreadPool(3);
 	ScheduledFuture<?> blink;
 	boolean[] move = new boolean[8];
@@ -40,13 +39,13 @@ public class GamePlay implements Runnable{
 	public void newFight(Enemy e) {
 		r.setVisible(false);
 		openPanel = true;
-		r.window.add(new MainFightPanel(e,this));
+		r.window.add(mfp = new MainFightPanel(e,this));
 	}
 	
 	public void newFight(ArrayList<Enemy> e) {
 		r.setVisible(false);
 		openPanel = true;
-		r.window.add(new MainFightPanel(e,this));
+		r.window.add(mfp = new MainFightPanel(e,this));
 	}
 	
 	public void go() {
@@ -69,7 +68,7 @@ public class GamePlay implements Runnable{
 	@Override
 	public void run() {
 		ses.scheduleAtFixedRate(() -> {
-			blink = ses.scheduleAtFixedRate(Util.guiRunnable(() -> {
+			if(!openPanel) blink = ses.scheduleAtFixedRate(Util.guiRunnable(() -> {
 				if(blinkMode++ >= 7) {
 					blinkMode = 0;
 					r.repaint();
