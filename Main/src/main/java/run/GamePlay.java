@@ -84,24 +84,29 @@ public class GamePlay implements Runnable{
 			if(move[0]&& (((maze.maze[maze.playerx][maze.playery] & 1) != 0  && player.x % r.mazeSize <= r.mazeSize - 16)|| player.y % r.mazeSize != 0) ) {
 				player.y-=scale;
 				r.ytrans += scale;
+				r.direction = 1;
 				change = true;
 				animate = true;
+				
 			}
 			if(move[1]&& (((maze.maze[maze.playerx][maze.playery] & 4) != 0  && player.x % r.mazeSize <= r.mazeSize - 16)|| player.y % r.mazeSize != r.mazeSize - 16) ) {
 				player.y+=scale;
 				r.ytrans -= scale;
+				r.direction = 0;
 				change = true;
 				animate = true;
 			}
 			if(move[2]&& (((maze.maze[maze.playerx][maze.playery] & 2) != 0 && player.y % r.mazeSize <= r.mazeSize - 16)|| player.x %r.mazeSize != r.mazeSize - 16) ) {
 				player.x+=scale;
 				r.xtrans -= scale;
+				r.direction = 2;
 				change = true;
 				animate = true;
 			}
 			if(move[3]&& (((maze.maze[maze.playerx][maze.playery] & 8) != 0 && player.y % r.mazeSize <= r.mazeSize - 16)|| player.x %r.mazeSize != 0) ) {
 				player.x-=scale;
 				r.xtrans += scale;
+				r.direction = 3;
 				change = true;
 				animate = true;
 			}
