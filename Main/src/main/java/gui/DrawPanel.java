@@ -15,17 +15,11 @@ public class DrawPanel extends JPanel{
 	public DrawPanel(BufferedImage p,int w,int h) {
 		pic = p;
 		setPreferredSize(new Dimension(w,h));
-		setBackground(Color.BLACK);
+		setBackground(Color.RED);
 		setFocusable(false);
 		setDoubleBuffered(true);
 		width = w;
 		height = h;
-	}
-	
-	public void drawDamage(Graphics g,int amt, Color c) {
-		g.setColor(c);
-		g.setFont(new Font("Monospaced", Font.BOLD, 30));
-		g.drawString(""+amt,0,height/8);
 	}
 	
 	public void update(BufferedImage p) {
@@ -41,9 +35,9 @@ public class DrawPanel extends JPanel{
 	}
 	
 	
-	
 	private void drawObjects(Graphics g) {
-		g.drawImage(pic,(width-pic.getWidth())/2,height/6,this);
-		drawDamage(g,20,Color.RED);
+		g.drawImage(pic,(width-pic.getWidth())/2,height/20,this);
+		g.setFont(new Font("Monospaced", Font.BOLD, 30));
 	}
+
 }

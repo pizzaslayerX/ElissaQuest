@@ -59,6 +59,7 @@ public class MainFightPanel extends JPanel{
     private static final Color HEALTH_GREEN = new Color(22, 150, 10);
     public ArrayList<BufferedImage> enemyPics;
     public DrawPanel enemyPic;
+    public DamageIndicator dmgIndicator;
     
 	public MainFightPanel(Enemy e, GamePlay gp){
 		gameplay = gp;
@@ -76,6 +77,8 @@ public class MainFightPanel extends JPanel{
 		ehealth.add(new Meter(e.health, e.maxHealth, new Color(0,127,127),Color.BLACK, "HP", 19));
 		emana.add(new Meter(e.mana, e.maxMana, new Color(127,0,127),Color.BLACK, "Mana", 19));
 		estamina.add(new Meter((int)e.stamina, (int)e.maxStamina, new Color(200,0,0),Color.BLACK, "HP", 19));
+		
+		dmgIndicator = new DamageIndicator(enemies.get(0).first,500,80);
 		for(int i=0;i<enemies.size();i++) {
 			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
 		}
@@ -117,6 +120,9 @@ public class MainFightPanel extends JPanel{
 		emana.add(new Meter(e.get(i).mana, e.get(i).maxMana, new Color(127,0,127),Color.BLACK, "Mana", 19));
 		estamina.add(new Meter((int)e.get(i).stamina, (int)e.get(i).maxStamina, new Color(200,0,0),Color.BLACK, "HP", 19));
 		}
+		
+		dmgIndicator = new DamageIndicator(enemies.get(0).first,500,80);
+		
 		for(int i=0;i<enemies.size();i++) {
 			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
 		}
@@ -155,7 +161,7 @@ public class MainFightPanel extends JPanel{
 		}
 	}
 	
-	public static void append(JTextPane p, String n, Color c,int size, boolean bold) {
+	private static void append(JTextPane p, String n, Color c,int size, boolean bold) {
     	
     	StyledDocument doc = p.getStyledDocument();
 
@@ -170,7 +176,7 @@ public class MainFightPanel extends JPanel{
     		} catch(Exception e) { System.out.println(e);}
     }
 	
-public static void append(JTextPane p, String n, Color c,int size, boolean bold,int a) {
+	private static void append(JTextPane p, String n, Color c,int size, boolean bold,int a) {
     	
     	StyledDocument doc = p.getStyledDocument();
 
@@ -232,7 +238,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		enemy.setVisible(true);
 		//enemy.add(Box.createHorizontalStrut(5));
 		enemy.setBorder(genBorder(enemies.get(0).first.name,1));
-		enemyPic = new DrawPanel(enemyPics.get(0),500,450);
+		enemyPic = new DrawPanel(enemyPics.get(0),500,400);
 		//enemy.setLayout(new BoxLayout(enemy,BoxLayout.Y_AXIS));
 /*
 		blankEnemy = new JPanel();
@@ -262,6 +268,10 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		enemy.add(estamina.get(i));
 		}
 		healthFocus(0);
+		
+		enemy.add(dmgIndicator);
+		dmgIndicator.setVisible(true);
+		
 		
 		enemy.add(enemyPic);
 		
@@ -552,6 +562,7 @@ public static void append(JTextPane p, String n, Color c,int size, boolean bold,
 		}
 	  }
 		
+	
 	}
 
 /*
