@@ -81,6 +81,7 @@ public class DamageIndicator extends JPanel{
 			transCount = 255;
 			yCount = 20;
 			diff = entityHealth - entity.health;
+			
 			entityHealth = entity.health;
 			ScheduledExecutorService display = Executors.newScheduledThreadPool(1);
 			
