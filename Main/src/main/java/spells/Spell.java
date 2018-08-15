@@ -5,6 +5,7 @@ import java.util.function.BiPredicate;
 
 import entities.Entity;
 import entities.Player;
+import items.StatusEffect;
 
 public class Spell {
 	public int manaCost, healthCost, cooldown,cooldownTimer;
@@ -24,21 +25,22 @@ public class Spell {
 		useTurn = ut;
 		if(override) ability = u;
 		else ability = (c, t) -> {
-			if(canUse(c, t)) {
 				u.accept(c, t);
 				cooldownTimer = cooldown;
 				c.mana -= manaCost;
 				c.health -= healthCost;
-			}
 		};
 		if(ab == null) able = (c, t) -> cooldownTimer == 0 && c.mana >= manaCost && c.health >= healthCost;
-		else able = ab;
+			else able = ab;
 		
 	}
 	
+	
 	public void use(Entity caster, Entity target) {
-		ability.accept(caster, target);
+		if(canUse(caster,target))
+			ability.accept(caster, target);
 	}
+	
 	
 	public boolean canUse(Entity caster, Entity target) {
 		return able.test(caster, target);
@@ -51,10 +53,12 @@ public class Spell {
 	
 	public static class Spells{
 		public static Spell mist() {
-			return new Spell("Mist", "Fucking misty", 1, 1, 0, true, (c,t) -> {
-				t.health = Math.max(0, t.health - 3);
+			return new Spell("Guard", "+10% def. for 2 turns", 3, 10, 0, false, (c,t) -> {
+				new StatusEffect("susceptible",10,2).addTo(t);
 			}, null, false);
+			
 		}
+		
 	}
 		
 }
