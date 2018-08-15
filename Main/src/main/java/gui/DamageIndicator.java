@@ -1,5 +1,5 @@
 package gui;
-
+/*
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -45,7 +45,7 @@ public class DamageIndicator extends JPanel{
 			g.setFont(new Font("Monospaced", Font.BOLD, 30));
 			int x = (width - fm.stringWidth((int)Math.abs(dd.dmg)+"")) / 2;
 			int y = ((height - fm.getHeight()) / 2) + fm.getAscent();
-			g.drawString((int)Math.abs(dd.dmg)+"", x+dd.yCount, y/*+dd.yCount*/);
+			g.drawString((int)Math.abs(dd.dmg)+"", x, y - dd.yCount);
 		}
 	}
 	  
@@ -82,3 +82,4 @@ public class DamageIndicator extends JPanel{
 	
 	
 }
+*/
