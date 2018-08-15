@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 
 import entities.Enemy;
 import entities.Interactive;
+import gui.LootScreen;
 import misc.Util;
 
 import java.awt.Color;
@@ -41,6 +42,7 @@ public class DrawScreen extends JPanel{
 	public boolean gameOver = false;
 	public int xtrans;
 	public int ytrans;
+	
 	public DrawScreen(Window w) {
 		window = w;
 		init();
@@ -55,6 +57,7 @@ public class DrawScreen extends JPanel{
 		setVisible(true);
 		setFocusable(true);
 		setDoubleBuffered(true);
+	
 		//addKeyListener(gameplay.listener);
 		//gameplay.newFight(Enemy.Enemies.skeleton());
 

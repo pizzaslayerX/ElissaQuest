@@ -1,6 +1,7 @@
 package run;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import javax.swing.JFrame;
@@ -22,7 +23,6 @@ public class Window extends JFrame{
 	}
 	
 	
-	
 	public void init(){
 		layout = new FlowLayout(FlowLayout.LEADING, 0, 0);
 	    layout.setVgap(0);
@@ -32,12 +32,13 @@ public class Window extends JFrame{
 		setTitle(TITLE);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBackground(BACKGROUND_COLOR);
+		getContentPane().setBackground(BACKGROUND_COLOR);
 		setForeground(FOREGROUND_COLOR);
 		DrawScreen ds = new DrawScreen(this);
 		add(ds);
 		//addKeyListener(ds.gameplay.listener);
 		setVisible(true);
+		//pack();
 		//pack();
 	}
 }

@@ -1,5 +1,7 @@
 package misc;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -12,6 +14,7 @@ import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
+import javax.swing.border.TitledBorder;
 
 public class Util {
 	public static void keybind(JComponent com, int i, String s, Consumer<ActionEvent> c) {
@@ -92,6 +95,15 @@ public class Util {
 	
 	public static Runnable guiRunnable(Runnable r) {
 		return () -> {SwingUtilities.invokeLater(r);};
+	}
+	
+	public static TitledBorder genBorder(String n,int orient) {
+		TitledBorder border3 = new TitledBorder(n);
+        border3.setTitleColor(Color.WHITE);
+        border3.setTitleFont(new Font("Monospaced", Font.BOLD, 18));
+        border3.setTitleJustification(TitledBorder.CENTER);
+        border3.setTitlePosition(TitledBorder.TOP);
+        return border3;
 	}
 	
 	

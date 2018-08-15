@@ -47,6 +47,7 @@ public class GamePlay implements Runnable{
 		r.window.add(mfp = new MainFightPanel(e,this));
 	}
 	
+	
 	public void go() {
 		System.out.println("go");
 		for(int i = 0; i < 1 /*6*/; i++) newMaze();
