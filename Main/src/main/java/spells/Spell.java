@@ -1,5 +1,6 @@
 package spells;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import entities.Entity;
@@ -10,34 +11,33 @@ public class Spell {
 	public String name,desc;
 	public Player player;
 	public boolean useTurn;
-	public Consumer<Entity> ability;
+	public BiConsumer<Entity, Entity> ability;
 	
-	public Spell(String n,String d,int c, int mc,int hc,boolean ut,Consumer<Entity> u, boolean override) {
+	public Spell(String n,String d,int co, int mc,int hc,boolean ut,BiConsumer<Entity, Entity> u, boolean override) {
 		name = n;
 		desc = d;
-		cooldown = c;
+		cooldown = co;
 		cooldownTimer = 0;
 		manaCost = mc;
 		healthCost = hc;
 		useTurn = ut;
 		if(override) ability = u;
-		else ability = e -> {
-			if(canUse(e)) {
-				ability.accept(e);
+		else ability = (c, a) -> {
+			if(canUse(c)) {
+				u.accept(c, a);
 				cooldownTimer = cooldown;
-				e.mana -= manaCost;
-				e.health -= healthCost;
+				c.mana -= manaCost;
+				c.health -= healthCost;
 			}
 		};
 	}
 	
-	public void use(Entity e) {
-		ability.accept(e);
+	public void use(Entity caster, Entity attacked) {
+		ability.accept(caster, attacked);
 	}
 	
 	public boolean canUse(Entity e) {
-		if(cooldownTimer != 0 || e.mana < manaCost || e.health < healthCost) return false;
-			return true;
+		return cooldownTimer == 0 && e.mana >= manaCost && e.health >= healthCost;
 	}
 	
 	
@@ -47,10 +47,11 @@ public class Spell {
 	
 	public static class Spells{
 		public static Spell mist() {
-			return null;
-			
-			}
+			return new Spell("Mist", "Fucking misty", 1, 1, 0, true, (c,a) -> {
+				a.health = Math.max(0, a.health - 3);
+			}, false);
 		}
-		
 	}
+		
+}
 
