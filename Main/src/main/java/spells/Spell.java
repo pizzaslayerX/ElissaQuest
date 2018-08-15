@@ -24,20 +24,17 @@ public class Spell {
 		useTurn = ut;
 		if(override) ability = u;
 		else ability = (c, t) -> {
-			if(canUse(c, t)) {
-				u.accept(c, t);
-				cooldownTimer = cooldown;
-				c.mana -= manaCost;
-				c.health -= healthCost;
-			}
+			u.accept(c, t);
+			cooldownTimer = cooldown;
+			c.mana -= manaCost;
+			c.health -= healthCost;
 		};
 		if(ab == null) able = (c, t) -> cooldownTimer == 0 && c.mana >= manaCost && c.health >= healthCost;
 		else able = ab;
-		
 	}
 	
 	public void use(Entity caster, Entity target) {
-		ability.accept(caster, target);
+		if(canUse(caster, target)) ability.accept(caster, target);
 	}
 	
 	public boolean canUse(Entity caster, Entity target) {
