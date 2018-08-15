@@ -11,6 +11,7 @@ import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
 import javax.swing.KeyStroke;
+import javax.swing.SwingUtilities;
 
 public class Util {
 	public static void keybind(JComponent com, int i, String s, Consumer<ActionEvent> c) {
@@ -88,6 +89,10 @@ public class Util {
             return null;
         }
     }
+	
+	public static Runnable guiRunnable(Runnable r) {
+		return () -> {SwingUtilities.invokeLater(r);};
+	}
 	
 	
 }

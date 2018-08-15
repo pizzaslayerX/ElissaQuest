@@ -13,6 +13,7 @@ import entities.Enemy;
 import entities.Player;
 import gui.MainFightPanel;
 import maze.Maze;
+import misc.Util;
 
 
 
@@ -67,8 +68,8 @@ public class GamePlay implements Runnable{
 
 	@Override
 	public void run() {
-		ses.scheduleAtFixedRate(new Runnable() {public void run() {
-			blink = ses.scheduleAtFixedRate(new Runnable() {public void run() {
+		ses.scheduleAtFixedRate(() -> {
+			blink = ses.scheduleAtFixedRate(Util.guiRunnable(() -> {
 				if(blinkMode++ >= 7) {
 					blinkMode = 0;
 					r.repaint();
@@ -76,9 +77,9 @@ public class GamePlay implements Runnable{
 					blink.cancel(false);
 				}
 				r.repaint();
-			}}, 0, 100, TimeUnit.MILLISECONDS);
-		}}, 8, 8, TimeUnit.SECONDS);
-		ses.scheduleAtFixedRate(() -> {SwingUtilities.invokeLater(() -> {
+			}), 0, 100, TimeUnit.MILLISECONDS);
+		}, 8, 8, TimeUnit.SECONDS);
+		ses.scheduleAtFixedRate(Util.guiRunnable(() -> {
 			boolean change = false;
 			boolean animate = false;
 			if(move[0]&& (((maze.maze[maze.playerx][maze.playery] & 1) != 0  && player.x % r.mazeSize <= r.mazeSize - 16)|| player.y % r.mazeSize != 0) ) {
@@ -129,7 +130,7 @@ public class GamePlay implements Runnable{
 					System.out.println("test");
 				}
 			}
-		});}, 0, 20, TimeUnit.MILLISECONDS);
+		}), 0, 10 /*40*/, TimeUnit.MILLISECONDS);
 		go();
 	}
 }
