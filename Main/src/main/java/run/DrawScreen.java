@@ -20,8 +20,8 @@ import java.util.ArrayList;
 
 public class DrawScreen extends JPanel{
 	private static BufferedImage test;
-	private static BufferedImage walk1;
-	private static BufferedImage walk2;
+	private static BufferedImage walk1UP,walk1DOWN,walk1RIGHT,walk1LEFT;
+	private static BufferedImage walk2UP,walk2DOWN,walk2RIGHT,walk2LEFT;
 	private static BufferedImage FOV;
 	private static BufferedImage up;
 	private static BufferedImage right;
@@ -35,6 +35,7 @@ public class DrawScreen extends JPanel{
 	public GamePlay gameplay = new GamePlay(this);
 	public Window window;
 	private static int moveVal = 0;
+	public int direction = 0; //0=UP,1=DOWN,2=RIGHT,3=LEFT
 	private static boolean state1 = true;
 	public int mazeSize = 24;
 	public boolean gameOver = false;
@@ -70,8 +71,15 @@ public class DrawScreen extends JPanel{
 
 
 		
-		test = walk1 = Util.loadImage("state1.png");
-		walk2 = Util.loadImage("state2.png");
+		test = walk1UP = Util.loadImage("state1.png");
+		walk2UP = Util.loadImage("state2.png");
+		walk1DOWN = Util.loadImage("state1Back.png");
+		walk2DOWN = Util.loadImage("state2Back.png");
+		walk1RIGHT = Util.loadImage("state1Right.png");
+		walk2RIGHT = Util.loadImage("state2Right.png");
+		walk1LEFT = Util.loadImage("state1Leftt.png");
+		walk2LEFT = Util.loadImage("state2Left.png");
+
 		FOV = Util.loadImage("circle.png");
 		up = Util.loadImage("2250x1000.png");
 		left = Util.loadImage("1000x250.png");
@@ -179,17 +187,42 @@ public class DrawScreen extends JPanel{
 			g.setFont(new Font("Monospaced", Font.BOLD, 50));
 			g.drawString("GAME OVER", 185,160);
 	   }
-		   
-		
+	}
+	
+	public BufferedImage getMov(int state) {
+		if(state == 1)
+		switch(direction) {
+			case 0:
+				return walk1UP;
+			case 1:
+				return walk1DOWN;
+			case 2:
+				return walk1RIGHT;
+			case 3:
+				return walk1LEFT;
+		}
+		else {
+			switch(direction) {
+			case 0:
+				return walk2UP;
+			case 1:
+				return walk2DOWN;
+			case 2:
+				return walk2RIGHT;
+			case 3:
+				return walk2LEFT;
+		 }
+		}
+		return walk1UP;
 	}
 	
 	private void animate() {
 		state1 = !state1;
 		if(!state1) {
-			test = walk2;
+			test = getMov(2);
 			return;
 		}
-		test = walk1;
+		test = getMov(1);
 	}
 
 	

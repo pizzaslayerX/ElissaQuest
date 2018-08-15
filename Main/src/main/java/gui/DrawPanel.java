@@ -15,7 +15,7 @@ public class DrawPanel extends JPanel{
 	public DrawPanel(BufferedImage p,int w,int h) {
 		pic = p;
 		setPreferredSize(new Dimension(w,h));
-		setBackground(Color.RED);
+		setBackground(Color.BLACK);
 		setFocusable(false);
 		setDoubleBuffered(true);
 		width = w;

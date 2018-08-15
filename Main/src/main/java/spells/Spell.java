@@ -5,6 +5,7 @@ import java.util.function.BiPredicate;
 
 import entities.Entity;
 import entities.Player;
+import items.StatusEffect;
 
 public class Spell {
 	public int manaCost, healthCost, cooldown,cooldownTimer;
@@ -24,18 +25,22 @@ public class Spell {
 		useTurn = ut;
 		if(override) ability = u;
 		else ability = (c, t) -> {
-			u.accept(c, t);
-			cooldownTimer = cooldown;
-			c.mana -= manaCost;
-			c.health -= healthCost;
+				u.accept(c, t);
+				cooldownTimer = cooldown;
+				c.mana -= manaCost;
+				c.health -= healthCost;
 		};
 		if(ab == null) able = (c, t) -> cooldownTimer == 0 && c.mana >= manaCost && c.health >= healthCost;
-		else able = ab;
+			else able = ab;
+		
 	}
 	
+	
 	public void use(Entity caster, Entity target) {
-		if(canUse(caster, target)) ability.accept(caster, target);
+		if(canUse(caster,target))
+			ability.accept(caster, target);
 	}
+	
 	
 	public boolean canUse(Entity caster, Entity target) {
 		return able.test(caster, target);
@@ -47,11 +52,28 @@ public class Spell {
 	}
 	
 	public static class Spells{
-		public static Spell mist() {
-			return new Spell("Mist", "Fucking misty", 1, 1, 0, true, (c,t) -> {
-				t.health = Math.max(0, t.health - 3);
+		public static Spell guard() {
+			return new Spell("Guard", "+20% def. for 2 turns", 3, 8, 0, false, (c,t) -> {
+				new StatusEffect("susceptible",20,2).addTo(t);
 			}, null, false);
+			
 		}
+		
+		public static Spell infection() {
+			return new Spell("Infectious Wave", "Inflicts Minor Curse and Minor Poison for 3 turns", 2, 6, 0, true, (c,t) -> {
+				new StatusEffect("poison",1,3).addTo(t);
+				new StatusEffect("curse",1,3).addTo(t);
+			}, null, false);
+			
+		}
+		
+		public static Spell deshell() {
+			return new Spell("Deshell", "Target suffers from -15% def. for 2 turns", 1, 5, 0, false, (c,t) -> {
+				new StatusEffect("fragility",15,2).addTo(t);
+			}, null, false);
+			
+		}
+		
 	}
 		
 }

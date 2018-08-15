@@ -86,7 +86,23 @@ public enum Effect {
 	}, false),
 	invigoration("Invigoration", (e,p) -> {
 		e.stamina = Math.min(e.maxStamina, p/10d*(e.maxStamina-e.stamina));
-	}, false);//add health/mana/stamina boost
+	}, false),
+	resist("Resistance", (e,p) -> {
+		if(e.defense + p/100.0 > 1) e.defense = 1;
+		else e.defense += p/100.0;
+	}, true),
+	protection("Protection", (e,p) -> {
+		e.flatDefense += p;
+	}, true),
+	susceptible("Susceptiblity", (e,p) -> {
+		e.flatDefense -= p;
+	}, true),
+	fragility("Fragility", (e,p) -> {
+		if(e.defense - p/100.0 < 0) e.defense = 0;
+			else e.defense -= p/100.0;
+	}, true);
+	
+
 	
 	
 	public String name;
@@ -126,10 +142,10 @@ public enum Effect {
 	}
 
 	public static ArrayList<Effect> debuff() {
-		return new ArrayList<Effect>(Arrays.asList(critInverse, critNegate, nullify, poison, weakness, disenchantment, fatigue));
+		return new ArrayList<Effect>(Arrays.asList(critInverse, critNegate, nullify, poison, weakness, disenchantment, fatigue,fragility,susceptible));
 	}
 
 	public static ArrayList<Effect> buff() {
-		return new ArrayList<Effect>(Arrays.asList(vitality, charm, endurance, superVitality, superCharm, superEndurance, reflection, strength, precision, accuracy, absorption, sparkResistance, lifeSteal, rejuvenation, galvanization, invigoration));
+		return new ArrayList<Effect>(Arrays.asList(vitality, charm, endurance, superVitality, superCharm, superEndurance, reflection, strength, precision, accuracy, absorption, sparkResistance, lifeSteal, rejuvenation, galvanization, invigoration,resist,protection));
 	}
 }

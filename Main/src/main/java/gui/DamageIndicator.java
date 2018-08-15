@@ -27,7 +27,7 @@ public class DamageIndicator extends JPanel{
 		
 		setPreferredSize(new Dimension(width,height));
 		setMaximumSize(new Dimension(width,height));
-		setBackground(Color.BLUE);
+		setBackground(Color.BLACK);
 		setFocusable(false);
 	}
 
