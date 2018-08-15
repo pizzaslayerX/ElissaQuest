@@ -1,6 +1,11 @@
 package entities;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 import items.Equipment;
 import items.StatusEffect;
@@ -47,7 +52,6 @@ public abstract class Entity { //add armor slots
 	@SuppressWarnings("static-access")
 	public void attack(Entity e, GamePlay g) { //add slow multi hit display (maybe in enhancements?)
 		double sparkMultiplier = 1;
-		
 		for(int i = 0; i < currWeapon.hits; i++) {
 			double dmg = currWeapon.baseDmg - currWeapon.range + (.7 + .6*Math.random())*currWeapon.range*(1 + stamina/maxStamina - e.stamina/e.maxStamina); // should .6 be .3?
 			if(i > 0 && Math.random() < currWeapon.sparkChance) {
@@ -69,7 +73,6 @@ public abstract class Entity { //add armor slots
 			health = (int)Math.min(currWeapon.lifeSteal*dmg1+health, maxHealth); // do green dmg indicator
 			//r.pause(1500);
 			System.out.println(dmg1 + " damage");
-			g.mfp.dmgIndicator.displayDamage(dmg1);
 			e.stamina = Math.max(0, e.stamina - 50/(50d+e.endurance)*(dmg1*currWeapon.staminaDepletion + currWeapon.flatStaminaDepletion));
 			if(e.dmgReflect != 0) {
 				health -= dmg2;
@@ -77,9 +80,13 @@ public abstract class Entity { //add armor slots
 				System.out.println(dmg2 + " reflect damage");
 				stamina = Math.max(0, stamina - 50/(50d+endurance)*(dmg2*currWeapon.staminaDepletion + currWeapon.flatStaminaDepletion));
 			}
+			g.mfp.dmgIndicator.displayDamage(dmg1);
+			
 		}
 		for(Probability<StatusEffect> prob : currWeapon.atkEnemyEffects) if(prob.execute()) prob.item.addTo(e); 
 		for(Probability<StatusEffect> prob : currWeapon.atkSelfEffects) if(prob.execute()) prob.item.addTo(this);
+		
+		for(StatusEffect se : statusEffects) System.out.println(se.effect.name); //debug
 	}
 	
 	public void recalculateStats() {

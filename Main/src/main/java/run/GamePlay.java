@@ -7,7 +7,6 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
-import javax.swing.SwingUtilities;
 
 import entities.Enemy;
 import entities.Player;
@@ -20,7 +19,7 @@ import misc.Util;
  
 public class GamePlay implements Runnable{
 	public int scale = 1;
-	public static boolean openPanel = false;  
+	public boolean openPanel = false;  
 	public Maze maze;
 	public DrawScreen r;
 	public Player player = new Player(this);
@@ -138,7 +137,7 @@ public class GamePlay implements Runnable{
 					System.out.println("test");
 				}
 			}
-		}), 0, 20 /*40*/, TimeUnit.MILLISECONDS);
+		}), 0, 20, TimeUnit.MILLISECONDS);
 		go();
 	}
 }

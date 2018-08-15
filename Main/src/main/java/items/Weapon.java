@@ -135,7 +135,7 @@ public class Weapon extends Item { //add stamina reduction
 		}
 		
 		public static Weapon rustyDagger() {
-			return new Weapon("Rusty Dagger", "%1$s drive a rusty dagger into %2$s", (3 + (int)(Math.random()*3)), 2, (4 + (int)(Math.random()*3))/7, 2, .3, .2, new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect("weakness", 2, 3), .3))), null);
+			return new Weapon("Rusty Dagger", "%1$s drive a rusty dagger into %2$s", (3 + (int)(Math.random()*3)), 2, 2, .3, .2, new ArrayList<Probability<StatusEffect>>(Arrays.asList(new Probability<StatusEffect>(new StatusEffect("weakness", 2, 3), .3))), null);
 		}
 		
 		public static Weapon ulfbehrt() {

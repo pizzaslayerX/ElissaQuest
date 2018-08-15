@@ -10,14 +10,16 @@ import run.GamePlay;
 
 public class Chest implements Interactive {
 	public ArrayList<Item> loot = new ArrayList<Item>();
+	boolean doLootTable;
 	
 	@SafeVarargs
 	public Chest(Probability<Item>... i) {
 		for(Probability<Item> ip : i) if(ip.execute()) loot.add(ip.item);
+		doLootTable = false;
 	}
 	
-	public Chest(Player p) {
-		for(Probability<Item> ip : lootTable(p)) if(ip.execute()) loot.add(ip.item);
+	public Chest() {
+		doLootTable = true;
 	}
 	
 	public static ArrayList<Probability<Item>> lootTable(Player p) { //todo
@@ -28,6 +30,7 @@ public class Chest implements Interactive {
 	@SuppressWarnings("static-access")
 	@Override
 	public void interact(GamePlay r) { //make this immediately display chest contents
+		for(Probability<Item> ip : lootTable(r.player)) if(ip.execute()) loot.add(ip.item);
 		//say you've found a chest
 		//r.game.userWait();
 	}

@@ -45,7 +45,7 @@ public class DamageIndicator extends JPanel{
 			g.setFont(new Font("Monospaced", Font.BOLD, 30));
 			int x = (width - fm.stringWidth((int)Math.abs(dd.dmg)+"")) / 2;
 			int y = ((height - fm.getHeight()) / 2) + fm.getAscent();
-			g.drawString((int)Math.abs(dd.dmg)+"", x, y+dd.yCount);
+			g.drawString((int)Math.abs(dd.dmg)+"", x+dd.yCount, y/*+dd.yCount*/);
 		}
 	}
 	  
@@ -57,8 +57,8 @@ public class DamageIndicator extends JPanel{
 		ScheduledExecutorService display = Executors.newScheduledThreadPool(1);
 			
 		dd.future = display.scheduleAtFixedRate(Util.guiRunnable(() -> {
-			dd.transCount-=5;
-			dd.yCount-=1;
+			dd.transCount-=3;
+			dd.yCount+=1;
 			repaint();
 			if(dd.transCount <= 0) {
 				displays.remove(dd);
@@ -69,7 +69,7 @@ public class DamageIndicator extends JPanel{
 			
 	}
 	
-	public class DamageDisplay {
+	private class DamageDisplay {
 		public int transCount,yCount,dmg;
 		private ScheduledFuture<?> future;
 		

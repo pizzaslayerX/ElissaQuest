@@ -50,9 +50,10 @@ public class Player extends Entity{
 		inventory.add(Consumable.Consumables.uberPotion());
 		inventory.add(Consumable.Consumables.potion());
 		inventory.add(Consumable.Consumables.potion());
-		inventory.add(Weapon.Weapons.hadesScythe(90));
+		inventory.add(Weapon.Weapons.rustyDagger());
 		new StatusEffect("accuracy", 12, 90).addTo(this);
 		new StatusEffect("precision", 12, 90).addTo(this);
+		
 	}
 	
 	public boolean openSlots(Pair<ArrayList<Item>,Integer> in) {

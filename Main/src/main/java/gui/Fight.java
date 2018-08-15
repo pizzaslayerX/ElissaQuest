@@ -92,6 +92,7 @@ public class Fight {
 	    		 mainFight.gameplay.r.setVisible(true);
 	    		 mainFight.gameplay.r.grabFocus();
 	    		 mainFight.gameplay.r.enable();
+	    		 mainFight.gameplay.openPanel = false;
 	    	 }
 	      }
 	  };
