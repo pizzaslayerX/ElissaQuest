@@ -77,6 +77,7 @@ public class DamageIndicator extends JPanel{
 	public void displayDamage() {
 			transCount = 255;
 			yCount = 20; // set dmg
+
 			ScheduledExecutorService display = Executors.newScheduledThreadPool(1);
 			
 			future = display.scheduleAtFixedRate(Util.guiRunnable(() -> {
