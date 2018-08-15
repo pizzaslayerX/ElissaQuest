@@ -43,7 +43,7 @@ public class DamageIndicator extends JPanel{
 		height = h;
 		entityHealth = entity.health;
 		text = this;
-		transCount = 255;
+		transCount = 0;
 		yCount = 20;
 		
 		setPreferredSize(new Dimension(width,height));

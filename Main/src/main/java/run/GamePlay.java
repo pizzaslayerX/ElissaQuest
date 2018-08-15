@@ -19,7 +19,7 @@ import misc.Util;
 
  
 public class GamePlay implements Runnable{
-	public int scale = 2;
+	public int scale = 1;
 	public static boolean openPanel = false;  //Unnecessary; remove
 	public Maze maze;
 	public DrawScreen r;
@@ -59,8 +59,8 @@ public class GamePlay implements Runnable{
 		else maze = new Maze(maze.x + 10, maze.y + 5);
 		player.x = maze.startx*r.mazeSize;
 		player.y = maze.starty*r.mazeSize;
-		r.xtrans = (int)(r.window.GAME_SIZE.getWidth()/4) - player.x;
-		r.ytrans = (int)(r.window.GAME_SIZE.getHeight()/4) - player.y;
+		r.xtrans = (int)(r.window.GAME_SIZE.getWidth()/4-8) - player.x;
+		r.ytrans = (int)(r.window.GAME_SIZE.getHeight()/4-8) - player.y;
 		latch.countDown();
 		r.repaint();
 	}
@@ -84,38 +84,42 @@ public class GamePlay implements Runnable{
 			boolean animate = false;
 			if(move[0]&& (((maze.maze[maze.playerx][maze.playery] & 1) != 0  && player.x % r.mazeSize <= r.mazeSize - 16)|| player.y % r.mazeSize != 0) ) {
 				player.y-=scale;
+				r.ytrans += 1;
 				change = true;
 				animate = true;
 			}
 			if(move[1]&& (((maze.maze[maze.playerx][maze.playery] & 4) != 0  && player.x % r.mazeSize <= r.mazeSize - 16)|| player.y % r.mazeSize != r.mazeSize - 16) ) {
 				player.y+=scale;
+				r.ytrans -= 1;
 				change = true;
 				animate = true;
 			}
 			if(move[2]&& (((maze.maze[maze.playerx][maze.playery] & 2) != 0 && player.y % r.mazeSize <= r.mazeSize - 16)|| player.x %r.mazeSize != r.mazeSize - 16) ) {
 				player.x+=scale;
+				r.xtrans -= 1;
 				change = true;
 				animate = true;
 			}
 			if(move[3]&& (((maze.maze[maze.playerx][maze.playery] & 8) != 0 && player.y % r.mazeSize <= r.mazeSize - 16)|| player.x %r.mazeSize != 0) ) {
 				player.x-=scale;
+				r.xtrans += 1;
 				change = true;
 				animate = true;
 			}
 			if(move[4]) {
-				r.ytrans += 4;
+				r.ytrans += 1;
 				change = true;
 			}
 			if(move[5]) {
-				r.ytrans -= 4;
+				r.ytrans -= 1;
 				change = true;
 			}
 			if(move[6]) {
-				r.xtrans -= 4;
+				r.xtrans -= 1;
 				change = true;
 			}
 			if(move[7]) {
-				r.xtrans += 4;
+				r.xtrans += 1;
 				change = true;
 			}
 			if(change) {
@@ -130,7 +134,7 @@ public class GamePlay implements Runnable{
 					System.out.println("test");
 				}
 			}
-		}), 0, 10 /*40*/, TimeUnit.MILLISECONDS);
+		}), 0, 20 /*40*/, TimeUnit.MILLISECONDS);
 		go();
 	}
 }
