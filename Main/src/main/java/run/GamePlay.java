@@ -59,8 +59,8 @@ public class GamePlay implements Runnable{
 		else maze = new Maze(maze.x + 10, maze.y + 5);
 		player.x = maze.startx*r.mazeSize;
 		player.y = maze.starty*r.mazeSize;
-		r.xtrans = (int)(r.window.GAME_SIZE.getWidth()/4) - player.x;
-		r.ytrans = (int)(r.window.GAME_SIZE.getHeight()/4) - player.y;
+		r.xtrans = (int)(r.window.GAME_SIZE.getWidth()/4) - player.x - 8;
+		r.ytrans = (int)(r.window.GAME_SIZE.getHeight()/4) - player.y - 8;
 		latch.countDown();
 		r.repaint();
 	}
@@ -84,21 +84,25 @@ public class GamePlay implements Runnable{
 			boolean animate = false;
 			if(move[0]&& (((maze.maze[maze.playerx][maze.playery] & 1) != 0  && player.x % r.mazeSize <= r.mazeSize - 16)|| player.y % r.mazeSize != 0) ) {
 				player.y-=scale;
+				r.ytrans += scale;
 				change = true;
 				animate = true;
 			}
 			if(move[1]&& (((maze.maze[maze.playerx][maze.playery] & 4) != 0  && player.x % r.mazeSize <= r.mazeSize - 16)|| player.y % r.mazeSize != r.mazeSize - 16) ) {
 				player.y+=scale;
+				r.ytrans -= scale;
 				change = true;
 				animate = true;
 			}
 			if(move[2]&& (((maze.maze[maze.playerx][maze.playery] & 2) != 0 && player.y % r.mazeSize <= r.mazeSize - 16)|| player.x %r.mazeSize != r.mazeSize - 16) ) {
 				player.x+=scale;
+				r.xtrans -= scale;
 				change = true;
 				animate = true;
 			}
 			if(move[3]&& (((maze.maze[maze.playerx][maze.playery] & 8) != 0 && player.y % r.mazeSize <= r.mazeSize - 16)|| player.x %r.mazeSize != 0) ) {
 				player.x-=scale;
+				r.xtrans += scale;
 				change = true;
 				animate = true;
 			}
