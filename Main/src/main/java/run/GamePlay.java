@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+
+import javax.swing.SwingUtilities;
 
 import entities.Enemy;
 import entities.Player;
@@ -24,6 +27,9 @@ public class GamePlay implements Runnable{
 	public int blinkMode = 0;
 	public CountDownLatch latch = new CountDownLatch(1);
 	//public Listener listener = new Listener();
+	ScheduledExecutorService ses = Executors.newScheduledThreadPool(3);
+	ScheduledFuture<?> blink;
+	boolean[] move = new boolean[8];
 	
 	
 	public GamePlay(DrawScreen r) {
@@ -61,19 +67,69 @@ public class GamePlay implements Runnable{
 
 	@Override
 	public void run() {
-		ScheduledExecutorService ses = Executors.newScheduledThreadPool(1);
 		ses.scheduleAtFixedRate(new Runnable() {public void run() {
-			ScheduledExecutorService blink = Executors.newSingleThreadScheduledExecutor();
-			blink.scheduleAtFixedRate(new Runnable() {public void run() {
+			blink = ses.scheduleAtFixedRate(new Runnable() {public void run() {
 				if(blinkMode++ >= 7) {
 					blinkMode = 0;
 					r.repaint();
 					maze.enemyMove();
-					blink.shutdown();
+					blink.cancel(false);
 				}
 				r.repaint();
 			}}, 0, 100, TimeUnit.MILLISECONDS);
 		}}, 8, 8, TimeUnit.SECONDS);
+		ses.scheduleAtFixedRate(() -> {SwingUtilities.invokeLater(() -> {
+			boolean change = false;
+			boolean animate = false;
+			if(move[0]&& (((maze.maze[maze.playerx][maze.playery] & 1) != 0  && player.x % r.mazeSize <= r.mazeSize - 16)|| player.y % r.mazeSize != 0) ) {
+				player.y-=scale;
+				change = true;
+				animate = true;
+			}
+			if(move[1]&& (((maze.maze[maze.playerx][maze.playery] & 4) != 0  && player.x % r.mazeSize <= r.mazeSize - 16)|| player.y % r.mazeSize != r.mazeSize - 16) ) {
+				player.y+=scale;
+				change = true;
+				animate = true;
+			}
+			if(move[2]&& (((maze.maze[maze.playerx][maze.playery] & 2) != 0 && player.y % r.mazeSize <= r.mazeSize - 16)|| player.x %r.mazeSize != r.mazeSize - 16) ) {
+				player.x+=scale;
+				change = true;
+				animate = true;
+			}
+			if(move[3]&& (((maze.maze[maze.playerx][maze.playery] & 8) != 0 && player.y % r.mazeSize <= r.mazeSize - 16)|| player.x %r.mazeSize != 0) ) {
+				player.x-=scale;
+				change = true;
+				animate = true;
+			}
+			if(move[4]) {
+				r.ytrans += 4;
+				change = true;
+			}
+			if(move[5]) {
+				r.ytrans -= 4;
+				change = true;
+			}
+			if(move[6]) {
+				r.xtrans -= 4;
+				change = true;
+			}
+			if(move[7]) {
+				r.xtrans += 4;
+				change = true;
+			}
+			if(change) {
+				if(animate) r.repaintMove();
+				else r.repaint();
+				maze.playerx=(player.x+r.mazeSize/2)/r.mazeSize;
+				maze.playery=(player.y+r.mazeSize/2)/r.mazeSize;
+				if(maze.interactives[maze.playerx][maze.playery] != null) {
+					r.disable();
+					maze.interactives[maze.playerx][maze.playery].interact(GamePlay.this);
+					maze.interactives[maze.playerx][maze.playery].disappear(maze.interactives, maze.playerx, maze.playery);
+					System.out.println("test");
+				}
+			}
+		});}, 0, 20, TimeUnit.MILLISECONDS);
 		go();
 	}
 }

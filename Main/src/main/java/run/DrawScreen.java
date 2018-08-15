@@ -31,10 +31,10 @@ public class DrawScreen extends JPanel{
 	private static BufferedImage med;
 	private static BufferedImage large;
 	private static BufferedImage max;
-	Action ac1;
-	Action ac2;
-	Action ac3;
-	Action ac4;
+	public Action ac1;
+	public Action ac2;
+	public Action ac3;
+	public Action ac4;
 	public GamePlay gameplay = new GamePlay(this);
 	public Window window;
 	private static int moveVal = 0;
@@ -85,62 +85,22 @@ public class DrawScreen extends JPanel{
 		large = Util.loadImage("EnemyLight3.png");
 		max = Util.loadImage("EnemyLight4.png");
 
-		Util.keybind(this, KeyEvent.VK_W, "up", ac1 = Util.actionMaker(u -> {
-			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 1) != 0  && gameplay.player.x % mazeSize <= mazeSize - 16)|| gameplay.player.y % mazeSize != 0) ) gameplay.player.y-=gameplay.scale;
-			repaint();
-			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
-			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
-			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				disable();
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
-				System.out.println("test");
-			}
-		}));
-		Util.keybind(this, KeyEvent.VK_S, "down", ac2 = Util.actionMaker(u -> {
-			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 4) != 0  && gameplay.player.x % mazeSize <= mazeSize - 16)|| gameplay.player.y % mazeSize != mazeSize - 16) ) gameplay.player.y+=gameplay.scale;
-			repaint();
-			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
-			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
-			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				disable();
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
-				System.out.println("test");
-			}
-		}));
-		Util.keybind(this, KeyEvent.VK_D, "right", ac3 = Util.actionMaker(u -> {
-			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 2) != 0 && gameplay.player.y % mazeSize <= mazeSize - 16)|| gameplay.player.x %mazeSize != mazeSize - 16) ) gameplay.player.x+=gameplay.scale;
-			repaint();
-			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
-			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
-			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				disable();
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
-				System.out.println("test");
-			}
-		}));
-		Util.keybind(this, KeyEvent.VK_A, "left", ac4 = Util.actionMaker(u -> {
-			if((((gameplay.maze.maze[gameplay.maze.playerx][gameplay.maze.playery] & 8) != 0 && gameplay.player.y % mazeSize <= mazeSize - 16)|| gameplay.player.x %mazeSize != 0) )gameplay.player.x-=gameplay.scale;
-			repaint();
-			gameplay.maze.playerx=(gameplay.player.x+mazeSize/2)/mazeSize;
-			gameplay.maze.playery=(gameplay.player.y+mazeSize/2)/mazeSize;
-			if(gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery] != null) {
-				disable();
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].interact(gameplay);
-				gameplay.maze.interactives[gameplay.maze.playerx][gameplay.maze.playery].disappear(gameplay.maze.interactives, gameplay.maze.playerx, gameplay.maze.playery);
-				System.out.println("test");
-			}
-		}));
-		Util.keybind(this, KeyEvent.VK_UP, "uparrow", u -> {ytrans += 4;
-		repaint();});
-		Util.keybind(this, KeyEvent.VK_DOWN, "downarrow", u -> {ytrans -= 4;
-		repaint();});
-		Util.keybind(this, KeyEvent.VK_RIGHT, "rightarrow", u -> {xtrans -= 4;
-		repaint();});
-		Util.keybind(this, KeyEvent.VK_LEFT, "leftarrow", u -> {xtrans += 4;
-		repaint();});
+		Util.keybind(this, KeyEvent.VK_W, "up", ac1 = Util.actionMaker(u -> {gameplay.move[0] = true;}));
+		Util.keybind(this, KeyEvent.VK_S, "down", ac2 = Util.actionMaker(u -> {gameplay.move[1] = true;}));
+		Util.keybind(this, KeyEvent.VK_D, "right", ac3 = Util.actionMaker(u -> {gameplay.move[2] = true;}));
+		Util.keybind(this, KeyEvent.VK_A, "left", ac4 = Util.actionMaker(u -> {gameplay.move[3] = true;}));
+		Util.keybind(this, KeyEvent.VK_UP, "uparrow", u -> {gameplay.move[4] = true;});
+		Util.keybind(this, KeyEvent.VK_DOWN, "downarrow", u -> {gameplay.move[5] = true;});
+		Util.keybind(this, KeyEvent.VK_RIGHT, "rightarrow", u -> {gameplay.move[6] = true;});
+		Util.keybind(this, KeyEvent.VK_LEFT, "leftarrow", u -> {gameplay.move[7] = true;});
+		Util.keybind(this, KeyEvent.VK_W, "up1", ac1 = Util.actionMaker(u -> {gameplay.move[0] = false;}), true);
+		Util.keybind(this, KeyEvent.VK_S, "down1", ac2 = Util.actionMaker(u -> {gameplay.move[1] = false;}), true);
+		Util.keybind(this, KeyEvent.VK_D, "right1", ac3 = Util.actionMaker(u -> {gameplay.move[2] = false;}), true);
+		Util.keybind(this, KeyEvent.VK_A, "left1", ac4 = Util.actionMaker(u -> {gameplay.move[3] = false;}), true);
+		Util.keybind(this, KeyEvent.VK_UP, "uparrow1", u -> {gameplay.move[4] = false;});
+		Util.keybind(this, KeyEvent.VK_DOWN, "downarrow1", u -> {gameplay.move[5] = false;});
+		Util.keybind(this, KeyEvent.VK_RIGHT, "rightarrow1", u -> {gameplay.move[6] = false;});
+		Util.keybind(this, KeyEvent.VK_LEFT, "leftarrow1", u -> {gameplay.move[7] = false;});
 	}
 	
 	public void disable() {
@@ -159,12 +119,6 @@ public class DrawScreen extends JPanel{
 	
 	@Override
     public void paintComponent(Graphics g) {
-		if(moveVal < 4)
-			moveVal++;
-		else {
-			moveVal = 0;
-			animate();
-		}
 		Graphics2D g2 = (Graphics2D) g;
 		//g2.translate(this.getWidth()/2, this.getHeight()/2);
 		g2.scale(2, 2);
@@ -172,6 +126,16 @@ public class DrawScreen extends JPanel{
 		super.paintComponent(g2);
 		drawObjects(g2);
 		Toolkit.getDefaultToolkit().sync();
+	}
+	
+	public void repaintMove() {
+		if(moveVal < 4)
+			moveVal++;
+		else {
+			moveVal = 0;
+			animate();
+		}
+		repaint();
 	}
 	
 	private void drawObjects(Graphics g) {
