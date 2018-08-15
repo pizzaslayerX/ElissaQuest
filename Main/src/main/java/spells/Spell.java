@@ -10,9 +10,9 @@ public class Spell {
 	public String name,desc;
 	public Player player;
 	public boolean useTurn;
-	public Consumer<Entity> use;
+	public Consumer<Entity> ability;
 	
-	public Spell(String n,String d,int c, int mc,int hc,boolean ut,Consumer<Entity> u) {
+	public Spell(String n,String d,int c, int mc,int hc,boolean ut,Consumer<Entity> u, boolean override) {
 		name = n;
 		desc = d;
 		cooldown = c;
@@ -20,16 +20,19 @@ public class Spell {
 		manaCost = mc;
 		healthCost = hc;
 		useTurn = ut;
-		use = u;
+		if(override) ability = u;
+		else ability = e -> {
+			if(canUse(e)) {
+				ability.accept(e);
+				cooldownTimer = cooldown;
+				e.mana -= manaCost;
+				e.health -= healthCost;
+			}
+		};
 	}
 	
 	public void use(Entity e) {
-		if(canUse(e)) {
-			use.accept(e);
-			cooldownTimer = cooldown;
-			e.mana -= manaCost;
-			e.health -= healthCost;
-		}
+		ability.accept(e);
 	}
 	
 	public boolean canUse(Entity e) {
