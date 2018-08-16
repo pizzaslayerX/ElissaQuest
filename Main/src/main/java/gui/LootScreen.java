@@ -99,6 +99,8 @@ public class LootScreen extends JPanel{
 			itemPanes.get(i).setPreferredSize(new Dimension((int)((width/2+5)*0.75),((int)(height*0.9)/2-48)/10));
 			itemPanes.get(i).setBackground(Color.BLACK);
 			itemPanes.get(i).setBorder(Util.genBorder("",1));
+			itemPanes.get(i).setFocusable(false);
+			itemPanes.get(i).setEditable(false);
 			if(i<loot.size()) Util.append(itemPanes.get(i),"  "+loot.get(i).first.name,Color.WHITE, 16, true, 0);
 			itemNames.add(itemPanes.get(i));
 		}
@@ -116,6 +118,8 @@ public class LootScreen extends JPanel{
 			countPanes.get(i).setPreferredSize(new Dimension((int)((width/2+5)*0.25)-16,((int)(height*0.9)/2-48)/10));
 			countPanes.get(i).setBackground(Color.BLACK);
 			countPanes.get(i).setBorder(Util.genBorder("",1));
+			countPanes.get(i).setFocusable(false);
+			countPanes.get(i).setEditable(false);
 			if(i<loot.size()) Util.append(countPanes.get(i),""+loot.get(i).second,Color.WHITE, 15, true, 1);
 			itemCounts.add(countPanes.get(i));
 		}

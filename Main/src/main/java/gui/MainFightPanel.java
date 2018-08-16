@@ -82,12 +82,9 @@ public class MainFightPanel extends JPanel{
 		for(int i=0;i<enemies.size();i++) {
 			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
 		}
-		try {
+	
 			init();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+	
 		update(1);
 		fight = new Fight(gameplay.player,enemies,this);
 		//interact(gp);
@@ -126,12 +123,9 @@ public class MainFightPanel extends JPanel{
 		for(int i=0;i<enemies.size();i++) {
 			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
 		}
-		try {
+		
 			init();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
 		update(1);
 		fight = new Fight(gameplay.player,enemies,this);
 		//interact(gp);
@@ -198,11 +192,11 @@ public class MainFightPanel extends JPanel{
     		} catch(Exception e) { System.out.println(e);}
     }
 	
-	public void changePic(BufferedImage pic) throws IOException {
+	public void changePic(BufferedImage pic) {
 		enemyPic.update(pic);
 	}
 	
-	public void init() throws Exception {
+	public void init() {
 		updateHealth();
 		setPreferredSize(Window.GAME_SIZE);
 		setBackground(Color.BLACK);
@@ -494,13 +488,9 @@ public class MainFightPanel extends JPanel{
 					enemies.get(i).second.setBackground(Color.GRAY);
 					enemy.setBorder(genBorder(enemies.get(i).first.name,1));
 					healthFocus(i);
-					try {
+					
 						changePic(enemyPics.get(i));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						System.out.println("You dun goofed mate");
-						e.printStackTrace();
-					}
+					
 				}
 			}
 		}
