@@ -34,9 +34,9 @@ public class Fight {
 	      public void actionPerformed(ActionEvent evt) {
 	    	 if(mainFight.enemies.size()>0) {
 	    	  if(enemyCount<mainFight.enemies.size()) {
-	    		  try {
+	    		  
 	    				mainFight.changePic(mainFight.enemyPics.get(enemyCount));
-	    			} catch (IOException e1) {	}
+	    			
 	    			mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(enemyCount).first.name,1));
 	    			mainFight.healthFocus(enemyCount);
 	    		  if(enemyTurnDelay.getDelay()!= delay)
@@ -44,13 +44,10 @@ public class Fight {
 	    		  mainFight.enemies.get(enemyCount).first.attack(player, gameplay);
 	    		  mainFight.updateHealth();
 	    		  System.out.println("Health Updated!");
-	    		  try {
+	    		
 						mainFight.changePic(mainFight.enemyPics.get(enemyCount));
 						mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(enemyCount).first.name,1));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					
 	    		  enemyCount++;
 	    	  }else {
 	    		  	enemyTurnDelay.stop();
@@ -60,12 +57,8 @@ public class Fight {
 	    	  		mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(0).first.name,1));
 					mainFight.healthFocus(0);
 					
-						try {
 							mainFight.changePic(mainFight.enemyPics.get(0));
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						
 	    	  		mainFight.showMenu();
 	    	  		player.regen();
 	    	  		for(Pair<Enemy,JTextPane> e:mainFight.enemies)
@@ -132,9 +125,9 @@ public class Fight {
 	
 	public void getEnemyTurn() {
 		if(paction.equals("attack") && mainFight.getTarget().health <= 0) {
-			try {
+			
 				mainFight.changePic(mainFight.enemyPics.get(0));
-			} catch (IOException e1) {	}
+		
 			mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(0).first.name,1));
 			mainFight.healthFocus(0);
 		}
@@ -144,10 +137,10 @@ public class Fight {
 			if(mainFight.enemies.get(i).first.health <= 0) {
 				//Play death animation and death sound
 				if(mainFight.enemies.size()>1 && i==0) {
-					 try {
+					
 							mainFight.changePic(mainFight.enemyPics.get(1));
 							mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(1).first.name,1));
-						} catch (IOException e) {}
+					
 					 	mainFight.healthFocus(1);
 				}
 				mainFight.enemyPics.remove(i);
