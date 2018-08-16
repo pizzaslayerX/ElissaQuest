@@ -27,11 +27,11 @@ public class Chest implements Interactive {
 		ArrayList<Pair<Probability<Item>,Integer>> itemProbs = new ArrayList<Pair<Probability<Item>,Integer>>();
 		switch(p.level) {
 			case 1:
-				itemProbs.add(new Pair<Probability<Item>,Integer>(new Probability<Item>(Consumable.Consumables.potion(),0.6),(int)(Math.random()*2)+1));
-				itemProbs.add(new Pair<Probability<Item>,Integer>(new Probability<Item>(Consumable.Consumables.greaterPotion(),1/3d),1));
-				itemProbs.add(new Pair<Probability<Item>,Integer>(new Probability<Item>(Consumable.Consumables.aether(),0.5),1));
-				itemProbs.add(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.rustyDagger(),0.12),1));
-				itemProbs.add(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.randWeapon1(),0.25),1));
+				itemProbs.add(new Pair<Probability<Item>,Integer>(new Probability<Item>(Consumable.Consumables.potion(),10.6),(int)(Math.random()*2)+1));
+				itemProbs.add(new Pair<Probability<Item>,Integer>(new Probability<Item>(Consumable.Consumables.greaterPotion(),11/3d),1));
+				itemProbs.add(new Pair<Probability<Item>,Integer>(new Probability<Item>(Consumable.Consumables.aether(),10.5),1));
+				itemProbs.add(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.rustyDagger(),10.12),1));
+				itemProbs.add(new Pair<Probability<Item>,Integer>(new Probability<Item>(Weapon.Weapons.randWeapon1(),10.25),1));
 				break;
 		}
 		

@@ -28,7 +28,7 @@ public class LootScreen extends JPanel{
 	public int width,height;
 	public JPanel display;
 	public BufferedImage image;
-	
+	private static final Color CELL_BLUE = new Color(0,17,26);
 	
 	public LootScreen(GamePlay g,BufferedImage im,ArrayList<Item> items,int w, int h) {
 		loot = new ArrayList<Pair<Item,Integer>>();
@@ -90,18 +90,22 @@ public class LootScreen extends JPanel{
 		itemNames = new JPanel();
 		itemNames.setPreferredSize(new Dimension((int)((width/2+5)*0.75),(int)(height*0.9)/2-48));
 		itemNames.setMaximumSize(new Dimension((int)((width/2+5)*0.75),(int)(height*0.9)/2-48));
-		itemNames.setBackground(Color.BLACK);
+		itemNames.setBackground(CELL_BLUE);
 		itemNames.setLayout(new BoxLayout(itemNames,BoxLayout.Y_AXIS));
-	
+		itemNames.setDoubleBuffered(true);
 		ArrayList<JTextPane> itemPanes = new ArrayList<JTextPane>();
 		for(int i = 0;i<10;i++) {
 			itemPanes.add(new JTextPane());
 			itemPanes.get(i).setPreferredSize(new Dimension((int)((width/2+5)*0.75),((int)(height*0.9)/2-48)/10));
-			itemPanes.get(i).setBackground(Color.BLACK);
 			itemPanes.get(i).setBorder(Util.genBorder("",1));
 			itemPanes.get(i).setFocusable(false);
 			itemPanes.get(i).setEditable(false);
-			if(i<loot.size()) Util.append(itemPanes.get(i),"  "+loot.get(i).first.name,Color.WHITE, 16, true, 0);
+			itemPanes.get(i).setBackground(Color.BLACK);
+			if(i<loot.size()) {
+				itemPanes.get(i).setOpaque(false);
+				Util.append(itemPanes.get(i),"  "+loot.get(i).first.name,Color.WHITE, 16, true, 0);
+			}
+				
 			itemNames.add(itemPanes.get(i));
 		}
 		
@@ -110,8 +114,9 @@ public class LootScreen extends JPanel{
 		itemCounts = new JPanel();
 		itemCounts.setPreferredSize(new Dimension((int)((width/2+5)*0.25)-16,(int)(height*0.9)/2-48));
 		itemCounts.setMaximumSize(new Dimension((int)((width/2+5)*0.25)-16,(int)(height*0.9)/2-48));
-		itemCounts.setBackground(Color.BLACK);
+		itemCounts.setBackground(CELL_BLUE);
 		itemCounts.setLayout(new BoxLayout(itemCounts,BoxLayout.Y_AXIS));
+		itemCounts.setDoubleBuffered(true);
 		ArrayList<JTextPane> countPanes = new ArrayList<JTextPane>();
 		for(int i = 0;i<10;i++) {
 			countPanes.add(new JTextPane());
@@ -120,7 +125,10 @@ public class LootScreen extends JPanel{
 			countPanes.get(i).setBorder(Util.genBorder("",1));
 			countPanes.get(i).setFocusable(false);
 			countPanes.get(i).setEditable(false);
-			if(i<loot.size()) Util.append(countPanes.get(i),""+loot.get(i).second,Color.WHITE, 15, true, 1);
+			if(i<loot.size()) {
+				countPanes.get(i).setOpaque(false);
+				Util.append(countPanes.get(i),""+loot.get(i).second,Color.WHITE, 15, true, 1);
+			}
 			itemCounts.add(countPanes.get(i));
 		}
 		
