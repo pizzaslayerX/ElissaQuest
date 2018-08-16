@@ -23,10 +23,10 @@ public class Spell extends Item{
 		useTurn = ut;
 		if(override) ability = u;
 		else ability = (c, t) -> {
-				u.accept(c, t);
-				cooldownTimer = cooldown;
-				c.mana -= manaCost;
-				c.health -= healthCost;
+			u.accept(c, t);
+			cooldownTimer = cooldown;
+			c.mana -= manaCost;
+			c.health -= healthCost;
 		};
 		if(ab == null) able = (c, t) -> cooldownTimer == 0 && c.mana >= manaCost && c.health >= healthCost;
 			else able = ab;

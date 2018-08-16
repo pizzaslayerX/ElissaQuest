@@ -29,7 +29,6 @@ public class Consumable extends Item{
 		public static Consumable aether() {
 			return new Consumable("Aether", "An edible sphere imbued with magical energy. Restores 25% of Mana.", p -> {
 				//Play drink sound
-				//remove from inventory
 				p.mana = Math.min(p.maxMana, p.mana + p.maxMana / 4);
 			});
 		}
@@ -43,7 +42,6 @@ public class Consumable extends Item{
 		public static Consumable darkVial() {
 			return new Consumable("Dark Vial", "???", p -> {
 				//Play drink sound
-				//remove from inventory
 				p.health = Math.min(p.maxHealth, p.health + 18);
 				new StatusEffect("lifeSteal",2,6).addTo(p);
 				new StatusEffect("endurance",10,6).addTo(p);
@@ -67,7 +65,6 @@ public class Consumable extends Item{
 		public static Consumable quincy() {
 			return new Consumable("Quincy", "Life is like a Quincy potion. Ya never know what ya gonna get.", p -> {
 				//Play drink sound
-				//remove from inventory
 				for(int i = 0;i<2;i++) {
 					int choice = (int)(Math.random() * 21);
 					switch(choice) {
@@ -133,7 +130,6 @@ public class Consumable extends Item{
 		public static Consumable superAether() {
 			return new Consumable("Super Aether", "A tesseract containing a large reservoir of magical energy. Restores 50% of Mana.", p -> {
 				//Play drink sound
-				//remove from inventory
 				p.mana = Math.min(p.maxMana, p.mana + p.maxMana / 2);
 			});
 		}
