@@ -34,13 +34,14 @@ public class LootScreen extends JPanel{
 		loot = new ArrayList<Pair<Item,Integer>>();
 		width = w;
 		height = h;
-		for(int i = 0;i<items.size();i++) 
+		for(int i = 0;i<items.size();i++) {
 			if(!lootContains(items.get(i)))
 				loot.add(new Pair<Item,Integer>(items.get(i),1));
 			else 
 				for(Pair<Item,Integer> p: loot) 
 					if(p.first.equals(items.get(i)))
 						p.second++;
+		}
 		
 		gameplay = g;
 		image = im;
