@@ -41,10 +41,9 @@ import misc.Pair;
 import run.GamePlay;
 import run.Window;
 
-public class MainFightPanel extends JPanel{
+public class MainFightPanel extends DisplayPanel{
 	public ArrayList<Pair<Enemy,JTextPane>> enemies;
 
-	public GamePlay gameplay;
     public FlowLayout layout;
     public JLabel label;
     public Fight fight;
@@ -62,7 +61,7 @@ public class MainFightPanel extends JPanel{
     //public DamageIndicator dmgIndicator;
     
 	public MainFightPanel(Enemy e, GamePlay gp){
-		gameplay = gp;
+		super(gp);
 		ehealth = new ArrayList<Meter>();
 		emana = new ArrayList<Meter>();
 		estamina = new ArrayList<Meter>();
@@ -81,10 +80,8 @@ public class MainFightPanel extends JPanel{
 		
 		for(int i=0;i<enemies.size();i++) {
 			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
-		}
-	
+		}	
 			init();
-	
 		update(1);
 		fight = new Fight(gameplay.player,enemies,this);
 		//interact(gp);
@@ -92,7 +89,7 @@ public class MainFightPanel extends JPanel{
 	
 	
 	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) { 
-		gameplay = gp;
+		super(gp);
 /*
 		//gameplay.player.inventory.add(Consumable.Consumables.darkVial());
 		System.out.println(gameplay.player.inventory.getConsumableInv().size());
@@ -547,51 +544,19 @@ public class MainFightPanel extends JPanel{
 			break;
 		}
 	  }
-		
-	
-	}
-
-/*
-	@Override
-	public void interact(GamePlay g) {
-		// TODO Auto-generated method stub
-		while(!g.returnText.isEmpty()) {
-			System.out.println("aaaaaa");
-			switch(g.returnText) {
-				case "up": case "uparrow":
-					update(1);
-					break;
-				case "down": case "downarrow":
-					update(-1);
-					break;
-				case "enter":
-					update(0);
-					break;
-			}
-			System.out.println("aaaabbb");
-			g.userWait();
-			System.out.println("bbb");
-		}
 	}
 
 
 	@Override
-	public void disappear(Interactive[][] arr, int a, int b) {
-		// TODO Auto-generated method stub
-		
-	}*/
-	
-/*
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+	public void exit() {
+		 gameplay.openPanel = false;
+		 setVisible(false);
+		 gameplay.r.window.remove(this);
+		 gameplay.r.setVisible(true);
+		 gameplay.r.grabFocus();
+		 gameplay.r.enable();
+		 gameplay.openPanel = false;
 		
 	}
 
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}*/
-	
 }

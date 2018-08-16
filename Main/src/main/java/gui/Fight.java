@@ -80,13 +80,7 @@ public class Fight {
 	    	  }
 	    	 }else {
 	    		 enemyTurnDelay.stop();
-	    		 gameplay.openPanel = false;
-	    		 mainFight.setVisible(false);
-	    		 mainFight.gameplay.r.window.remove(mainFight);
-	    		 mainFight.gameplay.r.setVisible(true);
-	    		 mainFight.gameplay.r.grabFocus();
-	    		 mainFight.gameplay.r.enable();
-	    		 mainFight.gameplay.openPanel = false;
+	    		 mainFight.exit();
 	    	 }
 	      }
 	  };

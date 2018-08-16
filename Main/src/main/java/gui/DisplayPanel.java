@@ -11,16 +11,17 @@ import run.GamePlay;
 public abstract class DisplayPanel extends JPanel{
 	protected int width,height;
 	public GamePlay gameplay;
-	public LayoutManager layout;
 	
-	public DisplayPanel(GamePlay g,LayoutManager l) {
-		layout = l;
+	public DisplayPanel(GamePlay g) {
+		gameplay = g;
+		
 		width = g.r.window.getWidth();
 		height = g.r.window.getHeight();
 		setPreferredSize(new Dimension(width,height));
 		setMaximumSize(new Dimension(width,height));
 		setBackground(Color.BLACK);
-		setLayout(layout);
+		
+		
 		
 		gameplay.r.setVisible(false);
 		gameplay.openPanel = true;

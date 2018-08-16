@@ -51,9 +51,7 @@ public class Player extends Entity{
 		inventory.add(Consumable.Consumables.potion());
 		inventory.add(Consumable.Consumables.potion());
 		*/
-		inventory.add(Weapon.Weapons.fist());
-
-		
+		inventory.add(Weapon.Weapons.critStaff());
 	}
 	
 	public boolean openSlots(Pair<ArrayList<Item>,Integer> in) {
