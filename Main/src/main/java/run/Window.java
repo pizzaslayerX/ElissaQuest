@@ -38,7 +38,7 @@ public class Window extends JFrame{
 		add(ds);
 		//addKeyListener(ds.gameplay.listener);
 		setVisible(true);
-		//pack();
+		pack();
 		//pack();
 	}
 }

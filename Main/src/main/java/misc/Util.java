@@ -12,9 +12,13 @@ import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JComponent;
+import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.SwingUtilities;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 
 public class Util {
 	public static void keybind(JComponent com, int i, String s, Consumer<ActionEvent> c) {
@@ -106,5 +110,26 @@ public class Util {
         return border3;
 	}
 	
+	public static void append(JTextPane p, String n, Color c,int size, boolean bold,int a) {
+    	
+    	StyledDocument doc = p.getStyledDocument();
+
+    	SimpleAttributeSet keyWord = new SimpleAttributeSet();
+    	StyleConstants.setForeground(keyWord,c);
+    	StyleConstants.setBold(keyWord, bold);
+    	switch(a){
+    		case 1: 
+    		StyleConstants.setAlignment(keyWord,StyleConstants.ALIGN_CENTER);
+    		StyleConstants.setFontFamily(keyWord, "Monospace");
+    		break;
+    	}
+    	doc.setParagraphAttributes(0, doc.getLength(), keyWord, false);
+    	if(size != 0)
+    		StyleConstants.setFontSize(keyWord, size);
+    		try
+    		{
+    			doc.insertString(doc.getLength(),n, keyWord);
+    		} catch(Exception e) { System.out.println(e);}
+    }
 	
 }

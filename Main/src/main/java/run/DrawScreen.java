@@ -32,6 +32,7 @@ public class DrawScreen extends JPanel{
 	private static BufferedImage med;
 	private static BufferedImage large;
 	private static BufferedImage max;
+	public static BufferedImage chest;
 	public Action[] ac = new Action[16];
 	public GamePlay gameplay = new GamePlay(this);
 	public Window window;
@@ -82,7 +83,8 @@ public class DrawScreen extends JPanel{
 		walk2RIGHT = Util.loadImage("state2Right.png");
 		walk1LEFT = Util.loadImage("state1Leftt.png");
 		walk2LEFT = Util.loadImage("state2Left.png");
-
+		chest = Util.loadImage("Chest.png");
+		
 		FOV = Util.loadImage("circle.png");
 		up = Util.loadImage("2250x1000.png");
 		left = Util.loadImage("1000x250.png");

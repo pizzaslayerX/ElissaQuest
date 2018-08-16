@@ -25,6 +25,7 @@ public class InventoryPair extends JPanel{
 	public JTextPane descTab;
 	public int width,height,itW,itH;
 	public Pair<ArrayList<Item>,Integer> in;
+	public int rigidW,rigidH;
 	
 	public InventoryPair(Pair<ArrayList<Item>,Integer> i,String str,int w, int h) {
 		items = new ArrayList<Pair<Item,JTextPane>>();
@@ -57,6 +58,8 @@ public class InventoryPair extends JPanel{
 		descTab.setVisible(true);
 		descTab.setBackground(Color.BLACK);
 		descTab.setBorder(genBorder("",0));
+		rigidW = itW-10;
+		rigidH = itH/16+30 ;
 		
 		add(descTab);
 		
@@ -64,10 +67,15 @@ public class InventoryPair extends JPanel{
 		
 	}
 	
+	public void changeRigidArea(int w, int h) {
+		rigidW = w;
+		rigidH = h;
+	}
+	
 	public void display() {
 		descTab.setText("");
 		itemTab.removeAll();
-		itemTab.add(Box.createRigidArea(new Dimension(itW-10,itH/16+30)));
+		itemTab.add(Box.createRigidArea(new Dimension(rigidW,rigidH)));
 		for(Pair<Item,JTextPane> j:items) j.second.removeAll();
 			items.clear();
 		for(int i=0;i<in.second;i++) {
