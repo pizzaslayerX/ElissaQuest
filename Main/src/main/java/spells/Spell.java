@@ -5,19 +5,17 @@ import java.util.function.BiPredicate;
 
 import entities.Entity;
 import entities.Player;
+import items.Item;
 import items.StatusEffect;
 
-public class Spell {
+public class Spell extends Item{
 	public int manaCost, healthCost, cooldown,cooldownTimer;
-	public String name,desc;
-	public Player player;
 	public boolean useTurn;
 	public BiConsumer<Entity, Entity> ability;
 	public BiPredicate<Entity, Entity> able;
 	
 	public Spell(String n,String d,int co, int mc,int hc,boolean ut,BiConsumer<Entity, Entity> u, BiPredicate<Entity, Entity> ab, boolean override) {
-		name = n;
-		desc = d;
+		super(n, d);
 		cooldown = co;
 		cooldownTimer = 0;
 		manaCost = mc;
@@ -46,11 +44,18 @@ public class Spell {
 		return able.test(caster, target);
 	}
 	
-	
-	public boolean equals(Spell s) {
-		return name.equals(s.name) && desc.equals(s.desc);
+	@Override
+	public boolean equals(Item s) {
+		return s instanceof Spell && name.equals(s.name) && desc.equals(s.desc);
 	}
 	
+
+	@Override
+	public Item clone() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public static class Spells{
 		public static Spell guard() {
 			return new Spell("Guard", "+20% def. for 2 turns", 3, 8, 0, false, (c,t) -> {
