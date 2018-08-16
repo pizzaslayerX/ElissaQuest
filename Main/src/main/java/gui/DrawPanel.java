@@ -24,7 +24,6 @@ public class DrawPanel extends JPanel{
 	
 	public void update(BufferedImage p) {
 		pic = p;
-		repaint();
 	}
 	
 	@Override

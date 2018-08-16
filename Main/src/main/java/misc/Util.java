@@ -89,10 +89,15 @@ public class Util {
             return null;
         }
     }
-	
-	public static Runnable guiRunnable(Runnable r) {
-		return () -> {SwingUtilities.invokeLater(r);};
+	public static void il(Runnable r) {
+		//SwingUtilities.invokeLater(r);
+		iw(r);
 	}
-	
-	
+	public static void iw(Runnable r) {
+		try {
+			SwingUtilities.invokeAndWait(r);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -20,9 +20,7 @@ public class Window extends JFrame{
 	public Window() {
 		init();
 	}
-	
-	
-	
+
 	public void init(){
 		layout = new FlowLayout(FlowLayout.LEADING, 0, 0);
 	    layout.setVgap(0);

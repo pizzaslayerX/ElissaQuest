@@ -67,6 +67,11 @@ public abstract class Entity { //add armor slots
 			int dmg2 = (int) Math.max(1, Math.round(atkMultiplier*dmgMultiplier*e.dmgReflect*(1 - defense)*dmg - flatDefense));
 			e.health -= dmg1;
 			health = (int)Math.min(currWeapon.lifeSteal*dmg1+health, maxHealth); // do green dmg indicator
+			try {
+				Thread.sleep(1500);
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 			//r.pause(1500);
 			System.out.println(dmg1 + " damage");
 			g.mfp.dmgIndicator.displayDamage(dmg1);

@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 
 import javax.swing.JPanel;
+import static misc.Util.iw;
+import static misc.Util.il;
 
 public class Meter extends JPanel{
 	public int current,max;
@@ -20,7 +22,7 @@ public class Meter extends JPanel{
 		this.max = max;
 		empty = e;
 		fill = f;
-		setDoubleBuffered(true);
+		il(() -> setDoubleBuffered(true));
 	}
 	public Meter(int current,int max,Color f,Color e,String t,int size) {
 		this.current = current;
@@ -29,19 +31,16 @@ public class Meter extends JPanel{
 		fill = f;
 		title = t;
 		titleSize = size;
-		setDoubleBuffered(true);
+		il(() -> setDoubleBuffered(true));
 	}
 
 	public void update(int current,String t) {
 		this.current = current;
 		title = t;
-		repaint();
-		
 	}
 	
 	public void update(int current) {
 		this.current = current;
-		repaint();
 	}
 	
 	@Override
