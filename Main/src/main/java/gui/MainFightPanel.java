@@ -436,7 +436,7 @@ public class MainFightPanel extends DisplayPanel{
 		attack.setVisible(true);
 	}
 	
-	private void update(int num) {
+	public void update(int num) {
 	if(itemSelect == true) {
 		if(num == 0) {
 			if(gameplay.player.equippedPots.first.size()>0) {

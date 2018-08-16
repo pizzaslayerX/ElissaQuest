@@ -4,14 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 
 import items.Item;
@@ -20,17 +23,17 @@ import misc.Util;
 import run.DrawScreen;
 import run.GamePlay;
 
-public class LootScreen extends JPanel{
+public class LootScreen extends DisplayPanel{
 	
 	public ArrayList<Pair<Item,Integer>> loot;
 	public JPanel itemArea,itemNames,itemCounts;
-	public GamePlay gameplay;
 	public int width,height;
 	public JPanel display;
 	public BufferedImage image;
 	private static final Color CELL_BLUE = new Color(0,17,26);
 	
 	public LootScreen(GamePlay g,BufferedImage im,ArrayList<Item> items,int w, int h) {
+		super(g);
 		loot = new ArrayList<Pair<Item,Integer>>();
 		width = w;
 		height = h;
@@ -137,24 +140,30 @@ public class LootScreen extends JPanel{
 		display.add(picArea);
 		display.add(Box.createVerticalStrut(5));
 		display.add(itemArea);
-		
 		display.setVisible(true);
 		
 		add(display);
 		setVisible(true);
+		
+		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "up");
+		Util.keybind(this, KeyEvent.VK_SHIFT, "up", u -> {
+			update(0);
+		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
+		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false), "down");
+		Util.keybind(this, KeyEvent.VK_ENTER, "down", u -> {
+			update(0);
+		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
+		Util.keybind(this, KeyEvent.VK_LEFT, "enter", u -> {
+			update(0);
+		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
+		Util.keybind(this, KeyEvent.VK_LEFT, "left", u -> {
+			update(0);
+		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
+		Util.keybind(this, KeyEvent.VK_RIGHT, "right", u -> {
+			update(0);
+		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
+		grabFocus();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	@SuppressWarnings("unused")
@@ -169,6 +178,25 @@ public class LootScreen extends JPanel{
 		for(Pair<Item,Integer> p: loot) 
 			if(p.first.equals(i)) return true;
 		return false;
+	}
+
+	@Override
+	public void exit() {
+		// TODO Auto-generated method stub
+		 gameplay.openPanel = false;
+		 setVisible(false);
+		 gameplay.r.window.remove(this);
+		 gameplay.r.setVisible(true);
+		 gameplay.r.grabFocus();
+		 gameplay.r.enable();
+		 gameplay.openPanel = false;
+	}
+
+	@Override
+	public void update(int num) {
+		if(num==0)
+			exit();
+		
 	}
 	
 }

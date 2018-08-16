@@ -44,14 +44,11 @@ public class Player extends Entity{
 		spells = new ArrayList<Spell>();
 		equippedPots = new Pair<ArrayList<Item>,Integer>(new ArrayList<Item>(),5);  
 		
-		/*
+		
 		inventory.add(Consumable.Consumables.aether()); // testing
-		inventory.add(Consumable.Consumables.superAether());
 		inventory.add(Consumable.Consumables.uberPotion());
-		inventory.add(Consumable.Consumables.potion());
-		inventory.add(Consumable.Consumables.potion());
-		*/
-		inventory.add(Weapon.Weapons.critStaff());
+		
+		inventory.add(Weapon.Weapons.fist());
 	}
 	
 	public boolean openSlots(Pair<ArrayList<Item>,Integer> in) {

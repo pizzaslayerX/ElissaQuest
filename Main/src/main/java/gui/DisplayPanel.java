@@ -27,12 +27,13 @@ public abstract class DisplayPanel extends JPanel{
 		gameplay.openPanel = true;
 		gameplay.r.window.add(this);
 		
+		
 	}
 	
 	public abstract void init();
 	
 	public abstract void exit();
 	
-	
+	public abstract void update(int num);
 	
 }
