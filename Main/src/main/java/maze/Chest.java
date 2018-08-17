@@ -64,7 +64,7 @@ public class Chest implements Interactive {
 		r.r.setVisible(false);
 		r.openPanel = true;
 
-		r.r.window.add(new LootScreen(r,r.r.chest,loot,r.r.window.getWidth(),r.r.window.getHeight()));
+		r.r.lootScreen.newLoot(r.r.chest,loot);
 		
 	}
 

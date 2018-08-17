@@ -23,10 +23,7 @@ public abstract class DisplayPanel extends JPanel{
 		
 		
 		
-		gameplay.r.setVisible(false);
-		gameplay.r.disable();
-		gameplay.openPanel = true;
-		gameplay.r.window.add(this);
+
 		
 		
 	}

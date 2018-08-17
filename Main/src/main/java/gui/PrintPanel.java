@@ -39,26 +39,23 @@ import java.awt.image.BufferedImage;
 		public void paintComponent(Graphics g) {
 			super.paintComponent(g);
 			drawText(g);
-			/*
-			if(autoCoords) g.drawImage(pic,(width-pic.getWidth())/2,height/20,this);
-			else g.drawImage(pic,0,0,this);*/
 			Toolkit.getDefaultToolkit().sync();
 		}
 		
-	    public void drawText (Graphics g) {
+	    private void drawText (Graphics g) {
+	    	g.setFont(new Font("Monospaced", Font.BOLD, 30));
+	        int x = xPos;
+	        int y = yPos;
 	    	Graphics2D g2d = (Graphics2D) g;
-	        FontMetrics fm = g2d.getFontMetrics();
-	        Rectangle2D r = fm.getStringBounds(text, g2d);
-	        int x = (this.getWidth() - (int) r.getWidth()) / 2;
-	        int y = (this.getHeight() - (int) r.getHeight()) / 2 + fm.getAscent();
+	    	if(autoCoords) {
+	    		FontMetrics fm = g2d.getFontMetrics();
+	    		Rectangle2D r = fm.getStringBounds(text, g2d);
+	    		x = (width - (int) r.getWidth()) / 2;
+	    		y = (height - (int) r.getHeight()) / 2 + fm.getAscent();
+	    	}
 	        g.drawString(text, x, y);
 		}
 		
-		
-		private void drawObjects(Graphics g) {
-			
-			//g.setFont(new Font("Monospaced", Font.BOLD, 30));
-		}
 
 	}
 
