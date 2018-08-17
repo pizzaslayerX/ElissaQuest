@@ -146,20 +146,26 @@ public class LootScreen extends DisplayPanel{
 		setVisible(true);
 		
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), "up");
-		Util.keybind(this, KeyEvent.VK_SHIFT, "up", u -> {
+		Util.keybind(this, KeyEvent.VK_UP, "up", u -> {
 			update(0);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0, false), "down");
-		Util.keybind(this, KeyEvent.VK_ENTER, "down", u -> {
+		Util.keybind(this, KeyEvent.VK_DOWN, "down", u -> {
 			update(0);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
-		Util.keybind(this, KeyEvent.VK_LEFT, "enter", u -> {
+		Util.keybind(this, KeyEvent.VK_ENTER, "enter", u -> {
 			update(0);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		Util.keybind(this, KeyEvent.VK_LEFT, "left", u -> {
 			update(0);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		Util.keybind(this, KeyEvent.VK_RIGHT, "right", u -> {
+			update(0);
+		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
+		Util.keybind(this, KeyEvent.VK_SPACE, "space", u -> {
+			update(0);
+		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
+		Util.keybind(this, KeyEvent.VK_ESCAPE, "escape", u -> {
 			update(0);
 		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 		grabFocus();
