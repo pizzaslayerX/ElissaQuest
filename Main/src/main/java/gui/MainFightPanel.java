@@ -41,10 +41,9 @@ import misc.Pair;
 import run.GamePlay;
 import run.Window;
 
-public class MainFightPanel extends JPanel{
+public class MainFightPanel extends DisplayPanel{
 	public ArrayList<Pair<Enemy,JTextPane>> enemies;
 
-	public GamePlay gameplay;
     public FlowLayout layout;
     public JLabel label;
     public Fight fight;
@@ -62,7 +61,7 @@ public class MainFightPanel extends JPanel{
     //public DamageIndicator dmgIndicator;
     
 	public MainFightPanel(Enemy e, GamePlay gp){
-		gameplay = gp;
+		super(gp);
 		ehealth = new ArrayList<Meter>();
 		emana = new ArrayList<Meter>();
 		estamina = new ArrayList<Meter>();
@@ -81,13 +80,8 @@ public class MainFightPanel extends JPanel{
 		
 		for(int i=0;i<enemies.size();i++) {
 			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
-		}
-		try {
+		}	
 			init();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 		update(1);
 		fight = new Fight(gameplay.player,enemies,gameplay);
 		//interact(gp);
@@ -95,7 +89,7 @@ public class MainFightPanel extends JPanel{
 	
 	
 	public MainFightPanel(ArrayList<Enemy> e, GamePlay gp) { 
-		gameplay = gp;
+		super(gp);
 /*
 		//gameplay.player.inventory.add(Consumable.Consumables.darkVial());
 		System.out.println(gameplay.player.inventory.getConsumableInv().size());
@@ -126,12 +120,9 @@ public class MainFightPanel extends JPanel{
 		for(int i=0;i<enemies.size();i++) {
 			enemyPics.add(Util.loadImage(enemies.get(i).first.getPic()));
 		}
-		try {
+		
 			init();
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
 		update(1);
 		fight = new Fight(gameplay.player,enemies,gameplay);
 		//interact(gp);
@@ -198,11 +189,11 @@ public class MainFightPanel extends JPanel{
     		} catch(Exception e) { System.out.println(e);}
     }
 	
-	public void changePic(BufferedImage pic) throws IOException {
+	public void changePic(BufferedImage pic) {
 		enemyPic.update(pic);
 	}
 	
-	public void init() throws Exception {
+	public void init() {
 		updateHealth();
 		setPreferredSize(Window.GAME_SIZE);
 		setBackground(Color.BLACK);
@@ -445,7 +436,7 @@ public class MainFightPanel extends JPanel{
 		attack.setVisible(true);
 	}
 	
-	private void update(int num) {
+	public void update(int num) {
 	if(itemSelect == true) {
 		if(num == 0) {
 			if(gameplay.player.equippedPots.first.size()>0) {
@@ -494,13 +485,9 @@ public class MainFightPanel extends JPanel{
 					enemies.get(i).second.setBackground(Color.GRAY);
 					enemy.setBorder(genBorder(enemies.get(i).first.name,1));
 					healthFocus(i);
-					try {
+					
 						changePic(enemyPics.get(i));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						System.out.println("You dun goofed mate");
-						e.printStackTrace();
-					}
+					
 				}
 			}
 		}
@@ -557,51 +544,19 @@ public class MainFightPanel extends JPanel{
 			break;
 		}
 	  }
-		
-	
-	}
-
-/*
-	@Override
-	public void interact(GamePlay g) {
-		// TODO Auto-generated method stub
-		while(!g.returnText.isEmpty()) {
-			System.out.println("aaaaaa");
-			switch(g.returnText) {
-				case "up": case "uparrow":
-					update(1);
-					break;
-				case "down": case "downarrow":
-					update(-1);
-					break;
-				case "enter":
-					update(0);
-					break;
-			}
-			System.out.println("aaaabbb");
-			g.userWait();
-			System.out.println("bbb");
-		}
 	}
 
 
 	@Override
-	public void disappear(Interactive[][] arr, int a, int b) {
-		// TODO Auto-generated method stub
-		
-	}*/
-	
-/*
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
+	public void exit() {
+		 gameplay.openPanel = false;
+		 setVisible(false);
+		 gameplay.r.window.remove(this);
+		 gameplay.r.setVisible(true);
+		 gameplay.r.grabFocus();
+		 gameplay.r.enable();
+		 gameplay.openPanel = false;
 		
 	}
 
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}*/
-	
 }

@@ -35,6 +35,7 @@ public class DrawScreen extends JPanel{
 	public static BufferedImage chest;
 	public Action[] ac = new Action[16];
 	public GamePlay gameplay = new GamePlay(this);
+	public LootScreen lootScreen;
 	public Window window;
 	private static int moveVal = 0;
 	public int direction = 0; //0=UP,1=DOWN,2=RIGHT,3=LEFT
@@ -111,6 +112,10 @@ public class DrawScreen extends JPanel{
 		Util.keybind(this, KeyEvent.VK_DOWN, "downarrow1", ac[13] = Util.actionMaker(u -> {gameplay.move[5] = false;}),true);
 		Util.keybind(this, KeyEvent.VK_RIGHT, "rightarrow1", ac[14] = Util.actionMaker(u -> {gameplay.move[6] = false;}),true);
 		Util.keybind(this, KeyEvent.VK_LEFT, "leftarrow1", ac[15] = Util.actionMaker(u -> {gameplay.move[7] = false;}),true);
+		
+		lootScreen = new LootScreen(gameplay,window.getWidth(),window.getHeight());
+		lootScreen.setVisible(false);
+		window.add(lootScreen);
 	}
 	
 	public void disable() {

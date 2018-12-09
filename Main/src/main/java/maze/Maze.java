@@ -4,16 +4,13 @@ import java.util.Enumeration;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
-
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
-
 import entities.Enemy;
 import entities.Interactive;
 import misc.Pair;
 import run.ElissaRunner;
 import run.GamePlay;
-
 import java.util.ArrayList;
 import java.util.Arrays;
  
@@ -57,8 +54,9 @@ public class Maze{
 		ArrayList<DefaultMutableTreeNode> enemySpots = new ArrayList<DefaultMutableTreeNode>();
 		enumEnemyNodes(getTree(startx, starty), spots, enemySpots);
 		Collections.shuffle(enemySpots);
+		//ratio between enemies and chests
 		for(int i = 0; i < enemySpots.size(); i++) {
-			if(i < enemySpots.size()) {
+			if(i < enemySpots.size()*0.07) {
 				modifyNodeValue(enemySpots.get(i), interactives, Enemy.Enemies.skeleton());
 			} else {
 				modifyNodeValue(enemySpots.get(i), interactives, new Chest(true));
@@ -82,7 +80,7 @@ public class Maze{
 	
 	public void display() {
 		for (int i = 0; i < y; i++) {
-			// draw the north edge
+			// draw the north edge  
 			for (int j = 0; j < x; j++) {
 				System.out.print((maze[j][i] & 1) == 0 ? "+---" : "+   ");
 			}

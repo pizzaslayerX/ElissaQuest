@@ -16,7 +16,6 @@ public class Window extends JFrame{
 	public static final Color FOREGROUND_COLOR = Color.WHITE;
 	public static FlowLayout layout;
 	public static boolean isRunning = false;
-
 	
 	public Window() {
 		init();

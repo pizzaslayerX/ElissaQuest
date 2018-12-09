@@ -33,9 +33,9 @@ public class Fight {
 	      public void actionPerformed(ActionEvent evt) {
 	    	 if(gameplay.mfp.enemies.size()>0) {
 	    	  if(enemyCount<gameplay.mfp.enemies.size()) {
-	    		  try {
+	    		  
 	    				gameplay.mfp.changePic(gameplay.mfp.enemyPics.get(enemyCount));
-	    			} catch (IOException e1) {	}
+	    			
 	    			gameplay.mfp.enemy.setBorder(gameplay.mfp.genBorder(enemies.get(enemyCount).first.name,1));
 	    			gameplay.mfp.healthFocus(enemyCount);
 	    		  if(enemyTurnDelay.getDelay()!= delay)
@@ -43,13 +43,10 @@ public class Fight {
 	    		  gameplay.mfp.enemies.get(enemyCount).first.attack(player, gameplay);
 	    		  gameplay.mfp.updateHealth();
 	    		  System.out.println("Health Updated!");
-	    		  try {
+	    		
 						gameplay.mfp.changePic(gameplay.mfp.enemyPics.get(enemyCount));
 						gameplay.mfp.enemy.setBorder(gameplay.mfp.genBorder(enemies.get(enemyCount).first.name,1));
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					
 	    		  enemyCount++;
 	    	  }else {
 	    		  	enemyTurnDelay.stop();
@@ -59,12 +56,8 @@ public class Fight {
 	    	  		gameplay.mfp.enemy.setBorder(gameplay.mfp.genBorder(enemies.get(0).first.name,1));
 					gameplay.mfp.healthFocus(0);
 					
-						try {
 							gameplay.mfp.changePic(gameplay.mfp.enemyPics.get(0));
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						
 	    	  		gameplay.mfp.showMenu();
 	    	  		player.regen();
 	    	  		for(Pair<Enemy,JTextPane> e:gameplay.mfp.enemies)
@@ -75,34 +68,29 @@ public class Fight {
 	    	  		if(player.health <= 0) {
 	    	  			//gameover                                                                                                          MAKE SURE TO RENABLE
 	    	  			
-	    	  		 gameplay.r.gameOver = true;
+	    	  		 gameplay.mfp.gameplay.r.gameOver = true;
 	    	  		 enemyTurnDelay.stop();
 	   	    		 gameplay.mfp.setVisible(false);
-	   	    		 gameplay.r.window.remove(gameplay.mfp);
-	   	    		 gameplay.r.setVisible(true);
-	   	    		 gameplay.r.grabFocus();
-	   	    		 gameplay.r.enable();
+	   	    		 gameplay.mfp.gameplay.r.window.remove(gameplay.mfp);
+	   	    		 gameplay.mfp.gameplay.r.setVisible(true);
+	   	    		 gameplay.mfp.gameplay.r.grabFocus();
+	   	    		 gameplay.mfp.gameplay.r.enable();
 	    	  		}
 	    	  }
 	    	 }else {
 	    		 enemyTurnDelay.stop();
-	    		 gameplay.openPanel = false;
-	    		 gameplay.mfp.setVisible(false);
-	    		 gameplay.r.window.remove(gameplay.mfp);
-	    		 gameplay.r.setVisible(true);
-	    		 gameplay.r.grabFocus();
-	    		 gameplay.r.enable();
+	    		 gameplay.mfp.exit();
 	    	 }
 	      }
 	  };
 	
-	public Fight(Player p,ArrayList<Pair<Enemy,JTextPane>> e,GamePlay gp) {
-		player = p;
-		enemies = e;
-		gameplay = gp;
-		round = 0;
-		enemyTurnDelay = new Timer(delay,taskPerformer);
-	}
+	  public Fight(Player p,ArrayList<Pair<Enemy,JTextPane>> e,GamePlay gp) {
+			player = p;
+			enemies = e;
+			gameplay = gp;
+			round = 0;
+			enemyTurnDelay = new Timer(delay,taskPerformer);
+		}
 	
 	public void getPlayerTurn(String action) {
 		gameplay.mfp.choice = 0;
@@ -129,9 +117,9 @@ public class Fight {
 	
 	public void getEnemyTurn() {
 		if(paction.equals("attack") && gameplay.mfp.getTarget().health <= 0) {
-			try {
+			
 				gameplay.mfp.changePic(gameplay.mfp.enemyPics.get(0));
-			} catch (IOException e1) {	}
+		
 			gameplay.mfp.enemy.setBorder(gameplay.mfp.genBorder(enemies.get(0).first.name,1));
 			gameplay.mfp.healthFocus(0);
 		}
@@ -141,10 +129,10 @@ public class Fight {
 			if(gameplay.mfp.enemies.get(i).first.health <= 0) {
 				//Play death animation and death sound
 				if(gameplay.mfp.enemies.size()>1 && i==0) {
-					 try {
+					
 							gameplay.mfp.changePic(gameplay.mfp.enemyPics.get(1));
 							gameplay.mfp.enemy.setBorder(gameplay.mfp.genBorder(enemies.get(1).first.name,1));
-						} catch (IOException e) {}
+					
 					 	gameplay.mfp.healthFocus(1);
 				}
 				gameplay.mfp.enemyPics.remove(i);
