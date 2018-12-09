@@ -4,11 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextPane;
@@ -130,10 +132,22 @@ public class LootScreen extends JPanel{
 		
 		add(display);
 		setVisible(true);
+		grabFocus();
+		Util.keybind(this, KeyEvent.VK_ENTER, "enter", u -> {
+			System.out.println("what are you doingh");
+			exit();
+		}, JComponent.WHEN_IN_FOCUSED_WINDOW);
 	}
 	
 	
-	
+	public void exit() {
+		gameplay.openPanel = false;
+		setVisible(false);
+		gameplay.r.window.remove(this);
+		gameplay.r.setVisible(true);
+		gameplay.r.grabFocus();
+		gameplay.r.enable();
+	}
 	
 	
 	

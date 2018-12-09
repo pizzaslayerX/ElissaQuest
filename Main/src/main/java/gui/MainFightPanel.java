@@ -89,7 +89,7 @@ public class MainFightPanel extends JPanel{
 			e1.printStackTrace();
 		}
 		update(1);
-		fight = new Fight(gameplay.player,enemies,this);
+		fight = new Fight(gameplay.player,enemies,gameplay);
 		//interact(gp);
 	}
 	
@@ -133,7 +133,7 @@ public class MainFightPanel extends JPanel{
 			e1.printStackTrace();
 		}
 		update(1);
-		fight = new Fight(gameplay.player,enemies,this);
+		fight = new Fight(gameplay.player,enemies,gameplay);
 		//interact(gp);
 	}
 	

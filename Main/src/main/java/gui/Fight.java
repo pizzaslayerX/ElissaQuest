@@ -22,7 +22,6 @@ import run.GamePlay;
 public class Fight {
 	public Player player;
 	public ArrayList<Pair<Enemy,JTextPane>> enemies;
-	public MainFightPanel mainFight;
 	public GamePlay gameplay;
 	public boolean playerTurn = true;
 	public int round;
@@ -32,21 +31,21 @@ public class Fight {
 	
 	public ActionListener taskPerformer  = new ActionListener() {
 	      public void actionPerformed(ActionEvent evt) {
-	    	 if(mainFight.enemies.size()>0) {
-	    	  if(enemyCount<mainFight.enemies.size()) {
+	    	 if(gameplay.mfp.enemies.size()>0) {
+	    	  if(enemyCount<gameplay.mfp.enemies.size()) {
 	    		  try {
-	    				mainFight.changePic(mainFight.enemyPics.get(enemyCount));
+	    				gameplay.mfp.changePic(gameplay.mfp.enemyPics.get(enemyCount));
 	    			} catch (IOException e1) {	}
-	    			mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(enemyCount).first.name,1));
-	    			mainFight.healthFocus(enemyCount);
+	    			gameplay.mfp.enemy.setBorder(gameplay.mfp.genBorder(enemies.get(enemyCount).first.name,1));
+	    			gameplay.mfp.healthFocus(enemyCount);
 	    		  if(enemyTurnDelay.getDelay()!= delay)
 	    			  enemyTurnDelay.setDelay(delay);
-	    		  mainFight.enemies.get(enemyCount).first.attack(player, gameplay);
-	    		  mainFight.updateHealth();
+	    		  gameplay.mfp.enemies.get(enemyCount).first.attack(player, gameplay);
+	    		  gameplay.mfp.updateHealth();
 	    		  System.out.println("Health Updated!");
 	    		  try {
-						mainFight.changePic(mainFight.enemyPics.get(enemyCount));
-						mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(enemyCount).first.name,1));
+						gameplay.mfp.changePic(gameplay.mfp.enemyPics.get(enemyCount));
+						gameplay.mfp.enemy.setBorder(gameplay.mfp.genBorder(enemies.get(enemyCount).first.name,1));
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -54,76 +53,74 @@ public class Fight {
 	    		  enemyCount++;
 	    	  }else {
 	    		  	enemyTurnDelay.stop();
-	    		  	mainFight.choice = 0;
-	    	  		mainFight.target = 0;
-	    	  		mainFight.choosing = true;
-	    	  		mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(0).first.name,1));
-					mainFight.healthFocus(0);
+	    		  	gameplay.mfp.choice = 0;
+	    	  		gameplay.mfp.target = 0;
+	    	  		gameplay.mfp.choosing = true;
+	    	  		gameplay.mfp.enemy.setBorder(gameplay.mfp.genBorder(enemies.get(0).first.name,1));
+					gameplay.mfp.healthFocus(0);
 					
 						try {
-							mainFight.changePic(mainFight.enemyPics.get(0));
+							gameplay.mfp.changePic(gameplay.mfp.enemyPics.get(0));
 						} catch (IOException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-	    	  		mainFight.showMenu();
+	    	  		gameplay.mfp.showMenu();
 	    	  		player.regen();
-	    	  		for(Pair<Enemy,JTextPane> e:mainFight.enemies)
+	    	  		for(Pair<Enemy,JTextPane> e:gameplay.mfp.enemies)
 	    	  			e.first.regen();
-	    	  		mainFight.updateHealth();
+	    	  		gameplay.mfp.updateHealth();
 	    	  		StatusEffect.checkEffects(player);
-	    	  		mainFight.updateHealth();
+	    	  		gameplay.mfp.updateHealth();
 	    	  		if(player.health <= 0) {
 	    	  			//gameover                                                                                                          MAKE SURE TO RENABLE
 	    	  			
-	    	  		 mainFight.gameplay.r.gameOver = true;
+	    	  		 gameplay.r.gameOver = true;
 	    	  		 enemyTurnDelay.stop();
-	   	    		 mainFight.setVisible(false);
-	   	    		 mainFight.gameplay.r.window.remove(mainFight);
-	   	    		 mainFight.gameplay.r.setVisible(true);
-	   	    		 mainFight.gameplay.r.grabFocus();
-	   	    		 mainFight.gameplay.r.enable();
+	   	    		 gameplay.mfp.setVisible(false);
+	   	    		 gameplay.r.window.remove(gameplay.mfp);
+	   	    		 gameplay.r.setVisible(true);
+	   	    		 gameplay.r.grabFocus();
+	   	    		 gameplay.r.enable();
 	    	  		}
 	    	  }
 	    	 }else {
 	    		 enemyTurnDelay.stop();
 	    		 gameplay.openPanel = false;
-	    		 mainFight.setVisible(false);
-	    		 mainFight.gameplay.r.window.remove(mainFight);
-	    		 mainFight.gameplay.r.setVisible(true);
-	    		 mainFight.gameplay.r.grabFocus();
-	    		 mainFight.gameplay.r.enable();
-	    		 mainFight.gameplay.openPanel = false;
+	    		 gameplay.mfp.setVisible(false);
+	    		 gameplay.r.window.remove(gameplay.mfp);
+	    		 gameplay.r.setVisible(true);
+	    		 gameplay.r.grabFocus();
+	    		 gameplay.r.enable();
 	    	 }
 	      }
 	  };
 	
-	public Fight(Player p,ArrayList<Pair<Enemy,JTextPane>> e,MainFightPanel mf) {
+	public Fight(Player p,ArrayList<Pair<Enemy,JTextPane>> e,GamePlay gp) {
 		player = p;
 		enemies = e;
-		mainFight = mf;
-		gameplay = mf.gameplay;
+		gameplay = gp;
 		round = 0;
 		enemyTurnDelay = new Timer(delay,taskPerformer);
 	}
 	
 	public void getPlayerTurn(String action) {
-		mainFight.choice = 0;
+		gameplay.mfp.choice = 0;
 		paction = action;
 		round++;
 		switch(action) {
 		case "attack":
-			System.out.println("success!\nTargetted #"+ mainFight.target + ": "+ mainFight.getTarget().name);
-			player.attack(mainFight.getTarget(), gameplay);
+			System.out.println("success!\nTargetted #"+ gameplay.mfp.target + ": "+ gameplay.mfp.getTarget().name);
+			player.attack(gameplay.mfp.getTarget(), gameplay);
 			for(int i = 0;i<enemies.size();i++)
 				enemies.get(i).second.setBackground(Color.BLACK);
 			enemies.get(0).second.setBackground(Color.GRAY);
 			break;
 		case "item":
-			System.out.println("success!\nUsed #"+ mainFight.target + ": "+ player.equippedPots.first.get(mainFight.target).name);
-			((Consumable) player.equippedPots.first.get(mainFight.target)).use(player);
-			 player.equippedPots.first.remove(mainFight.target);
-			 mainFight.updateHealth();
+			System.out.println("success!\nUsed #"+ gameplay.mfp.target + ": "+ player.equippedPots.first.get(gameplay.mfp.target).name);
+			((Consumable) player.equippedPots.first.get(gameplay.mfp.target)).use(player);
+			 player.equippedPots.first.remove(gameplay.mfp.target);
+			 gameplay.mfp.updateHealth();
 			break;
 		}	  
 		getEnemyTurn();
@@ -131,39 +128,39 @@ public class Fight {
 	}
 	
 	public void getEnemyTurn() {
-		if(paction.equals("attack") && mainFight.getTarget().health <= 0) {
+		if(paction.equals("attack") && gameplay.mfp.getTarget().health <= 0) {
 			try {
-				mainFight.changePic(mainFight.enemyPics.get(0));
+				gameplay.mfp.changePic(gameplay.mfp.enemyPics.get(0));
 			} catch (IOException e1) {	}
-			mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(0).first.name,1));
-			mainFight.healthFocus(0);
+			gameplay.mfp.enemy.setBorder(gameplay.mfp.genBorder(enemies.get(0).first.name,1));
+			gameplay.mfp.healthFocus(0);
 		}
 	
-		for(int i = 0;i<mainFight.enemies.size();i++) {
-			StatusEffect.checkEffects(mainFight.enemies.get(i).first);
-			if(mainFight.enemies.get(i).first.health <= 0) {
+		for(int i = 0;i<gameplay.mfp.enemies.size();i++) {
+			StatusEffect.checkEffects(gameplay.mfp.enemies.get(i).first);
+			if(gameplay.mfp.enemies.get(i).first.health <= 0) {
 				//Play death animation and death sound
-				if(mainFight.enemies.size()>1 && i==0) {
+				if(gameplay.mfp.enemies.size()>1 && i==0) {
 					 try {
-							mainFight.changePic(mainFight.enemyPics.get(1));
-							mainFight.enemy.setBorder(mainFight.genBorder(enemies.get(1).first.name,1));
+							gameplay.mfp.changePic(gameplay.mfp.enemyPics.get(1));
+							gameplay.mfp.enemy.setBorder(gameplay.mfp.genBorder(enemies.get(1).first.name,1));
 						} catch (IOException e) {}
-					 	mainFight.healthFocus(1);
+					 	gameplay.mfp.healthFocus(1);
 				}
-				mainFight.enemyPics.remove(i);
-				mainFight.enemy.remove(mainFight.ehealth.get(i));
-				mainFight.ehealth.remove(i);
-				mainFight.enemy.remove(mainFight.emana.get(i));
-				mainFight.emana.remove(i);
-				mainFight.enemy.remove(mainFight.estamina.get(i));
-				mainFight.estamina.remove(i);
-				mainFight.menuBox.remove(mainFight.enemies.get(i).second);
-				mainFight.enemies.remove(i);
+				gameplay.mfp.enemyPics.remove(i);
+				gameplay.mfp.enemy.remove(gameplay.mfp.ehealth.get(i));
+				gameplay.mfp.ehealth.remove(i);
+				gameplay.mfp.enemy.remove(gameplay.mfp.emana.get(i));
+				gameplay.mfp.emana.remove(i);
+				gameplay.mfp.enemy.remove(gameplay.mfp.estamina.get(i));
+				gameplay.mfp.estamina.remove(i);
+				gameplay.mfp.menuBox.remove(gameplay.mfp.enemies.get(i).second);
+				gameplay.mfp.enemies.remove(i);
 			}
 		}
-		mainFight.attack.setBackground(Color.GRAY);
-		mainFight.special.setBackground(Color.BLACK);
-		mainFight.item.setBackground(Color.BLACK);
+		gameplay.mfp.attack.setBackground(Color.GRAY);
+		gameplay.mfp.special.setBackground(Color.BLACK);
+		gameplay.mfp.item.setBackground(Color.BLACK);
 		enemyCount = 0;
 		enemyTurnDelay.start();		
 	}

@@ -132,4 +132,8 @@ public class Util {
     		} catch(Exception e) { System.out.println(e);}
     }
 	
+	public static String className(Class<?> c) {
+		return c.getName().replaceAll(".*[.]", "").replaceAll("(?<=.)([A-Z])", " $1");
+	}
+	
 }
