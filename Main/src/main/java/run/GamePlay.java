@@ -12,6 +12,7 @@ import entities.Enemy;
 import entities.Player;
 import gui.MainFightPanel;
 import maze.Maze;
+import misc.MusicPlayer;
 import misc.Util;
 
 
@@ -28,11 +29,13 @@ public class GamePlay implements Runnable{
 	public CountDownLatch latch = new CountDownLatch(1);
 	ScheduledExecutorService ses = Executors.newScheduledThreadPool(3);
 	ScheduledFuture<?> blink;
+	public MusicPlayer mp;
 	boolean[] move = new boolean[8];
 	
 	
 	public GamePlay(DrawScreen r) {
 		this.r = r;
+		mp = new MusicPlayer();
 	}
 	
 	public void newFight(Enemy e) {
